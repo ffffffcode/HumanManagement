@@ -72,6 +72,7 @@ namespace HumanManagement
             this.textBox2 = new System.Windows.Forms.TextBox();
             this.splitContainer1 = new System.Windows.Forms.SplitContainer();
             this.splitContainer2 = new System.Windows.Forms.SplitContainer();
+            this.label1 = new System.Windows.Forms.Label();
             this.splitContainer1.Panel1.SuspendLayout();
             this.splitContainer1.Panel2.SuspendLayout();
             this.splitContainer1.SuspendLayout();
@@ -158,6 +159,7 @@ namespace HumanManagement
             this.button8.TabIndex = 7;
             this.button8.Text = "导出所选节点";
             this.button8.UseVisualStyleBackColor = true;
+            this.button8.Click += new System.EventHandler(this.button8_Click);
             // 
             // button9
             // 
@@ -167,23 +169,25 @@ namespace HumanManagement
             this.button9.TabIndex = 8;
             this.button9.Text = "导出全部节点";
             this.button9.UseVisualStyleBackColor = true;
+            this.button9.Click += new System.EventHandler(this.button9_Click);
             // 
             // textBox1
             // 
             this.textBox1.Font = new System.Drawing.Font("宋体", 10F);
-            this.textBox1.Location = new System.Drawing.Point(122, 328);
+            this.textBox1.Location = new System.Drawing.Point(82, 328);
             this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(167, 23);
+            this.textBox1.Size = new System.Drawing.Size(207, 23);
             this.textBox1.TabIndex = 9;
             // 
             // button10
             // 
-            this.button10.Location = new System.Drawing.Point(13, 318);
+            this.button10.Location = new System.Drawing.Point(231, 258);
             this.button10.Name = "button10";
             this.button10.Size = new System.Drawing.Size(86, 40);
             this.button10.TabIndex = 11;
             this.button10.Text = "导入数据";
             this.button10.UseVisualStyleBackColor = true;
+            this.button10.Click += new System.EventHandler(this.button10_Click);
             // 
             // button11
             // 
@@ -193,6 +197,7 @@ namespace HumanManagement
             this.button11.TabIndex = 10;
             this.button11.Text = "...";
             this.button11.UseVisualStyleBackColor = true;
+            this.button11.Click += new System.EventHandler(this.button11_Click);
             // 
             // treeView1
             // 
@@ -321,6 +326,7 @@ namespace HumanManagement
             // 
             // splitContainer1.Panel2
             // 
+            this.splitContainer1.Panel2.Controls.Add(this.label1);
             this.splitContainer1.Panel2.Controls.Add(this.button1);
             this.splitContainer1.Panel2.Controls.Add(this.button2);
             this.splitContainer1.Panel2.Controls.Add(this.button3);
@@ -354,6 +360,15 @@ namespace HumanManagement
             this.splitContainer2.SplitterDistance = 119;
             this.splitContainer2.SplitterWidth = 1;
             this.splitContainer2.TabIndex = 18;
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Location = new System.Drawing.Point(11, 332);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(65, 12);
+            this.label1.TabIndex = 12;
+            this.label1.Text = "导入数据：";
             // 
             // Form1
             // 
@@ -398,6 +413,7 @@ namespace HumanManagement
         private System.Windows.Forms.TextBox textBox2;
         private System.Windows.Forms.SplitContainer splitContainer1;
         private System.Windows.Forms.SplitContainer splitContainer2;
+        private System.Windows.Forms.Label label1;
     }
 }
 

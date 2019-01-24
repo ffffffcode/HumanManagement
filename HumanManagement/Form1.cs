@@ -36,7 +36,7 @@ namespace HumanManagement
                     this.Close();
                 }
             }
-            
+
             else
             {
                 try
@@ -66,7 +66,7 @@ namespace HumanManagement
 
         private void Form1_FormClosing(object sender, FormClosingEventArgs e)
         {
-            WirteTree(treeView1.Nodes);
+            WriteTree(treeView1.Nodes, "tree.xml");
         }
 
         //在textBox2中显示节点信息
@@ -247,11 +247,13 @@ namespace HumanManagement
                 AddOrUpdateEmployeeForm form = new AddOrUpdateEmployeeForm
                 {
                     Owner = this,
-                    Text = button2.Text
+                    Text = button5.Text
                 };
 
                 EmployeeInfo employeeInfo = new EmployeeInfo
                 {
+                    DeptNo = ((DeptInfo)selectedNode.Parent.Tag).No,
+                    DeptName = ((DeptInfo)selectedNode.Parent.Tag).DeptName,
                     No = ((EmployeeInfo)selectedNode.Tag).No,
                     EmployeeName = selectedNode.Text,
                     IdCardNo = ((EmployeeInfo)selectedNode.Tag).IdCardNo,
@@ -317,6 +319,7 @@ namespace HumanManagement
                 form.EmployeeInfos = employeeInfos;
 
                 form.ShowDialog();
+
             }
             else
             {
@@ -324,8 +327,79 @@ namespace HumanManagement
             }
         }
 
+        //导出所选节点
+        private void button8_Click(object sender, EventArgs e)
+        {
+            WriteTree(treeView1.SelectedNode.Parent.Nodes, "1.xml");
+        }
+
+        //导出全部节点
+        private void button9_Click(object sender, EventArgs e)
+        {
+            SaveFileDialog saveFileDialog = new SaveFileDialog();
+            saveFileDialog.Filter = "XML文档|*.xml";
+            saveFileDialog.OverwritePrompt = true;
+            saveFileDialog.Title = "请选择保存文件的路径";
+            if (saveFileDialog.ShowDialog() == DialogResult.OK)
+            {
+                WriteTree(treeView1.Nodes, saveFileDialog.FileName);
+            }
+        }
+
+        //导入数据
+        private void button10_Click(object sender, EventArgs e)
+        {
+            string filePath = textBox1.Text;
+            if (!string.IsNullOrEmpty(filePath))
+            {
+                FileInfo inputFile = new FileInfo(filePath);
+                if (inputFile.Exists)
+                {
+                    XmlDocument xml = new XmlDocument();
+                    xml.Load(filePath);
+                    TreeNode treeNode = new TreeNode();
+                    ReadTree(xml, xml, treeNode);
+                    treeNode = treeNode.FirstNode;
+                    if (xml.FirstChild.Attributes["类型"].Value == "公司")
+                    {
+                        treeView1.Nodes.Clear();
+                        treeView1.Nodes.Add(treeNode);
+                    }
+                    else
+                    {
+                        treeView1.SelectedNode.Nodes.Add(treeNode);
+                    }
+                }
+                else
+                {
+                    MessageBox.Show("导入数据文件不存在。");
+                }
+            }
+            else
+            {
+                MessageBox.Show("请选择导入数据文件。");
+            }
+        }
+
+        //打开文件对话框
+        private void button11_Click(object sender, EventArgs e)
+        {
+            OpenFileDialog openFileDialog = new OpenFileDialog();
+            openFileDialog.CheckFileExists = true;
+            openFileDialog.CheckPathExists = true;
+            openFileDialog.Filter = "XML文档|*.xml";
+            if (openFileDialog.ShowDialog() == DialogResult.OK)
+            {
+                textBox1.Text = openFileDialog.FileName;
+            }
+            else
+            {
+                textBox1.Text = "";
+            }
+        }
+
         /// <summary>
-        /// 写树时遍历功能，被“写树功能”调用
+        /// 把TreeNodeCollection遍历成XML文档
         /// </summary>
         /// <param name="nodeCollection">treeView控件的Nodes属性</param>
         /// <param name="xml">要写出的XML文档</param>
@@ -340,7 +414,7 @@ namespace HumanManagement
                     XmlAttribute no = xml.CreateAttribute("编号");
                     XmlAttribute typeString = xml.CreateAttribute("类型");
 
-                    if (NodeType.Company == NodeTypeUtil.NodeTypeOf(treeNode) || NodeType.Dept == NodeTypeUtil.NodeTypeOf(treeNode))
+                    if (NodeType.Dept == NodeTypeUtil.NodeTypeOf(treeNode) || NodeType.Company == NodeTypeUtil.NodeTypeOf(treeNode))
                     {
                         DeptInfo deptInfo = (DeptInfo)treeNode.Tag;
                         no.Value = deptInfo.No;
@@ -379,19 +453,72 @@ namespace HumanManagement
             }
         }
 
-        /// <summary>
-        /// 写树功能，将treeView控件数据写出到同级目录下名为“tree.xml”的文件中
-        /// </summary>
-        /// <param name="nodeCollection">treeView控件的Nodes属性</param>
-        private void WirteTree(TreeNodeCollection nodeCollection)
-        {
-            //创建XMl及其声明
-            XmlDocument xml = new XmlDocument();
-            XmlDeclaration xmlDecl = xml.CreateXmlDeclaration("1.0", "UTF-8", null);
-            xml.AppendChild(xmlDecl);
 
-            NodeTraverse(nodeCollection, xml, xml);
-            xml.Save("tree.xml");
+        /// <summary>
+        /// 导出名为fileName，数据为treeNode的XML
+        /// </summary>
+        /// <param name="fileName">文件名</param>
+        /// <param name="treeNode">数据</param>
+        private void ExportXml(string fileName, TreeNode treeNode)
+        {
+            XmlDocument xml = new XmlDocument();
+            xml.AppendChild(xml.CreateXmlDeclaration("1.0", "UTF-8", null));
+
+            XmlElement xe = xml.CreateElement(treeNode.Text);
+            xml.AppendChild(CreateXmlTree(treeNode.Nodes, xml, xe));
+
+            xml.Save(fileName);
+        }
+
+        /// <summary>
+        /// 通过遍历TreeNodeCollection对象创建XmlElement树，parent为该XmlElement树的父节点
+        /// </summary>
+        /// <param name="treeNodes">要遍历的TreeNodeCollection对象</param>
+        /// <param name="xml">目标XML文档</param>
+        /// <param name="parent">XmlElement树的父节点</param>
+        /// <returns></returns>
+        private XmlElement CreateXmlTree(TreeNodeCollection treeNodes, XmlDocument xml, XmlElement parent)
+        {
+            if (treeNodes.Count != 0)
+            {
+                foreach (TreeNode treeNode in treeNodes)
+                {
+                    XmlElement xe = xml.CreateElement(treeNode.Text);
+                    parent.AppendChild(CreateXmlTree(treeNode.Nodes, xml, xe));
+                }
+            }
+            return parent;
+        }
+
+        private void ImportXml(string fileName, bool clear)
+        {
+            XmlDocument xml = new XmlDocument();
+            xml.Load(fileName);
+            TreeNode newTreeNode = new TreeNode(xml.DocumentElement.Name);
+            CreateTreeNode(xml.DocumentElement, newTreeNode);
+            if (clear)
+            {
+                treeView1.Nodes.Clear();
+                treeView1.Nodes.Add(newTreeNode);
+            }
+            else
+            {
+                treeView1.SelectedNode.Nodes.Add(newTreeNode);
+            }
+        }
+
+        private void CreateTreeNode(XmlNode xmlElement, TreeNode parent)
+        {
+            if (xmlElement.HasChildNodes)
+            {
+                for (int i = 0; i < xmlElement.ChildNodes.Count; i++)
+                {
+                    TreeNode newTreeNode = new TreeNode();
+                    newTreeNode.Text = xmlElement.ChildNodes[i].Name;
+                    parent.Nodes.Add(newTreeNode);
+                    CreateTreeNode(xmlElement.ChildNodes[i], parent.Nodes[i]);
+                }
+            }
         }
 
         /// <summary>
@@ -450,7 +577,7 @@ namespace HumanManagement
 
         private void button12_Click(object sender, EventArgs e)
         {
-            WirteTree(treeView1.Nodes);
+            WriteTree(treeView1.Nodes, "tree.xml");
         }
 
         private void button13_Click(object sender, EventArgs e)
