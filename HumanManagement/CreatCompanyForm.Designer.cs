@@ -28,80 +28,101 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.maskedTextBox1 = new System.Windows.Forms.MaskedTextBox();
-            this.label3 = new System.Windows.Forms.Label();
-            this.maskedTextBox2 = new System.Windows.Forms.MaskedTextBox();
-            this.label1 = new System.Windows.Forms.Label();
-            this.button2 = new System.Windows.Forms.Button();
-            this.button1 = new System.Windows.Forms.Button();
+            this.labCompanyNo = new System.Windows.Forms.Label();
+            this.labCompanyName = new System.Windows.Forms.Label();
+            this.btnExit = new System.Windows.Forms.Button();
+            this.btnConfirm = new System.Windows.Forms.Button();
+            this.labCompanyRemarks = new System.Windows.Forms.Label();
+            this.txtCompanyNo = new System.Windows.Forms.TextBox();
+            this.txtCompanyName = new System.Windows.Forms.TextBox();
+            this.txtCompanyRemarks = new System.Windows.Forms.TextBox();
             this.SuspendLayout();
             // 
-            // maskedTextBox1
+            // labCompanyNo
             // 
-            this.maskedTextBox1.Location = new System.Drawing.Point(106, 12);
-            this.maskedTextBox1.Name = "maskedTextBox1";
-            this.maskedTextBox1.PromptChar = ' ';
-            this.maskedTextBox1.Size = new System.Drawing.Size(150, 21);
-            this.maskedTextBox1.TabIndex = 14;
+            this.labCompanyNo.AutoSize = true;
+            this.labCompanyNo.Location = new System.Drawing.Point(29, 15);
+            this.labCompanyNo.Name = "labCompanyNo";
+            this.labCompanyNo.Size = new System.Drawing.Size(71, 12);
+            this.labCompanyNo.TabIndex = 13;
+            this.labCompanyNo.Text = "*公司编号：";
             // 
-            // label3
+            // labCompanyName
             // 
-            this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(29, 15);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(71, 12);
-            this.label3.TabIndex = 13;
-            this.label3.Text = "*公司名称：";
+            this.labCompanyName.AutoSize = true;
+            this.labCompanyName.Location = new System.Drawing.Point(29, 42);
+            this.labCompanyName.Name = "labCompanyName";
+            this.labCompanyName.Size = new System.Drawing.Size(71, 12);
+            this.labCompanyName.TabIndex = 15;
+            this.labCompanyName.Text = "*公司名称：";
             // 
-            // maskedTextBox2
+            // btnExit
             // 
-            this.maskedTextBox2.Location = new System.Drawing.Point(106, 39);
-            this.maskedTextBox2.Name = "maskedTextBox2";
-            this.maskedTextBox2.PromptChar = ' ';
-            this.maskedTextBox2.Size = new System.Drawing.Size(150, 21);
-            this.maskedTextBox2.TabIndex = 16;
+            this.btnExit.Location = new System.Drawing.Point(157, 98);
+            this.btnExit.Name = "btnExit";
+            this.btnExit.Size = new System.Drawing.Size(75, 23);
+            this.btnExit.TabIndex = 18;
+            this.btnExit.Text = "退出";
+            this.btnExit.UseVisualStyleBackColor = true;
+            this.btnExit.Click += new System.EventHandler(this.btnExit_Click);
             // 
-            // label1
+            // btnConfirm
             // 
-            this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(29, 42);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(71, 12);
-            this.label1.TabIndex = 15;
-            this.label1.Text = "*公司编号：";
+            this.btnConfirm.Location = new System.Drawing.Point(52, 98);
+            this.btnConfirm.Name = "btnConfirm";
+            this.btnConfirm.Size = new System.Drawing.Size(75, 23);
+            this.btnConfirm.TabIndex = 17;
+            this.btnConfirm.Text = "确定";
+            this.btnConfirm.UseVisualStyleBackColor = true;
+            this.btnConfirm.Click += new System.EventHandler(this.btnConfirm_Click);
             // 
-            // button2
+            // labCompanyRemarks
             // 
-            this.button2.Location = new System.Drawing.Point(157, 76);
-            this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(75, 23);
-            this.button2.TabIndex = 18;
-            this.button2.Text = "退出";
-            this.button2.UseVisualStyleBackColor = true;
-            this.button2.Click += new System.EventHandler(this.button2_Click);
+            this.labCompanyRemarks.AutoSize = true;
+            this.labCompanyRemarks.Location = new System.Drawing.Point(59, 69);
+            this.labCompanyRemarks.Name = "labCompanyRemarks";
+            this.labCompanyRemarks.Size = new System.Drawing.Size(41, 12);
+            this.labCompanyRemarks.TabIndex = 19;
+            this.labCompanyRemarks.Text = "备注：";
             // 
-            // button1
+            // txtCompanyNo
             // 
-            this.button1.Location = new System.Drawing.Point(52, 76);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(75, 23);
-            this.button1.TabIndex = 17;
-            this.button1.Text = "确定";
-            this.button1.UseVisualStyleBackColor = true;
-            this.button1.Click += new System.EventHandler(this.button1_Click);
+            this.txtCompanyNo.BackColor = System.Drawing.Color.Yellow;
+            this.txtCompanyNo.Location = new System.Drawing.Point(106, 11);
+            this.txtCompanyNo.Name = "txtCompanyNo";
+            this.txtCompanyNo.Size = new System.Drawing.Size(150, 21);
+            this.txtCompanyNo.TabIndex = 20;
+            // 
+            // txtCompanyName
+            // 
+            this.txtCompanyName.BackColor = System.Drawing.Color.Yellow;
+            this.txtCompanyName.Location = new System.Drawing.Point(106, 38);
+            this.txtCompanyName.Name = "txtCompanyName";
+            this.txtCompanyName.Size = new System.Drawing.Size(150, 21);
+            this.txtCompanyName.TabIndex = 21;
+            // 
+            // txtCompanyRemarks
+            // 
+            this.txtCompanyRemarks.Location = new System.Drawing.Point(106, 65);
+            this.txtCompanyRemarks.Name = "txtCompanyRemarks";
+            this.txtCompanyRemarks.Size = new System.Drawing.Size(150, 21);
+            this.txtCompanyRemarks.TabIndex = 22;
             // 
             // CreatCompanyForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(284, 111);
-            this.Controls.Add(this.button2);
-            this.Controls.Add(this.button1);
-            this.Controls.Add(this.maskedTextBox2);
-            this.Controls.Add(this.label1);
-            this.Controls.Add(this.maskedTextBox1);
-            this.Controls.Add(this.label3);
+            this.ClientSize = new System.Drawing.Size(284, 129);
+            this.Controls.Add(this.txtCompanyRemarks);
+            this.Controls.Add(this.txtCompanyName);
+            this.Controls.Add(this.txtCompanyNo);
+            this.Controls.Add(this.labCompanyRemarks);
+            this.Controls.Add(this.btnExit);
+            this.Controls.Add(this.btnConfirm);
+            this.Controls.Add(this.labCompanyName);
+            this.Controls.Add(this.labCompanyNo);
             this.Name = "CreatCompanyForm";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "初始化程序";
             this.ResumeLayout(false);
             this.PerformLayout();
@@ -109,14 +130,13 @@
         }
 
         #endregion
-
-        private System.Windows.Forms.MaskedTextBox maskedTextBox1;
-        private System.Windows.Forms.Label label3;
-        private System.Windows.Forms.MaskedTextBox maskedTextBox2;
-        private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.Button button2;
-        private System.Windows.Forms.Button button1;
-
-
+        private System.Windows.Forms.Label labCompanyNo;
+        private System.Windows.Forms.Label labCompanyName;
+        private System.Windows.Forms.Button btnExit;
+        private System.Windows.Forms.Button btnConfirm;
+        private System.Windows.Forms.Label labCompanyRemarks;
+        private System.Windows.Forms.TextBox txtCompanyNo;
+        private System.Windows.Forms.TextBox txtCompanyName;
+        private System.Windows.Forms.TextBox txtCompanyRemarks;
     }
 }

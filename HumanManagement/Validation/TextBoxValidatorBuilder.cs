@@ -1,111 +1,97 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-
-namespace HumanManagement.Validation
+﻿namespace HumanManagement.Validation
 {
-    class ValidatorBuilder
+    /// <summary>
+    /// System.Windows.Forms.TextBox 控件的校验生成器，用于构造校验器。
+    /// </summary>
+    class TextBoxValidatorBuilder
     {
-        private Validator validator = new Validator();
+        private TextBoxValidator validator = new TextBoxValidator();
 
-        public ValidatorBuilder Required()
+        public TextBoxValidatorBuilder Required()
         {
             validator.Required = true;
             return this;
         }
 
-        public ValidatorBuilder Required(bool required)
+        public TextBoxValidatorBuilder Required(bool required)
         {
             validator.Required = required;
             return this;
         }
 
-        public ValidatorBuilder DeptNo()
+        public TextBoxValidatorBuilder DeptNo()
         {
             validator.DeptNo = true;
             return this;
         }
 
-        public ValidatorBuilder DeptNo(bool deptNo)
+        public TextBoxValidatorBuilder DeptNo(bool deptNo)
         {
             validator.DeptNo = deptNo;
             return this;
         }
 
-        public ValidatorBuilder DeptName()
+        public TextBoxValidatorBuilder DeptName()
         {
             validator.DeptName = true;
             return this;
         }
 
-        public ValidatorBuilder DeptName(bool deptName)
+        public TextBoxValidatorBuilder DeptName(bool deptName)
         {
             validator.DeptName = deptName;
             return this;
         }
 
-        public ValidatorBuilder EmployeeNo()
+        public TextBoxValidatorBuilder EmployeeNo()
         {
             validator.EmployeeNo = true;
             return this;
         }
 
-        public ValidatorBuilder EmployeeNo(bool employeeNo)
+        public TextBoxValidatorBuilder EmployeeNo(bool employeeNo)
         {
             validator.EmployeeNo = employeeNo;
             return this;
         }
 
-        public ValidatorBuilder EmployeeName()
+        public TextBoxValidatorBuilder EmployeeName()
         {
             validator.EmployeeName = true;
             return this;
         }
 
-        public ValidatorBuilder EmployeeName(bool employeeName)
+        public TextBoxValidatorBuilder EmployeeName(bool employeeName)
         {
             validator.EmployeeName = employeeName;
             return this;
         }
 
-        public ValidatorBuilder IdCardNo()
+        public TextBoxValidatorBuilder IdCardNo()
         {
             validator.IdCardNo = true;
             return this;
         }
 
-        public ValidatorBuilder IdCardNo(bool idCardNo)
+        public TextBoxValidatorBuilder IdCardNo(bool idCardNo)
         {
             validator.IdCardNo = idCardNo;
             return this;
         }
 
-        public ValidatorBuilder IdCardDate()
-        {
-            validator.IdCardDate = true;
-            return this;
-        }
-
-        public ValidatorBuilder IdCardDate(bool idCardDate)
-        {
-            validator.IdCardDate = idCardDate;
-            return this;
-        }
-
-        public ValidatorBuilder Date()
+        public TextBoxValidatorBuilder Date()
         {
             validator.Date = true;
             return this;
         }
 
-        public ValidatorBuilder Date(bool date)
+        public TextBoxValidatorBuilder Date(bool date)
         {
             validator.Date = date;
             return this;
         }
 
-        public Validator Bulid()
+        public TextBoxValidator Bulid()
         {
             return this.validator;
         }

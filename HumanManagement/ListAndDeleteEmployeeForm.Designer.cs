@@ -28,77 +28,82 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.textBox2 = new System.Windows.Forms.TextBox();
-            this.label2 = new System.Windows.Forms.Label();
-            this.textBox1 = new System.Windows.Forms.TextBox();
-            this.label1 = new System.Windows.Forms.Label();
-            this.dataGridView1 = new System.Windows.Forms.DataGridView();
+            this.components = new System.ComponentModel.Container();
+            this.txtDeptName = new System.Windows.Forms.TextBox();
+            this.labDeptName = new System.Windows.Forms.Label();
+            this.txtDeptNo = new System.Windows.Forms.TextBox();
+            this.labDeptNo = new System.Windows.Forms.Label();
+            this.dgvEmployeeList = new System.Windows.Forms.DataGridView();
             this.Column1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Column2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Column3 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Column4 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Column5 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Column6 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.button2 = new System.Windows.Forms.Button();
-            this.button1 = new System.Windows.Forms.Button();
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
+            this.Column7 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.employeeInfoBindingSource = new System.Windows.Forms.BindingSource(this.components);
+            this.btnCloseForm = new System.Windows.Forms.Button();
+            this.btnDelSelectedEmployee = new System.Windows.Forms.Button();
+            ((System.ComponentModel.ISupportInitialize)(this.dgvEmployeeList)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.employeeInfoBindingSource)).BeginInit();
             this.SuspendLayout();
             // 
-            // textBox2
+            // txtDeptName
             // 
-            this.textBox2.Enabled = false;
-            this.textBox2.Location = new System.Drawing.Point(318, 12);
-            this.textBox2.Name = "textBox2";
-            this.textBox2.Size = new System.Drawing.Size(150, 21);
-            this.textBox2.TabIndex = 9;
+            this.txtDeptName.Enabled = false;
+            this.txtDeptName.Location = new System.Drawing.Point(318, 12);
+            this.txtDeptName.Name = "txtDeptName";
+            this.txtDeptName.Size = new System.Drawing.Size(150, 21);
+            this.txtDeptName.TabIndex = 9;
             // 
-            // label2
+            // labDeptName
             // 
-            this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(247, 16);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(65, 12);
-            this.label2.TabIndex = 8;
-            this.label2.Text = "部门名称：";
+            this.labDeptName.AutoSize = true;
+            this.labDeptName.Location = new System.Drawing.Point(247, 16);
+            this.labDeptName.Name = "labDeptName";
+            this.labDeptName.Size = new System.Drawing.Size(65, 12);
+            this.labDeptName.TabIndex = 8;
+            this.labDeptName.Text = "部门名称：";
             // 
-            // textBox1
+            // txtDeptNo
             // 
-            this.textBox1.Enabled = false;
-            this.textBox1.Location = new System.Drawing.Point(77, 12);
-            this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(150, 21);
-            this.textBox1.TabIndex = 7;
+            this.txtDeptNo.Enabled = false;
+            this.txtDeptNo.Location = new System.Drawing.Point(77, 12);
+            this.txtDeptNo.Name = "txtDeptNo";
+            this.txtDeptNo.Size = new System.Drawing.Size(150, 21);
+            this.txtDeptNo.TabIndex = 7;
             // 
-            // label1
+            // labDeptNo
             // 
-            this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(6, 16);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(65, 12);
-            this.label1.TabIndex = 6;
-            this.label1.Text = "部门编号：";
+            this.labDeptNo.AutoSize = true;
+            this.labDeptNo.Location = new System.Drawing.Point(6, 16);
+            this.labDeptNo.Name = "labDeptNo";
+            this.labDeptNo.Size = new System.Drawing.Size(65, 12);
+            this.labDeptNo.TabIndex = 6;
+            this.labDeptNo.Text = "部门编号：";
             // 
-            // dataGridView1
+            // dgvEmployeeList
             // 
-            this.dataGridView1.AllowUserToAddRows = false;
-            this.dataGridView1.AllowUserToOrderColumns = true;
-            this.dataGridView1.AllowUserToResizeRows = false;
-            this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dataGridView1.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.dgvEmployeeList.AllowUserToAddRows = false;
+            this.dgvEmployeeList.AllowUserToOrderColumns = true;
+            this.dgvEmployeeList.AllowUserToResizeRows = false;
+            this.dgvEmployeeList.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dgvEmployeeList.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.Column1,
             this.Column2,
             this.Column3,
             this.Column4,
             this.Column5,
-            this.Column6});
-            this.dataGridView1.Location = new System.Drawing.Point(6, 56);
-            this.dataGridView1.Name = "dataGridView1";
-            this.dataGridView1.ReadOnly = true;
-            this.dataGridView1.RowHeadersVisible = false;
-            this.dataGridView1.RowTemplate.Height = 23;
-            this.dataGridView1.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dataGridView1.Size = new System.Drawing.Size(463, 170);
-            this.dataGridView1.TabIndex = 10;
+            this.Column6,
+            this.Column7});
+            this.dgvEmployeeList.Location = new System.Drawing.Point(6, 56);
+            this.dgvEmployeeList.Name = "dgvEmployeeList";
+            this.dgvEmployeeList.ReadOnly = true;
+            this.dgvEmployeeList.RowHeadersVisible = false;
+            this.dgvEmployeeList.RowTemplate.Height = 23;
+            this.dgvEmployeeList.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
+            this.dgvEmployeeList.Size = new System.Drawing.Size(463, 170);
+            this.dgvEmployeeList.TabIndex = 10;
             // 
             // Column1
             // 
@@ -142,38 +147,49 @@
             this.Column6.ReadOnly = true;
             this.Column6.Width = 80;
             // 
-            // button2
+            // Column7
             // 
-            this.button2.Location = new System.Drawing.Point(252, 247);
-            this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(75, 23);
-            this.button2.TabIndex = 21;
-            this.button2.Text = "关闭";
-            this.button2.UseVisualStyleBackColor = true;
-            this.button2.Click += new System.EventHandler(this.button2_Click);
+            this.Column7.HeaderText = "Index";
+            this.Column7.Name = "Column7";
+            this.Column7.ReadOnly = true;
+            this.Column7.Visible = false;
             // 
-            // button1
+            // employeeInfoBindingSource
             // 
-            this.button1.Location = new System.Drawing.Point(116, 247);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(99, 23);
-            this.button1.TabIndex = 20;
-            this.button1.Text = "删除选定员工";
-            this.button1.UseVisualStyleBackColor = true;
-            this.button1.Click += new System.EventHandler(this.button1_Click);
+            this.employeeInfoBindingSource.DataSource = typeof(HumanManagement.Data.EmployeeInfo);
+            // 
+            // btnCloseForm
+            // 
+            this.btnCloseForm.Location = new System.Drawing.Point(252, 247);
+            this.btnCloseForm.Name = "btnCloseForm";
+            this.btnCloseForm.Size = new System.Drawing.Size(75, 23);
+            this.btnCloseForm.TabIndex = 21;
+            this.btnCloseForm.Text = "关闭";
+            this.btnCloseForm.UseVisualStyleBackColor = true;
+            this.btnCloseForm.Click += new System.EventHandler(this.btnCloseForm_Click);
+            // 
+            // btnDelSelectedEmployee
+            // 
+            this.btnDelSelectedEmployee.Location = new System.Drawing.Point(116, 247);
+            this.btnDelSelectedEmployee.Name = "btnDelSelectedEmployee";
+            this.btnDelSelectedEmployee.Size = new System.Drawing.Size(99, 23);
+            this.btnDelSelectedEmployee.TabIndex = 20;
+            this.btnDelSelectedEmployee.Text = "删除选定员工";
+            this.btnDelSelectedEmployee.UseVisualStyleBackColor = true;
+            this.btnDelSelectedEmployee.Click += new System.EventHandler(this.btnDelSelectedEmployee_Click);
             // 
             // ListAndDeleteEmployeeForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(474, 282);
-            this.Controls.Add(this.button2);
-            this.Controls.Add(this.button1);
-            this.Controls.Add(this.dataGridView1);
-            this.Controls.Add(this.textBox2);
-            this.Controls.Add(this.label2);
-            this.Controls.Add(this.textBox1);
-            this.Controls.Add(this.label1);
+            this.Controls.Add(this.btnCloseForm);
+            this.Controls.Add(this.btnDelSelectedEmployee);
+            this.Controls.Add(this.dgvEmployeeList);
+            this.Controls.Add(this.txtDeptName);
+            this.Controls.Add(this.labDeptName);
+            this.Controls.Add(this.txtDeptNo);
+            this.Controls.Add(this.labDeptNo);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.MaximizeBox = false;
             this.Name = "ListAndDeleteEmployeeForm";
@@ -181,7 +197,8 @@
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "员工清单";
             this.Load += new System.EventHandler(this.ListAndDeleteEmployeeForm_Load);
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dgvEmployeeList)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.employeeInfoBindingSource)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -189,18 +206,20 @@
 
         #endregion
 
-        private System.Windows.Forms.TextBox textBox2;
-        private System.Windows.Forms.Label label2;
-        private System.Windows.Forms.TextBox textBox1;
-        private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.DataGridView dataGridView1;
-        private System.Windows.Forms.Button button2;
-        private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.TextBox txtDeptName;
+        private System.Windows.Forms.Label labDeptName;
+        private System.Windows.Forms.TextBox txtDeptNo;
+        private System.Windows.Forms.Label labDeptNo;
+        private System.Windows.Forms.DataGridView dgvEmployeeList;
+        private System.Windows.Forms.Button btnCloseForm;
+        private System.Windows.Forms.Button btnDelSelectedEmployee;
+        private System.Windows.Forms.BindingSource employeeInfoBindingSource;
         private System.Windows.Forms.DataGridViewTextBoxColumn Column1;
         private System.Windows.Forms.DataGridViewTextBoxColumn Column2;
         private System.Windows.Forms.DataGridViewTextBoxColumn Column3;
         private System.Windows.Forms.DataGridViewTextBoxColumn Column4;
         private System.Windows.Forms.DataGridViewTextBoxColumn Column5;
         private System.Windows.Forms.DataGridViewTextBoxColumn Column6;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Column7;
     }
 }

@@ -95,8 +95,6 @@ namespace ImportAndExportSolution
 
         private void CreateTreeNode(XmlNode xmlElement, TreeNode parent)
         {
-            if (xmlElement.HasChildNodes)
-            {
                 for (int i = 0; i < xmlElement.ChildNodes.Count; i++)
                 {
                     TreeNode newTreeNode = new TreeNode();
@@ -104,7 +102,6 @@ namespace ImportAndExportSolution
                     parent.Nodes.Add(newTreeNode);
                     CreateTreeNode(xmlElement.ChildNodes[i], parent.Nodes[i]);
                 }
-            }
         }
     }
 }
