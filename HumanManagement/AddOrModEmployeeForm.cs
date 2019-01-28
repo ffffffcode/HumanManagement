@@ -1,4 +1,5 @@
 ﻿using HumanManagement.Data;
+using HumanManagement.Handler;
 using HumanManagement.Validation;
 using System;
 using System.Windows.Forms;
@@ -54,6 +55,8 @@ namespace HumanManagement
         public AddOrModEmployeeForm()
         {
             InitializeComponent();
+            //为窗体添加 KeyDown 事件，使用Enter切换控件焦点
+            KeyDown += new KeyEventHandler(FormKeyDownHandler.EnterToSelectNextControl);
         }
 
         /// <summary>
@@ -68,15 +71,15 @@ namespace HumanManagement
             TextBoxValidator txtEmployeeNameValidator = new TextBoxValidatorBuilder().EmployeeName().Bulid();
             TextBoxValidator txtIdCardNoValidator = new TextBoxValidatorBuilder().IdCardNo().Bulid();
             //进行校验并提示
-            if (txtEmployeeNoValidator.Validate(txtEmployeeNo))
+            if (!txtEmployeeNoValidator.Validate(txtEmployeeNo))
             {
                 MessageBox.Show("工号为6位，由字母和数字组成");
             }
-            else if (txtEmployeeNameValidator.Validate(txtEmployeeName))
+            else if (!txtEmployeeNameValidator.Validate(txtEmployeeName))
             {
                 MessageBox.Show("姓名为2位以上，由字母和汉字组成");
             }
-            else if (txtIdCardNoValidator.Validate(txtIdCardNo))
+            else if (!txtIdCardNoValidator.Validate(txtIdCardNo))
             {
                 MessageBox.Show("身份证为15位或18位");
             }

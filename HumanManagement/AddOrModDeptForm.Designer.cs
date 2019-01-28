@@ -112,7 +112,6 @@
             // 
             // btnConfirm
             // 
-            this.btnConfirm.Enabled = false;
             this.btnConfirm.Location = new System.Drawing.Point(52, 147);
             this.btnConfirm.Name = "btnConfirm";
             this.btnConfirm.Size = new System.Drawing.Size(75, 23);
@@ -165,6 +164,7 @@
             this.Controls.Add(this.txtParentDeptNo);
             this.Controls.Add(this.labParentDeptNo);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
+            this.KeyPreview = true;
             this.MaximizeBox = false;
             this.Name = "AddOrModDeptForm";
             this.ShowInTaskbar = false;

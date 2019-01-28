@@ -44,7 +44,7 @@
             this.labCompanyNo.Location = new System.Drawing.Point(29, 15);
             this.labCompanyNo.Name = "labCompanyNo";
             this.labCompanyNo.Size = new System.Drawing.Size(71, 12);
-            this.labCompanyNo.TabIndex = 13;
+            this.labCompanyNo.TabIndex = 1;
             this.labCompanyNo.Text = "*公司编号：";
             // 
             // labCompanyName
@@ -53,7 +53,7 @@
             this.labCompanyName.Location = new System.Drawing.Point(29, 42);
             this.labCompanyName.Name = "labCompanyName";
             this.labCompanyName.Size = new System.Drawing.Size(71, 12);
-            this.labCompanyName.TabIndex = 15;
+            this.labCompanyName.TabIndex = 5;
             this.labCompanyName.Text = "*公司名称：";
             // 
             // btnExit
@@ -61,7 +61,7 @@
             this.btnExit.Location = new System.Drawing.Point(157, 98);
             this.btnExit.Name = "btnExit";
             this.btnExit.Size = new System.Drawing.Size(75, 23);
-            this.btnExit.TabIndex = 18;
+            this.btnExit.TabIndex = 15;
             this.btnExit.Text = "退出";
             this.btnExit.UseVisualStyleBackColor = true;
             this.btnExit.Click += new System.EventHandler(this.btnExit_Click);
@@ -71,7 +71,7 @@
             this.btnConfirm.Location = new System.Drawing.Point(52, 98);
             this.btnConfirm.Name = "btnConfirm";
             this.btnConfirm.Size = new System.Drawing.Size(75, 23);
-            this.btnConfirm.TabIndex = 17;
+            this.btnConfirm.TabIndex = 13;
             this.btnConfirm.Text = "确定";
             this.btnConfirm.UseVisualStyleBackColor = true;
             this.btnConfirm.Click += new System.EventHandler(this.btnConfirm_Click);
@@ -82,7 +82,7 @@
             this.labCompanyRemarks.Location = new System.Drawing.Point(59, 69);
             this.labCompanyRemarks.Name = "labCompanyRemarks";
             this.labCompanyRemarks.Size = new System.Drawing.Size(41, 12);
-            this.labCompanyRemarks.TabIndex = 19;
+            this.labCompanyRemarks.TabIndex = 9;
             this.labCompanyRemarks.Text = "备注：";
             // 
             // txtCompanyNo
@@ -91,7 +91,7 @@
             this.txtCompanyNo.Location = new System.Drawing.Point(106, 11);
             this.txtCompanyNo.Name = "txtCompanyNo";
             this.txtCompanyNo.Size = new System.Drawing.Size(150, 21);
-            this.txtCompanyNo.TabIndex = 20;
+            this.txtCompanyNo.TabIndex = 3;
             // 
             // txtCompanyName
             // 
@@ -99,14 +99,14 @@
             this.txtCompanyName.Location = new System.Drawing.Point(106, 38);
             this.txtCompanyName.Name = "txtCompanyName";
             this.txtCompanyName.Size = new System.Drawing.Size(150, 21);
-            this.txtCompanyName.TabIndex = 21;
+            this.txtCompanyName.TabIndex = 7;
             // 
             // txtCompanyRemarks
             // 
             this.txtCompanyRemarks.Location = new System.Drawing.Point(106, 65);
             this.txtCompanyRemarks.Name = "txtCompanyRemarks";
             this.txtCompanyRemarks.Size = new System.Drawing.Size(150, 21);
-            this.txtCompanyRemarks.TabIndex = 22;
+            this.txtCompanyRemarks.TabIndex = 11;
             // 
             // CreatCompanyForm
             // 
@@ -121,6 +121,7 @@
             this.Controls.Add(this.btnConfirm);
             this.Controls.Add(this.labCompanyName);
             this.Controls.Add(this.labCompanyNo);
+            this.KeyPreview = true;
             this.Name = "CreatCompanyForm";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "初始化程序";

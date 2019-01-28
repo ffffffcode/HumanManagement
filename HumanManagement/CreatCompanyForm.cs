@@ -1,4 +1,5 @@
 ﻿using HumanManagement.Data;
+using HumanManagement.Handler;
 using HumanManagement.Validation;
 using System;
 using System.Windows.Forms;
@@ -25,6 +26,8 @@ namespace HumanManagement
         public CreatCompanyForm()
         {
             InitializeComponent();
+            //为窗体添加 KeyDown 事件，使用Enter切换控件焦点
+            KeyDown += new KeyEventHandler(FormKeyDownHandler.EnterToSelectNextControl);
         }
 
         /// <summary>

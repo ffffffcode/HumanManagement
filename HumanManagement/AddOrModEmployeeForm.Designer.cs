@@ -189,7 +189,6 @@
             // 
             // btnComfirm
             // 
-            this.btnComfirm.Enabled = false;
             this.btnComfirm.Location = new System.Drawing.Point(149, 127);
             this.btnComfirm.Name = "btnComfirm";
             this.btnComfirm.Size = new System.Drawing.Size(75, 23);
@@ -231,6 +230,7 @@
             this.Controls.Add(this.txtDeptNo);
             this.Controls.Add(this.labDeptNo);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
+            this.KeyPreview = true;
             this.MaximizeBox = false;
             this.Name = "AddOrModEmployeeForm";
             this.ShowInTaskbar = false;

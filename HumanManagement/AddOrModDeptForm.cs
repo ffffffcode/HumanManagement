@@ -1,4 +1,5 @@
 ﻿using HumanManagement.Data;
+using HumanManagement.Handler;
 using HumanManagement.Validation;
 using System;
 using System.Windows.Forms;
@@ -44,6 +45,8 @@ namespace HumanManagement
         public AddOrModDeptForm()
         {
             InitializeComponent();
+            //为窗体添加 KeyDown 事件，使用Enter切换控件焦点
+            KeyDown += new KeyEventHandler(FormKeyDownHandler.EnterToSelectNextControl);
         }
 
         /// <summary>
@@ -57,11 +60,11 @@ namespace HumanManagement
             TextBoxValidator txtDeptNoValidator = new TextBoxValidatorBuilder().DeptNo().Bulid();
             TextBoxValidator txtDeptNameValidator = new TextBoxValidatorBuilder().DeptName().Bulid();
             //进行校验并提示
-            if (txtDeptNoValidator.Validate(txtDeptNo))
+            if (!txtDeptNoValidator.Validate(txtDeptNo))
             {
                 MessageBox.Show("部门编号由字母和数字组成");
             }
-            else if (txtDeptNoValidator.Validate(txtDeptName))
+            else if (!txtDeptNoValidator.Validate(txtDeptName))
             {
                 MessageBox.Show("部门名称由字母和汉字组成");
             }
