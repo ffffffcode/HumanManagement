@@ -1,4 +1,6 @@
-﻿namespace HumanManagement.Data
+﻿using System.Drawing;
+
+namespace HumanManagement.Data
 {
     /// <summary>
     /// 人员管理系统项目顶层的抽象数据结构，所有数据结构都继承该类。
@@ -35,6 +37,22 @@
         {
             get { return _typeString; }
             set { _typeString = value; }
+        }
+
+        /// <summary>
+        /// 节点的文本颜色字段。
+        /// </summary>
+        private Color _textColor;
+        /// <summary>
+        /// 获取或设置 节点的文本颜色。
+        /// </summary>
+        /// <value>
+        /// 节点的文本颜色
+        /// </value>
+        public Color TextColor
+        {
+            get { return _textColor; }
+            set { _textColor = value; }
         }
     }
 }

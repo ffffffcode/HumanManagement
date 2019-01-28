@@ -127,12 +127,13 @@ namespace HumanManagement.Util
         {
             for (int i = 0; i < xmlNode.ChildNodes.Count; i++)
             {
+                NodeInfo treeNodeTag = CreateTreeNodeTagElementByXmlNode(xmlNode.ChildNodes[i]);
                 TreeNode newTreeNode = new TreeNode
                 {
                     Text = xmlNode.ChildNodes[i].Name,
-                    Tag = CreateTreeNodeTagElementByXmlNode(xmlNode.ChildNodes[i])
+                    Tag = treeNodeTag,
+                    ForeColor = treeNodeTag.TextColor
                 };
-
                 parent.Nodes.Add(newTreeNode);
                 CreateTreeNode(xmlNode.ChildNodes[i], parent.Nodes[i]);
             }
@@ -153,6 +154,7 @@ namespace HumanManagement.Util
             else if (NodeType.Employee == NodeTypeUtil.NodeTypeOf(xmlNode))
             {
                 nodeInfo = new EmployeeInfo(xmlNode.Attributes["编号"].Value, xmlNode.Name, xmlNode.Attributes["身份证"].Value, xmlNode.Attributes["生日"].Value, xmlNode.Attributes["籍贯"].Value, xmlNode.Attributes["入厂时间"].Value, xmlNode.Attributes["类型"].Value);
+                nodeInfo.TextColor = System.Drawing.Color.Green;
             }
             return nodeInfo;
         }

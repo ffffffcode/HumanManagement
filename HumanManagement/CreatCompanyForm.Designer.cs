@@ -123,7 +123,7 @@
             this.Controls.Add(this.labCompanyNo);
             this.KeyPreview = true;
             this.Name = "CreatCompanyForm";
-            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "初始化程序";
             this.ResumeLayout(false);
             this.PerformLayout();

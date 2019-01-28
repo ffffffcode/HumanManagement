@@ -256,7 +256,7 @@
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.MaximizeBox = false;
             this.Name = "MainForm";
-            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "人员管理窗口";
             this.Load += new System.EventHandler(this.MainForm_Load);
             this.splitContainerMain.Panel1.ResumeLayout(false);
