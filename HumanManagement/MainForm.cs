@@ -109,8 +109,8 @@ namespace HumanManagement
                 btnModDept.Enabled = true;
                 btnDelDept.Enabled = true;
                 btnAddEmployee.Enabled = true;
-                btnModEmployee.Enabled = true;
-                btnDelEmployee.Enabled = true;
+                btnModEmployee.Enabled = false;
+                btnDelEmployee.Enabled = false;
                 btnListEmployee.Enabled = true;
             }
             if (NodeTypeUtil.IsEmployee(selectedNode))
@@ -287,7 +287,8 @@ namespace HumanManagement
                 TreeNode newTreeNode = new TreeNode
                 {
                     Text = addEmployForm.EmployeeInfo.EmployeeName,
-                    Tag = addEmployForm.EmployeeInfo
+                    Tag = addEmployForm.EmployeeInfo,
+                    ForeColor = System.Drawing.Color.Green
                 };
                 selectedNode.Nodes.Add(newTreeNode);
             }

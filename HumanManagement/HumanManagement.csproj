@@ -74,6 +74,7 @@
     <Compile Include="CreatCompanyForm.Designer.cs">
       <DependentUpon>CreatCompanyForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="Data\CheckInfo.cs" />
     <Compile Include="Data\DataGridEmployeeInfo.cs" />
     <Compile Include="Data\DeptInfo.cs" />
     <Compile Include="Data\EmployeeInfo.cs" />
@@ -91,6 +92,7 @@
     <Compile Include="MainForm.Designer.cs">
       <DependentUpon>MainForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="Util\DataBindingUtil.cs" />
     <Compile Include="Util\ImportAndExportUtil.cs" />
     <Compile Include="Util\NodeTypeUtil.cs" />
     <Compile Include="Program.cs" />

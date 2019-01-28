@@ -1,5 +1,6 @@
 ﻿using HumanManagement.Data;
 using HumanManagement.Handler;
+using HumanManagement.Util;
 using HumanManagement.Validation;
 using System;
 using System.Windows.Forms;
@@ -14,7 +15,7 @@ namespace HumanManagement
         /// <param name="data">要交换的数据对象</param>
         internal void ExchangeDataHandler(object data)
         {
-            _employeeInfo = data as EmployeeInfo;
+            EmployeeInfo = data as EmployeeInfo;
         }
 
         /// <summary>
@@ -33,22 +34,7 @@ namespace HumanManagement
             set
             {
                 _employeeInfo = value;
-                //将员工信息设置到对应的 TextBox 控件中
-                txtDeptNo.Text = _employeeInfo.DeptNo;
-                txtDeptName.Text = _employeeInfo.DeptName;
-                txtEmployeeNo.Text = _employeeInfo.No;
-                txtEmployeeName.Text = _employeeInfo.EmployeeName;
-                txtIdCardNo.Text = _employeeInfo.IdCardNo;
-                txtBirthday.Text = _employeeInfo.Birthday;
-                txtBirthplace.Text = _employeeInfo.Birthplace;
-                if (_employeeInfo.EntryTime != null && _employeeInfo.EntryTime != "")
-                {
-                    dtpEntryTime.Value = DateTime.Parse(_employeeInfo.EntryTime);
-                }
-                else
-                {
-                    dtpEntryTime.Value = DateTime.Now;
-                }
+                DataBindingUtil.DataToControl(this, _employeeInfo);
             }
         }
 
@@ -71,29 +57,25 @@ namespace HumanManagement
             TextBoxValidator txtEmployeeNameValidator = new TextBoxValidatorBuilder().EmployeeName().Bulid();
             TextBoxValidator txtIdCardNoValidator = new TextBoxValidatorBuilder().IdCardNo().Bulid();
             //进行校验并提示
-            if (!txtEmployeeNoValidator.Validate(txtEmployeeNo))
+            if (!txtEmployeeNoValidator.Validate(txtNo))
             {
+                txtNo.Focus();
                 MessageBox.Show("工号为6位，由字母和数字组成");
             }
             else if (!txtEmployeeNameValidator.Validate(txtEmployeeName))
             {
+                txtEmployeeName.Focus();
                 MessageBox.Show("姓名为2位以上，由字母和汉字组成");
             }
             else if (!txtIdCardNoValidator.Validate(txtIdCardNo))
             {
+                txtIdCardNo.Focus();
                 MessageBox.Show("身份证为15位或18位");
             }
             //校验成功
             else
             {
-                _employeeInfo.DeptNo = txtDeptNo.Text;
-                _employeeInfo.DeptName = txtDeptName.Text;
-                _employeeInfo.No = txtEmployeeNo.Text;
-                _employeeInfo.EmployeeName = txtEmployeeName.Text;
-                _employeeInfo.IdCardNo = txtIdCardNo.Text;
-                _employeeInfo.Birthday = txtBirthday.Text;
-                _employeeInfo.Birthplace = txtBirthplace.Text;
-                _employeeInfo.EntryTime = dtpEntryTime.Value.ToString("yyyy-MM-dd");
+                DataBindingUtil.ControlToData(_employeeInfo, this);
                 _employeeInfo.TypeString = "员工";
                 DialogResult = DialogResult.OK;
             }
@@ -107,6 +89,19 @@ namespace HumanManagement
         private void btnCancel_Click(object sender, EventArgs e)
         {
             DialogResult = DialogResult.Cancel;
+        }
+
+        private void txtIdCardNo_Leave(object sender, EventArgs e)
+        {
+            TextBoxValidator txtIdCardNoValidator = new TextBoxValidatorBuilder().IdCardNo().Bulid();
+            if (txtIdCardNoValidator.Validate(txtIdCardNo))
+            {
+                txtBirthday.Text = txtIdCardNo.Text.Substring(6, 4) + "-" + txtIdCardNo.Text.Substring(10, 2) + "-" + txtIdCardNo.Text.Substring(12, 2);
+            }
+            else
+            {
+                txtBirthday.Text = "";
+            }
         }
     }
 }

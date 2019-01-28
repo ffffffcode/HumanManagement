@@ -32,8 +32,8 @@
             this.labDeptNo = new System.Windows.Forms.Label();
             this.txtDeptName = new System.Windows.Forms.TextBox();
             this.labDeptName = new System.Windows.Forms.Label();
-            this.txtEmployeeNo = new System.Windows.Forms.TextBox();
-            this.labEmployeeNo = new System.Windows.Forms.Label();
+            this.txtNo = new System.Windows.Forms.TextBox();
+            this.labNo = new System.Windows.Forms.Label();
             this.txtEmployeeName = new System.Windows.Forms.TextBox();
             this.labEmployeeName = new System.Windows.Forms.Label();
             this.txtIdCardNo = new System.Windows.Forms.TextBox();
@@ -82,23 +82,23 @@
             this.labDeptName.TabIndex = 4;
             this.labDeptName.Text = "部门名称：";
             // 
-            // txtEmployeeNo
+            // txtNo
             // 
-            this.txtEmployeeNo.BackColor = System.Drawing.Color.Yellow;
-            this.txtEmployeeNo.Location = new System.Drawing.Point(82, 39);
-            this.txtEmployeeNo.MaxLength = 6;
-            this.txtEmployeeNo.Name = "txtEmployeeNo";
-            this.txtEmployeeNo.Size = new System.Drawing.Size(150, 21);
-            this.txtEmployeeNo.TabIndex = 7;
+            this.txtNo.BackColor = System.Drawing.Color.Yellow;
+            this.txtNo.Location = new System.Drawing.Point(82, 39);
+            this.txtNo.MaxLength = 6;
+            this.txtNo.Name = "txtNo";
+            this.txtNo.Size = new System.Drawing.Size(150, 21);
+            this.txtNo.TabIndex = 7;
             // 
-            // labEmployeeNo
+            // labNo
             // 
-            this.labEmployeeNo.AutoSize = true;
-            this.labEmployeeNo.Location = new System.Drawing.Point(29, 42);
-            this.labEmployeeNo.Name = "labEmployeeNo";
-            this.labEmployeeNo.Size = new System.Drawing.Size(47, 12);
-            this.labEmployeeNo.TabIndex = 6;
-            this.labEmployeeNo.Text = "*工号：";
+            this.labNo.AutoSize = true;
+            this.labNo.Location = new System.Drawing.Point(29, 42);
+            this.labNo.Name = "labNo";
+            this.labNo.Size = new System.Drawing.Size(47, 12);
+            this.labNo.TabIndex = 6;
+            this.labNo.Text = "*工号：";
             // 
             // txtEmployeeName
             // 
@@ -125,6 +125,7 @@
             this.txtIdCardNo.Name = "txtIdCardNo";
             this.txtIdCardNo.Size = new System.Drawing.Size(150, 21);
             this.txtIdCardNo.TabIndex = 11;
+            this.txtIdCardNo.Leave += new System.EventHandler(this.txtIdCardNo_Leave);
             // 
             // labIdCardNo
             // 
@@ -223,8 +224,8 @@
             this.Controls.Add(this.labIdCardNo);
             this.Controls.Add(this.txtEmployeeName);
             this.Controls.Add(this.labEmployeeName);
-            this.Controls.Add(this.txtEmployeeNo);
-            this.Controls.Add(this.labEmployeeNo);
+            this.Controls.Add(this.txtNo);
+            this.Controls.Add(this.labNo);
             this.Controls.Add(this.txtDeptName);
             this.Controls.Add(this.labDeptName);
             this.Controls.Add(this.txtDeptNo);
@@ -247,8 +248,8 @@
         private System.Windows.Forms.Label labDeptNo;
         private System.Windows.Forms.TextBox txtDeptName;
         private System.Windows.Forms.Label labDeptName;
-        private System.Windows.Forms.TextBox txtEmployeeNo;
-        private System.Windows.Forms.Label labEmployeeNo;
+        private System.Windows.Forms.TextBox txtNo;
+        private System.Windows.Forms.Label labNo;
         private System.Windows.Forms.TextBox txtEmployeeName;
         private System.Windows.Forms.Label labEmployeeName;
         private System.Windows.Forms.TextBox txtIdCardNo;

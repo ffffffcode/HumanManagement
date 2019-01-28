@@ -1,5 +1,6 @@
 ﻿using HumanManagement.Data;
 using HumanManagement.Handler;
+using HumanManagement.Util;
 using HumanManagement.Validation;
 using System;
 using System.Windows.Forms;
@@ -14,7 +15,7 @@ namespace HumanManagement
         /// <param name="data">要交换的数据对象</param>
         internal void ExchangeDataHandler(object data)
         {
-            _deptInfo = data as DeptInfo;
+            DeptInfo = data as DeptInfo;
         }
 
         /// <summary>
@@ -34,11 +35,7 @@ namespace HumanManagement
             {
                 _deptInfo = value;
                 //将部门信息设置到对应的 TextBox 控件中
-                txtParentDeptNo.Text = _deptInfo.ParentDeptNo;
-                txtParentDeptName.Text = _deptInfo.ParentDeptName;
-                txtDeptNo.Text = _deptInfo.No;
-                txtDeptName.Text = _deptInfo.DeptName;
-                txtRemarks.Text = _deptInfo.Remarks;
+                DataBindingUtil.DataToControl(this, _deptInfo);
             }
         }
 
@@ -60,22 +57,25 @@ namespace HumanManagement
             TextBoxValidator txtDeptNoValidator = new TextBoxValidatorBuilder().DeptNo().Bulid();
             TextBoxValidator txtDeptNameValidator = new TextBoxValidatorBuilder().DeptName().Bulid();
             //进行校验并提示
-            if (!txtDeptNoValidator.Validate(txtDeptNo))
+            if (!txtDeptNoValidator.Validate(txtNo))
             {
+                txtNo.Focus();
                 MessageBox.Show("部门编号由字母和数字组成");
             }
-            else if (!txtDeptNoValidator.Validate(txtDeptName))
+            else if (!txtDeptNameValidator.Validate(txtDeptName))
             {
+                txtDeptName.Focus();
                 MessageBox.Show("部门名称由字母和汉字组成");
             }
             //校验成功
             else
             {
-                _deptInfo.ParentDeptNo = txtParentDeptNo.Text;
-                _deptInfo.ParentDeptName = txtParentDeptName.Text;
-                _deptInfo.No = txtDeptNo.Text;
-                _deptInfo.DeptName = txtDeptName.Text;
-                _deptInfo.Remarks = txtRemarks.Text;
+                //_deptInfo.ParentDeptNo = txtParentDeptNo.Text;
+                //_deptInfo.ParentDeptName = txtParentDeptName.Text;
+                //_deptInfo.No = txtNo.Text;
+                //_deptInfo.DeptName = txtDeptName.Text;
+                //_deptInfo.Remarks = txtRemarks.Text;
+                DataBindingUtil.ControlToData(_deptInfo, this);
                 _deptInfo.TypeString = "部门";
                 DialogResult = DialogResult.OK;
             }

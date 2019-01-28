@@ -32,13 +32,13 @@
             this.txtParentDeptNo = new System.Windows.Forms.TextBox();
             this.txtParentDeptName = new System.Windows.Forms.TextBox();
             this.labParentDeptName = new System.Windows.Forms.Label();
-            this.labDeptNo = new System.Windows.Forms.Label();
+            this.labNo = new System.Windows.Forms.Label();
             this.labDeptName = new System.Windows.Forms.Label();
             this.txtRemarks = new System.Windows.Forms.TextBox();
             this.labRemarks = new System.Windows.Forms.Label();
             this.btnConfirm = new System.Windows.Forms.Button();
             this.btnCancel = new System.Windows.Forms.Button();
-            this.txtDeptNo = new System.Windows.Forms.TextBox();
+            this.txtNo = new System.Windows.Forms.TextBox();
             this.txtDeptName = new System.Windows.Forms.TextBox();
             this.SuspendLayout();
             // 
@@ -76,14 +76,14 @@
             this.labParentDeptName.TabIndex = 2;
             this.labParentDeptName.Text = "上级部门名称：";
             // 
-            // labDeptNo
+            // labNo
             // 
-            this.labDeptNo.AutoSize = true;
-            this.labDeptNo.Location = new System.Drawing.Point(38, 69);
-            this.labDeptNo.Name = "labDeptNo";
-            this.labDeptNo.Size = new System.Drawing.Size(71, 12);
-            this.labDeptNo.TabIndex = 4;
-            this.labDeptNo.Text = "*部门编号：";
+            this.labNo.AutoSize = true;
+            this.labNo.Location = new System.Drawing.Point(38, 69);
+            this.labNo.Name = "labNo";
+            this.labNo.Size = new System.Drawing.Size(71, 12);
+            this.labNo.TabIndex = 4;
+            this.labNo.Text = "*部门编号：";
             // 
             // labDeptName
             // 
@@ -130,13 +130,13 @@
             this.btnCancel.UseVisualStyleBackColor = true;
             this.btnCancel.Click += new System.EventHandler(this.btnCancel_Click);
             // 
-            // txtDeptNo
+            // txtNo
             // 
-            this.txtDeptNo.BackColor = System.Drawing.Color.Yellow;
-            this.txtDeptNo.Location = new System.Drawing.Point(115, 65);
-            this.txtDeptNo.Name = "txtDeptNo";
-            this.txtDeptNo.Size = new System.Drawing.Size(150, 21);
-            this.txtDeptNo.TabIndex = 5;
+            this.txtNo.BackColor = System.Drawing.Color.Yellow;
+            this.txtNo.Location = new System.Drawing.Point(115, 65);
+            this.txtNo.Name = "txtNo";
+            this.txtNo.Size = new System.Drawing.Size(150, 21);
+            this.txtNo.TabIndex = 5;
             // 
             // txtDeptName
             // 
@@ -152,13 +152,13 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(284, 182);
             this.Controls.Add(this.txtDeptName);
-            this.Controls.Add(this.txtDeptNo);
+            this.Controls.Add(this.txtNo);
             this.Controls.Add(this.btnCancel);
             this.Controls.Add(this.btnConfirm);
             this.Controls.Add(this.txtRemarks);
             this.Controls.Add(this.labRemarks);
             this.Controls.Add(this.labDeptName);
-            this.Controls.Add(this.labDeptNo);
+            this.Controls.Add(this.labNo);
             this.Controls.Add(this.txtParentDeptName);
             this.Controls.Add(this.labParentDeptName);
             this.Controls.Add(this.txtParentDeptNo);
@@ -181,13 +181,13 @@
         private System.Windows.Forms.TextBox txtParentDeptNo;
         private System.Windows.Forms.TextBox txtParentDeptName;
         private System.Windows.Forms.Label labParentDeptName;
-        private System.Windows.Forms.Label labDeptNo;
+        private System.Windows.Forms.Label labNo;
         private System.Windows.Forms.Label labDeptName;
         private System.Windows.Forms.TextBox txtRemarks;
         private System.Windows.Forms.Label labRemarks;
         private System.Windows.Forms.Button btnConfirm;
         private System.Windows.Forms.Button btnCancel;
-        private System.Windows.Forms.TextBox txtDeptNo;
+        private System.Windows.Forms.TextBox txtNo;
         private System.Windows.Forms.TextBox txtDeptName;
     }
 }
