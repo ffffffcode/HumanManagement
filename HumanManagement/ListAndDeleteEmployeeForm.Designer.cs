@@ -28,24 +28,21 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.components = new System.ComponentModel.Container();
             this.txtDeptName = new System.Windows.Forms.TextBox();
             this.labDeptName = new System.Windows.Forms.Label();
             this.txtDeptNo = new System.Windows.Forms.TextBox();
             this.labDeptNo = new System.Windows.Forms.Label();
             this.dgvEmployeeList = new System.Windows.Forms.DataGridView();
-            this.Column1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Column2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Column3 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Column4 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Column5 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Column6 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Column7 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.employeeInfoBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.btnCloseForm = new System.Windows.Forms.Button();
             this.btnDelSelectedEmployee = new System.Windows.Forms.Button();
+            this.EmployeeNo = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.EmployeeName = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.IdCardNo = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Birthday = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Birthplace = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.EntryTime = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Index = new System.Windows.Forms.DataGridViewTextBoxColumn();
             ((System.ComponentModel.ISupportInitialize)(this.dgvEmployeeList)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.employeeInfoBindingSource)).BeginInit();
             this.SuspendLayout();
             // 
             // txtDeptName
@@ -89,13 +86,13 @@
             this.dgvEmployeeList.AllowUserToResizeRows = false;
             this.dgvEmployeeList.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dgvEmployeeList.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
-            this.Column1,
-            this.Column2,
-            this.Column3,
-            this.Column4,
-            this.Column5,
-            this.Column6,
-            this.Column7});
+            this.EmployeeNo,
+            this.EmployeeName,
+            this.IdCardNo,
+            this.Birthday,
+            this.Birthplace,
+            this.EntryTime,
+            this.Index});
             this.dgvEmployeeList.Location = new System.Drawing.Point(6, 56);
             this.dgvEmployeeList.Name = "dgvEmployeeList";
             this.dgvEmployeeList.ReadOnly = true;
@@ -104,59 +101,6 @@
             this.dgvEmployeeList.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.dgvEmployeeList.Size = new System.Drawing.Size(463, 170);
             this.dgvEmployeeList.TabIndex = 10;
-            // 
-            // Column1
-            // 
-            this.Column1.HeaderText = "工号";
-            this.Column1.Name = "Column1";
-            this.Column1.ReadOnly = true;
-            this.Column1.Width = 60;
-            // 
-            // Column2
-            // 
-            this.Column2.HeaderText = "姓名";
-            this.Column2.Name = "Column2";
-            this.Column2.ReadOnly = true;
-            this.Column2.Width = 60;
-            // 
-            // Column3
-            // 
-            this.Column3.HeaderText = "身份证";
-            this.Column3.Name = "Column3";
-            this.Column3.ReadOnly = true;
-            this.Column3.Width = 120;
-            // 
-            // Column4
-            // 
-            this.Column4.HeaderText = "出生日期";
-            this.Column4.Name = "Column4";
-            this.Column4.ReadOnly = true;
-            this.Column4.Width = 80;
-            // 
-            // Column5
-            // 
-            this.Column5.HeaderText = "籍贯";
-            this.Column5.Name = "Column5";
-            this.Column5.ReadOnly = true;
-            this.Column5.Width = 60;
-            // 
-            // Column6
-            // 
-            this.Column6.HeaderText = "入厂时间";
-            this.Column6.Name = "Column6";
-            this.Column6.ReadOnly = true;
-            this.Column6.Width = 80;
-            // 
-            // Column7
-            // 
-            this.Column7.HeaderText = "Index";
-            this.Column7.Name = "Column7";
-            this.Column7.ReadOnly = true;
-            this.Column7.Visible = false;
-            // 
-            // employeeInfoBindingSource
-            // 
-            this.employeeInfoBindingSource.DataSource = typeof(HumanManagement.Data.EmployeeInfo);
             // 
             // btnCloseForm
             // 
@@ -178,6 +122,55 @@
             this.btnDelSelectedEmployee.UseVisualStyleBackColor = true;
             this.btnDelSelectedEmployee.Click += new System.EventHandler(this.btnDelSelectedEmployee_Click);
             // 
+            // EmployeeNo
+            // 
+            this.EmployeeNo.HeaderText = "工号";
+            this.EmployeeNo.Name = "EmployeeNo";
+            this.EmployeeNo.ReadOnly = true;
+            this.EmployeeNo.Width = 60;
+            // 
+            // EmployeeName
+            // 
+            this.EmployeeName.HeaderText = "姓名";
+            this.EmployeeName.Name = "EmployeeName";
+            this.EmployeeName.ReadOnly = true;
+            this.EmployeeName.Width = 60;
+            // 
+            // IdCardNo
+            // 
+            this.IdCardNo.HeaderText = "身份证";
+            this.IdCardNo.Name = "IdCardNo";
+            this.IdCardNo.ReadOnly = true;
+            this.IdCardNo.Width = 120;
+            // 
+            // Birthday
+            // 
+            this.Birthday.HeaderText = "出生日期";
+            this.Birthday.Name = "Birthday";
+            this.Birthday.ReadOnly = true;
+            this.Birthday.Width = 80;
+            // 
+            // Birthplace
+            // 
+            this.Birthplace.HeaderText = "籍贯";
+            this.Birthplace.Name = "Birthplace";
+            this.Birthplace.ReadOnly = true;
+            this.Birthplace.Width = 60;
+            // 
+            // EntryTime
+            // 
+            this.EntryTime.HeaderText = "入厂时间";
+            this.EntryTime.Name = "EntryTime";
+            this.EntryTime.ReadOnly = true;
+            this.EntryTime.Width = 80;
+            // 
+            // Index
+            // 
+            this.Index.HeaderText = "Index";
+            this.Index.Name = "Index";
+            this.Index.ReadOnly = true;
+            this.Index.Visible = false;
+            // 
             // ListAndDeleteEmployeeForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
@@ -198,7 +191,6 @@
             this.Text = "员工清单";
             this.Load += new System.EventHandler(this.ListAndDeleteEmployeeForm_Load);
             ((System.ComponentModel.ISupportInitialize)(this.dgvEmployeeList)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.employeeInfoBindingSource)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -213,13 +205,12 @@
         private System.Windows.Forms.DataGridView dgvEmployeeList;
         private System.Windows.Forms.Button btnCloseForm;
         private System.Windows.Forms.Button btnDelSelectedEmployee;
-        private System.Windows.Forms.BindingSource employeeInfoBindingSource;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Column1;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Column2;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Column3;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Column4;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Column5;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Column6;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Column7;
+        private System.Windows.Forms.DataGridViewTextBoxColumn EmployeeNo;
+        private System.Windows.Forms.DataGridViewTextBoxColumn EmployeeName;
+        private System.Windows.Forms.DataGridViewTextBoxColumn IdCardNo;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Birthday;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Birthplace;
+        private System.Windows.Forms.DataGridViewTextBoxColumn EntryTime;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Index;
     }
 }
