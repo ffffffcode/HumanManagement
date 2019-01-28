@@ -448,27 +448,36 @@ namespace HumanManagement
         private void btnImport_Click(object sender, EventArgs e)
         {
             string filename = txtImportingFilename.Text;
+            //判断文件名是否为空，为空则提示用户
             if (!string.IsNullOrEmpty(filename))
             {
                 FileInfo inputFile = new FileInfo(filename);
+                //再判断文件名是否存在，文件不存在则提示用户
                 if (inputFile.Exists)
                 {
-                    XmlDocument xml = new XmlDocument();
-                    xml.Load(filename);
-                    if (xml.DocumentElement.Attributes["类型"].Value == "公司")
+                    try
                     {
-                        if (MessageBox.Show("导入会覆盖现有数据，是否导入", "请确认", MessageBoxButtons.OKCancel) == DialogResult.OK)
+                        XmlDocument xml = new XmlDocument();
+                        xml.Load(filename);
+                        if (xml.DocumentElement.Attributes["类型"].Value == "公司")
                         {
-                            ImportAndExportUtil.ImportXml(filename, true, tvHuman);
-                            txtHumanData.Text = "";
-                            return;
+                            if (MessageBox.Show("导入会覆盖现有数据，是否导入", "请确认", MessageBoxButtons.OKCancel) == DialogResult.OK)
+                            {
+                                ImportAndExportUtil.ImportXml(filename, true, tvHuman);
+                                txtHumanData.Text = "";
+                                return;
+                            }
+                            else
+                            {
+                                return;
+                            }
                         }
-                        else
-                        {
-                            return;
-                        }
+                        ImportAndExportUtil.ImportXml(filename, false, tvHuman);
                     }
-                    ImportAndExportUtil.ImportXml(filename, false, tvHuman);
+                    catch (Exception)
+                    {
+                        MessageBox.Show("数据导入失败，请确认导入的数据文件是否正确");
+                    }
                 }
                 else
                 {
