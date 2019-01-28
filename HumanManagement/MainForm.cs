@@ -510,5 +510,59 @@ namespace HumanManagement
                 txtImportingFilename.Text = "";
             }
         }
+
+        #region 拖动节点逻辑代码
+        private void tvHuman_ItemDrag(object sender, ItemDragEventArgs e)
+        {
+            TreeNode dragNode = e.Item as TreeNode;
+            if (dragNode != null && dragNode.Parent != null)
+            {
+                DoDragDrop(dragNode, DragDropEffects.Move);
+            }
+        }
+        private void tvHuman_DragEnter(object sender, DragEventArgs e)
+        {
+            e.Effect = e.AllowedEffect;
+        }
+
+        private void tvHuman_DragOver(object sender, DragEventArgs e)
+        {
+            TreeView tvHuman = sender as TreeView;
+            tvHuman.SelectedNode = tvHuman.GetNodeAt(tvHuman.PointToClient(new System.Drawing.Point(e.X, e.Y)));
+        }
+
+        private void tvHuman_DragDrop(object sender, DragEventArgs e)
+        {
+            TreeView tvHuman = sender as TreeView;
+            //取得被拖拽的节点
+            TreeNode dragNode = e.Data.GetData(typeof(TreeNode)) as TreeNode;
+            if (dragNode.Equals(tvHuman.SelectedNode))
+                return;
+
+            if (e.Effect == DragDropEffects.Move)
+            {
+                if (tvHuman.SelectedNode == null)
+                {
+                    //tvHuman.Nodes.Add(dragNode.Clone() as TreeNode);
+                    //dragNode.Remove();
+                    return;
+                }
+                if (NodeTypeUtil.IsEmployee(tvHuman.SelectedNode))
+                {
+                    MessageBox.Show("不能将节点移动到员工节点下面。");
+                }
+                else if (NodeTypeUtil.IsCompany(tvHuman.SelectedNode) && NodeTypeUtil.IsEmployee(dragNode))
+                {
+                    MessageBox.Show("不能将员工节点移动到公司节点下面。");
+                }
+                else
+                {
+                    dragNode.Remove();
+                    tvHuman.SelectedNode.Nodes.Add(dragNode);
+                }
+            }
+            dragNode.Expand();
+        }
+        #endregion
     }
 }

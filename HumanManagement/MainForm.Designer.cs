@@ -103,12 +103,17 @@
             // 
             // tvHuman
             // 
+            this.tvHuman.AllowDrop = true;
             this.tvHuman.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tvHuman.Location = new System.Drawing.Point(0, 0);
             this.tvHuman.Name = "tvHuman";
             this.tvHuman.Size = new System.Drawing.Size(120, 384);
             this.tvHuman.TabIndex = 0;
+            this.tvHuman.ItemDrag += new System.Windows.Forms.ItemDragEventHandler(this.tvHuman_ItemDrag);
             this.tvHuman.AfterSelect += new System.Windows.Forms.TreeViewEventHandler(this.tvHuman_AfterSelect);
+            this.tvHuman.DragDrop += new System.Windows.Forms.DragEventHandler(this.tvHuman_DragDrop);
+            this.tvHuman.DragEnter += new System.Windows.Forms.DragEventHandler(this.tvHuman_DragEnter);
+            this.tvHuman.DragOver += new System.Windows.Forms.DragEventHandler(this.tvHuman_DragOver);
             // 
             // txtHumanData
             // 

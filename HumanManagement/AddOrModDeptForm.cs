@@ -70,11 +70,6 @@ namespace HumanManagement
             //校验成功
             else
             {
-                //_deptInfo.ParentDeptNo = txtParentDeptNo.Text;
-                //_deptInfo.ParentDeptName = txtParentDeptName.Text;
-                //_deptInfo.No = txtNo.Text;
-                //_deptInfo.DeptName = txtDeptName.Text;
-                //_deptInfo.Remarks = txtRemarks.Text;
                 DataBindingUtil.ControlToData(_deptInfo, this);
                 _deptInfo.TypeString = "部门";
                 DialogResult = DialogResult.OK;
