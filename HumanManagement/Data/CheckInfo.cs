@@ -7,6 +7,19 @@ using System.Windows.Forms;
 namespace HumanManagement.Data
 {
     /// <summary>
+    /// 控件类型
+    /// </summary>
+    public enum ConType
+    {
+        IsPhone,
+        IsIdentity,
+        IsNumber,
+        IsEmail,
+        IsDate,
+        IsString
+    }
+
+    /// <summary>
     /// 数据检测类
     /// </summary>
     public class CheckInfo
@@ -28,30 +41,84 @@ namespace HumanManagement.Data
         public bool MustInPut = false;
 
         /// <summary>
-        /// 初始类属性 <see cref="CheckInfo"/> class.
+        /// 字段类型
         /// </summary>
+        public ConType _conType ;
+
+
+        /// <summary>
+        /// 初始类属性 <see cref="CheckInfo" /> class.
+        /// </summary>
+        /// <param name="conObj">The con object.</param>
         /// <param name="lenth">The lenth.</param>
         /// <param name="mustInput">if set to <c>true</c> [must input].</param>
-        public CheckInfo(Control conObj, int lenth, bool mustInput)
+        /// <param name="conType">Type of the con.</param>
+        public CheckInfo(Control conObj, int lenth, bool mustInput=false,ConType conType=ConType.IsString)
         {
             ConObj = conObj;
             Lenth = lenth;
             MustInPut = mustInput;
+            _conType = conType;
         }
 
+        #region 检查数据 bool CheckData()
         /// <summary>
-        /// 检查数据.
+        /// 检查数据
         /// </summary>
-        /// <param name="Value">The value.</param>
         /// <returns></returns>
-        public bool CheckData(string Value)
+        public bool CheckData()
         {
-            if (Lenth > 0 && ValueType == "string" && Value.Trim().Length > Lenth)
+            //长度判断
+
+
+            //是否为空判断
+
+
+            //字段类型的判断
+            switch (_conType)
             {
-                //找到对应的标签控件
-                return false;
+                case ConType.IsPhone:
+
+                    break;
+                case ConType.IsIdentity:
+                    break;
+                case ConType.IsNumber:
+                    return CheckIsNumber();                    
+                case ConType.IsEmail:
+                    break;
+                case ConType.IsDate:
+                    break;
+                case ConType.IsString:
+                    break;
+                default:
+                    break;
             }
+
+
+            //if (Lenth > 0  && Value.Trim().Length > Lenth)
+            //{
+            //    //根据编辑控件名找到对应的标签控件
+
+            //    //生成提示信息
+
+            //    //定位焦点
+            //    return false;
+            //}
             return true;
         }
+        #endregion
+
+        #region 数字的判断 bool CheckIsNumber()
+        /// <summary>
+        /// 数字的判断
+        /// </summary>
+        /// <returns></returns>
+        private bool CheckIsNumber()
+        {
+            //数字的判断
+
+            return true;
+        }
+        #endregion
     }
 }

@@ -54,7 +54,7 @@
             this.txtDeptNo.Location = new System.Drawing.Point(82, 12);
             this.txtDeptNo.Name = "txtDeptNo";
             this.txtDeptNo.Size = new System.Drawing.Size(150, 21);
-            this.txtDeptNo.TabIndex = 3;
+            this.txtDeptNo.TabIndex = 0;
             // 
             // labDeptNo
             // 
@@ -71,7 +71,7 @@
             this.txtDeptName.Location = new System.Drawing.Point(323, 12);
             this.txtDeptName.Name = "txtDeptName";
             this.txtDeptName.Size = new System.Drawing.Size(150, 21);
-            this.txtDeptName.TabIndex = 5;
+            this.txtDeptName.TabIndex = 4;
             // 
             // labDeptName
             // 
@@ -89,7 +89,7 @@
             this.txtNo.MaxLength = 6;
             this.txtNo.Name = "txtNo";
             this.txtNo.Size = new System.Drawing.Size(150, 21);
-            this.txtNo.TabIndex = 7;
+            this.txtNo.TabIndex = 1;
             // 
             // labNo
             // 
@@ -106,7 +106,7 @@
             this.txtEmployeeName.Location = new System.Drawing.Point(323, 39);
             this.txtEmployeeName.Name = "txtEmployeeName";
             this.txtEmployeeName.Size = new System.Drawing.Size(150, 21);
-            this.txtEmployeeName.TabIndex = 9;
+            this.txtEmployeeName.TabIndex = 5;
             // 
             // labEmployeeName
             // 
@@ -124,7 +124,7 @@
             this.txtIdCardNo.MaxLength = 18;
             this.txtIdCardNo.Name = "txtIdCardNo";
             this.txtIdCardNo.Size = new System.Drawing.Size(150, 21);
-            this.txtIdCardNo.TabIndex = 11;
+            this.txtIdCardNo.TabIndex = 2;
             this.txtIdCardNo.Leave += new System.EventHandler(this.txtIdCardNo_Leave);
             // 
             // labIdCardNo
@@ -142,7 +142,7 @@
             this.txtBirthday.Location = new System.Drawing.Point(323, 66);
             this.txtBirthday.Name = "txtBirthday";
             this.txtBirthday.Size = new System.Drawing.Size(150, 21);
-            this.txtBirthday.TabIndex = 13;
+            this.txtBirthday.TabIndex = 6;
             // 
             // labBirthday
             // 
@@ -158,7 +158,7 @@
             this.txtBirthplace.Location = new System.Drawing.Point(82, 93);
             this.txtBirthplace.Name = "txtBirthplace";
             this.txtBirthplace.Size = new System.Drawing.Size(150, 21);
-            this.txtBirthplace.TabIndex = 15;
+            this.txtBirthplace.TabIndex = 3;
             // 
             // labBirthplace
             // 
@@ -183,7 +183,7 @@
             this.btnCannel.Location = new System.Drawing.Point(254, 127);
             this.btnCannel.Name = "btnCannel";
             this.btnCannel.Size = new System.Drawing.Size(75, 23);
-            this.btnCannel.TabIndex = 19;
+            this.btnCannel.TabIndex = 9;
             this.btnCannel.Text = "取消";
             this.btnCannel.UseVisualStyleBackColor = true;
             this.btnCannel.Click += new System.EventHandler(this.btnCancel_Click);
@@ -193,7 +193,7 @@
             this.btnComfirm.Location = new System.Drawing.Point(149, 127);
             this.btnComfirm.Name = "btnComfirm";
             this.btnComfirm.Size = new System.Drawing.Size(75, 23);
-            this.btnComfirm.TabIndex = 18;
+            this.btnComfirm.TabIndex = 8;
             this.btnComfirm.Text = "确定";
             this.btnComfirm.UseVisualStyleBackColor = true;
             this.btnComfirm.Click += new System.EventHandler(this.btnConfirm_Click);
@@ -205,7 +205,7 @@
             this.dtpEntryTime.Location = new System.Drawing.Point(323, 92);
             this.dtpEntryTime.Name = "dtpEntryTime";
             this.dtpEntryTime.Size = new System.Drawing.Size(150, 21);
-            this.dtpEntryTime.TabIndex = 20;
+            this.dtpEntryTime.TabIndex = 7;
             // 
             // AddOrModEmployeeForm
             // 

@@ -7,6 +7,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HumanManagement", "HumanMan
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ImportAndExportSolution", "ImportAndExportSolution\ImportAndExportSolution.csproj", "{999BC25C-0A2F-4329-AFD1-477231717593}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HumanManagementSQLServer", "HumanManagementSQLServer\HumanManagementSQLServer.csproj", "{901D151A-2803-409D-B710-2BB4182A0703}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -21,6 +23,10 @@ Global
 		{999BC25C-0A2F-4329-AFD1-477231717593}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{999BC25C-0A2F-4329-AFD1-477231717593}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{999BC25C-0A2F-4329-AFD1-477231717593}.Release|Any CPU.Build.0 = Release|Any CPU
+		{901D151A-2803-409D-B710-2BB4182A0703}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{901D151A-2803-409D-B710-2BB4182A0703}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{901D151A-2803-409D-B710-2BB4182A0703}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{901D151A-2803-409D-B710-2BB4182A0703}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
