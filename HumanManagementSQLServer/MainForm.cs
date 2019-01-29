@@ -10,6 +10,18 @@ namespace HumanManagementSQLServer
 {
     public partial class MainForm : Form
     {
+
+        private static HumanManagementDataSet globalDataSet = new HumanManagementDataSet();
+        private static HumanManagementDataSetTableAdapters.companyTableAdapter companyTableAdapter = new HumanManagementDataSetTableAdapters.companyTableAdapter();
+        private static HumanManagementDataSetTableAdapters.deptTableAdapter deptTableAdapter = new HumanManagementDataSetTableAdapters.deptTableAdapter();
+        private static HumanManagementDataSetTableAdapters.empTableAdapter empTableAdapter = new HumanManagementDataSetTableAdapters.empTableAdapter();
+        private static HumanManagementDataSetTableAdapters.TableAdapterManager tableAdapterManager = new HumanManagementDataSetTableAdapters.TableAdapterManager()
+        {
+            companyTableAdapter = companyTableAdapter,
+            deptTableAdapter = deptTableAdapter,
+            empTableAdapter = empTableAdapter
+        };
+
         /// <summary>
         /// 与子窗体交换数据的委托
         /// </summary>
@@ -25,6 +37,9 @@ namespace HumanManagementSQLServer
 
         private void MainForm_Load(object sender, EventArgs e)
         {
+            companyTableAdapter.Fill(globalDataSet.company);
+            deptTableAdapter.Fill(globalDataSet.dept);
+            empTableAdapter.Fill(globalDataSet.emp);
             CreateTreeNode();
         }
 
@@ -158,6 +173,19 @@ namespace HumanManagementSQLServer
 
         private void btnAddDept_Click(object sender, EventArgs e)
         {
+
+
+
+
+
+
+
+
+
+
+
+
+
             TreeNode selectedNode = tvHuman.SelectedNode;
 
             //创建添加部门窗体
@@ -188,6 +216,15 @@ namespace HumanManagementSQLServer
                     Tag = addDeptForm.DeptInfo
                 };
                 selectedNode.Nodes.Add(newTreeNode);
+
+                HumanManagementDataSet.deptDataTable deptDataTable = new HumanManagementDataSet.deptDataTable();
+                HumanManagementDataSet.deptRow deptRow = deptDataTable.NewdeptRow();
+                deptRow.dept_no = addDeptForm.DeptInfo.No;
+                deptRow.dept_name = addDeptForm.DeptInfo.DeptName;
+                deptRow.remarks = addDeptForm.DeptInfo.Remarks;
+                deptRow.company_no = "C";
+                deptRow.parent_dept_no = addDeptForm.DeptInfo.ParentDeptNo;
+                int i = HumanManagementData.DeptTableAdapter.Update(deptRow);
             }
         }
     }
