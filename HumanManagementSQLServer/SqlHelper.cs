@@ -156,7 +156,7 @@ namespace HumanManagementSQLServer
         /// </summary>
         /// <param name="tableName"></param>
         /// <returns></returns>
-        public static DataTable GetTableClone(string tableName)
+        public static DataTable GetTableSchema(string tableName)
         {
             string cmdStr = "SELECT TOP 0 * FROM [" + tableName + "]";
             SqlConnection conn = GetConnection();//公用            
@@ -185,7 +185,7 @@ namespace HumanManagementSQLServer
         /// </summary>
         /// <param name="cmdStr"></param>
         /// <returns></returns>
-        public static DataTable GetTable(string cmdStr)
+        public static DataTable GetTable(string cmdStr, string tableName)
         {
             SqlConnection conn = GetConnection();//公用            
             SqlCommand cmd = new SqlCommand(cmdStr, conn);
@@ -193,7 +193,7 @@ namespace HumanManagementSQLServer
             try
             {
                 SqlDataAdapter ad = new SqlDataAdapter(cmdStr, conn);
-                table = new DataTable();
+                table = new DataTable(tableName);
                 ad.Fill(table);
             }
             catch
@@ -258,7 +258,7 @@ namespace HumanManagementSQLServer
         /// <summary>
         /// 添加一行数据
         /// </summary>
-        public static int Add(string tableName, List<string> valueList)
+        public static int AddRow(string tableName, List<string> valueList)
         {
             string cmdStr = CmdForInsertTable(tableName, valueList);
             SqlConnection conn = GetConnection();//公用            
@@ -368,6 +368,26 @@ namespace HumanManagementSQLServer
             {
                 string key = dt.Columns[i].ColumnName;
                 object value = dr[i];
+                list.Add(key, value);
+            }
+            return list;
+        }
+
+        /// <summary>
+        /// 转化表格中一行数据
+        /// </summary>
+        public static Dictionary<string, object> ConventRowToModel(DataRow dataRow)
+        {
+            if (dataRow == null)
+            {
+                return null;
+            }
+            DataTable dt = dataRow.Table;
+            Dictionary<string, object> list = new Dictionary<string, object>();
+            for (int i = 0; i < dt.Columns.Count; i++)
+            {
+                string key = dt.Columns[i].ColumnName;
+                object value = dataRow[i];
                 list.Add(key, value);
             }
             return list;
