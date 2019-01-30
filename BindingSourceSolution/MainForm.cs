@@ -17,18 +17,11 @@ namespace BindingSourceSolution
             InitializeComponent();
         }
 
-        private void button1_Click(object sender, EventArgs e)
-        {
-            AddOrModDeptForm f = new AddOrModDeptForm();
-            f.bindingSource.DataSource = this.humanManagementDataSet.dept.Select("dept_name = '项目部'");
-            f.ShowDialog();
-        }
-
         private void Form1_Load(object sender, EventArgs e)
         {
-            this.companyTableAdapter.Fill(this.humanManagementDataSet.company);
             this.deptTableAdapter.Fill(this.humanManagementDataSet.dept);
             this.empTableAdapter.Fill(this.humanManagementDataSet.emp);
+            this.deptDetailTableAdapter.Fill(this.humanManagementDataSet.deptDetail);
             CreateTreeNode();
         }
 
@@ -39,17 +32,6 @@ namespace BindingSourceSolution
         /// </summary>
         private void CreateTreeNode()
         {
-            // 添加公司节点
-            TreeNode companyTreeNode = new TreeNode()
-            {
-                Text = this.humanManagementDataSet.company.Rows[0]["company_name"].ToString(),
-                Name = this.humanManagementDataSet.company.Rows[0]["company_no"].ToString(),
-                //Tag = new DeptInfo(HumanManagementData.CompanyTable.Rows[0]["company_no"].ToString(), HumanManagementData.CompanyTable.Rows[0]["company_name"].ToString(), HumanManagementData.CompanyTable.Rows[0]["remarks"].ToString(), "公司")
-            };
-            tvHuman.Nodes.Add(companyTreeNode);
-
-            // 添加第一级部门节点
-            //HumanManagementDataSet.deptDataTable deptDataTable = this.humanManagementDataSet.dept;
 
             foreach (HumanManagementDataSet.deptRow row in this.humanManagementDataSet.dept.Select("parent_dept_no IS NULL"))
             {
@@ -59,7 +41,7 @@ namespace BindingSourceSolution
                     Name = row.dept_no,
                     //Tag = new DeptInfo(row.dept_no, row.dept_name, row.remarks, "部门")
                 };
-                companyTreeNode.Nodes.Add(deptTreeNode);
+                tvHuman.Nodes.Add(deptTreeNode);
                 CreateSubDeptTreeNode(deptTreeNode, deptTreeNode.Name);
             }
         }
@@ -86,5 +68,28 @@ namespace BindingSourceSolution
             }
         }
         #endregion
+
+        private void btnAddDept_Click(object sender, EventArgs e)
+        {
+            AddOrModDeptForm addOrModDeptForm = new AddOrModDeptForm();
+            addOrModDeptForm.deptDetailBindingSource.DataSource = this.humanManagementDataSet.deptDetail;
+            if (addOrModDeptForm.ShowDialog() == DialogResult.OK)
+            {
+                this.tableAdapterManager.UpdateAll(this.humanManagementDataSet);
+            }
+        }
+
+        private void btnModDept_Click(object sender, EventArgs e)
+        {
+            TreeNode selectedNode = tvHuman.SelectedNode;
+
+            AddOrModDeptForm addOrModDeptForm = new AddOrModDeptForm();
+            DataRow[] dataRows = this.humanManagementDataSet.deptDetail.Select("dept_no = '" + selectedNode.Name + "'");
+            addOrModDeptForm.deptDetailBindingSource.DataSource = dataRows;
+            if (addOrModDeptForm.ShowDialog() == DialogResult.OK)
+            {
+                this.deptTableAdapter.Update(dataRows);
+            }
+        }
     }
 }

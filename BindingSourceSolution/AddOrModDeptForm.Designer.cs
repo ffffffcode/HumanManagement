@@ -29,7 +29,6 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            this.bindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.txtDeptName = new System.Windows.Forms.TextBox();
             this.txtNo = new System.Windows.Forms.TextBox();
             this.btnCancel = new System.Windows.Forms.Button();
@@ -42,13 +41,16 @@
             this.labParentDeptName = new System.Windows.Forms.Label();
             this.txtParentDeptNo = new System.Windows.Forms.TextBox();
             this.labParentDeptNo = new System.Windows.Forms.Label();
-            ((System.ComponentModel.ISupportInitialize)(this.bindingSource)).BeginInit();
+            this.humanManagementDataSet = new BindingSourceSolution.HumanManagementDataSet();
+            this.deptDetailBindingSource = new System.Windows.Forms.BindingSource(this.components);
+            this.deptDetailTableAdapter = new BindingSourceSolution.HumanManagementDataSetTableAdapters.deptDetailTableAdapter();
+            ((System.ComponentModel.ISupportInitialize)(this.humanManagementDataSet)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.deptDetailBindingSource)).BeginInit();
             this.SuspendLayout();
             // 
             // txtDeptName
             // 
             this.txtDeptName.BackColor = System.Drawing.Color.Yellow;
-            this.txtDeptName.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.bindingSource, "dept_name", true));
             this.txtDeptName.Location = new System.Drawing.Point(115, 94);
             this.txtDeptName.Name = "txtDeptName";
             this.txtDeptName.Size = new System.Drawing.Size(150, 21);
@@ -57,7 +59,6 @@
             // txtNo
             // 
             this.txtNo.BackColor = System.Drawing.Color.Yellow;
-            this.txtNo.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.bindingSource, "dept_no", true));
             this.txtNo.Location = new System.Drawing.Point(115, 67);
             this.txtNo.Name = "txtNo";
             this.txtNo.Size = new System.Drawing.Size(150, 21);
@@ -71,6 +72,7 @@
             this.btnCancel.TabIndex = 35;
             this.btnCancel.Text = "取消";
             this.btnCancel.UseVisualStyleBackColor = true;
+            this.btnCancel.Click += new System.EventHandler(this.btnCancel_Click);
             // 
             // btnConfirm
             // 
@@ -80,10 +82,11 @@
             this.btnConfirm.TabIndex = 34;
             this.btnConfirm.Text = "确定";
             this.btnConfirm.UseVisualStyleBackColor = true;
+            this.btnConfirm.Click += new System.EventHandler(this.btnConfirm_Click);
             // 
             // txtRemarks
             // 
-            this.txtRemarks.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.bindingSource, "remarks", true));
+            this.txtRemarks.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.deptDetailBindingSource, "remarks", true));
             this.txtRemarks.Location = new System.Drawing.Point(115, 122);
             this.txtRemarks.Name = "txtRemarks";
             this.txtRemarks.Size = new System.Drawing.Size(150, 21);
@@ -118,7 +121,6 @@
             // 
             // txtParentDeptName
             // 
-            this.txtParentDeptName.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.bindingSource, "parent_dept_name", true));
             this.txtParentDeptName.Enabled = false;
             this.txtParentDeptName.Location = new System.Drawing.Point(115, 41);
             this.txtParentDeptName.Name = "txtParentDeptName";
@@ -136,7 +138,7 @@
             // 
             // txtParentDeptNo
             // 
-            this.txtParentDeptNo.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.bindingSource, "parent_dept_no", true));
+            this.txtParentDeptNo.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.deptDetailBindingSource, "parent_dept_no", true));
             this.txtParentDeptNo.Enabled = false;
             this.txtParentDeptNo.Location = new System.Drawing.Point(115, 14);
             this.txtParentDeptNo.Name = "txtParentDeptNo";
@@ -151,6 +153,20 @@
             this.labParentDeptNo.Size = new System.Drawing.Size(89, 12);
             this.labParentDeptNo.TabIndex = 24;
             this.labParentDeptNo.Text = "上级部门编号：";
+            // 
+            // humanManagementDataSet
+            // 
+            this.humanManagementDataSet.DataSetName = "HumanManagementDataSet";
+            this.humanManagementDataSet.SchemaSerializationMode = System.Data.SchemaSerializationMode.IncludeSchema;
+            // 
+            // deptDetailBindingSource
+            // 
+            this.deptDetailBindingSource.DataMember = "deptDetail";
+            this.deptDetailBindingSource.DataSource = this.humanManagementDataSet;
+            // 
+            // deptDetailTableAdapter
+            // 
+            this.deptDetailTableAdapter.ClearBeforeFill = true;
             // 
             // AddOrModDeptForm
             // 
@@ -176,7 +192,9 @@
             this.ShowInTaskbar = false;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "AddOrModDeptForm";
-            ((System.ComponentModel.ISupportInitialize)(this.bindingSource)).EndInit();
+            this.Load += new System.EventHandler(this.AddOrModDeptForm_Load);
+            ((System.ComponentModel.ISupportInitialize)(this.humanManagementDataSet)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.deptDetailBindingSource)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -195,6 +213,8 @@
         private System.Windows.Forms.Label labParentDeptName;
         private System.Windows.Forms.TextBox txtParentDeptNo;
         private System.Windows.Forms.Label labParentDeptNo;
-        internal System.Windows.Forms.BindingSource bindingSource;
+        private HumanManagementDataSet humanManagementDataSet;
+        private HumanManagementDataSetTableAdapters.deptDetailTableAdapter deptDetailTableAdapter;
+        internal System.Windows.Forms.BindingSource deptDetailBindingSource;
     }
 }
