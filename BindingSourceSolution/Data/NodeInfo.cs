@@ -1,6 +1,6 @@
 ﻿using System.Drawing;
 
-namespace HumanManagementSQLServer.Data
+namespace BindingSourceSolution.Data
 {
     /// <summary>
     /// 人员管理系统项目顶层的抽象数据结构，所有数据结构都继承该类。

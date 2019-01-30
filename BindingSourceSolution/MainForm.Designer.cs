@@ -41,9 +41,10 @@
             this.btnAddDept = new System.Windows.Forms.Button();
             this.humanManagementDataSet = new BindingSourceSolution.HumanManagementDataSet();
             this.deptTableAdapter = new BindingSourceSolution.HumanManagementDataSetTableAdapters.deptTableAdapter();
+            this.deptDetailTableAdapter = new BindingSourceSolution.HumanManagementDataSetTableAdapters.deptDetailTableAdapter();
             this.empTableAdapter = new BindingSourceSolution.HumanManagementDataSetTableAdapters.empTableAdapter();
             this.tableAdapterManager = new BindingSourceSolution.HumanManagementDataSetTableAdapters.TableAdapterManager();
-            this.deptDetailTableAdapter = new BindingSourceSolution.HumanManagementDataSetTableAdapters.deptDetailTableAdapter();
+            this.empDetailTableAdapter = new BindingSourceSolution.HumanManagementDataSetTableAdapters.empDetailTableAdapter();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainerMain)).BeginInit();
             this.splitContainerMain.Panel1.SuspendLayout();
             this.splitContainerMain.Panel2.SuspendLayout();
@@ -62,6 +63,7 @@
             this.tvHuman.Name = "tvHuman";
             this.tvHuman.Size = new System.Drawing.Size(120, 384);
             this.tvHuman.TabIndex = 0;
+            this.tvHuman.AfterSelect += new System.Windows.Forms.TreeViewEventHandler(this.tvHuman_AfterSelect);
             // 
             // splitContainerMain
             // 
@@ -133,6 +135,7 @@
             this.btnDelEmployee.TabIndex = 5;
             this.btnDelEmployee.Text = "删除员工";
             this.btnDelEmployee.UseVisualStyleBackColor = true;
+            this.btnDelEmployee.Click += new System.EventHandler(this.btnDelEmployee_Click);
             // 
             // btnModEmployee
             // 
@@ -142,6 +145,7 @@
             this.btnModEmployee.TabIndex = 4;
             this.btnModEmployee.Text = "修改员工";
             this.btnModEmployee.UseVisualStyleBackColor = true;
+            this.btnModEmployee.Click += new System.EventHandler(this.btnModEmployee_Click);
             // 
             // btnAddEmployee
             // 
@@ -151,6 +155,7 @@
             this.btnAddEmployee.TabIndex = 3;
             this.btnAddEmployee.Text = "添加员工";
             this.btnAddEmployee.UseVisualStyleBackColor = true;
+            this.btnAddEmployee.Click += new System.EventHandler(this.btnAddEmployee_Click);
             // 
             // btnDelDept
             // 
@@ -160,6 +165,7 @@
             this.btnDelDept.TabIndex = 2;
             this.btnDelDept.Text = "删除部门";
             this.btnDelDept.UseVisualStyleBackColor = true;
+            this.btnDelDept.Click += new System.EventHandler(this.btnDelDept_Click);
             // 
             // btnModDept
             // 
@@ -190,6 +196,10 @@
             // 
             this.deptTableAdapter.ClearBeforeFill = true;
             // 
+            // deptDetailTableAdapter
+            // 
+            this.deptDetailTableAdapter.ClearBeforeFill = true;
+            // 
             // empTableAdapter
             // 
             this.empTableAdapter.ClearBeforeFill = true;
@@ -201,9 +211,9 @@
             this.tableAdapterManager.empTableAdapter = this.empTableAdapter;
             this.tableAdapterManager.UpdateOrder = BindingSourceSolution.HumanManagementDataSetTableAdapters.TableAdapterManager.UpdateOrderOption.InsertUpdateDelete;
             // 
-            // deptDetailTableAdapter
+            // empDetailTableAdapter
             // 
-            this.deptDetailTableAdapter.ClearBeforeFill = true;
+            this.empDetailTableAdapter.ClearBeforeFill = true;
             // 
             // MainForm
             // 
@@ -216,7 +226,7 @@
             this.Name = "MainForm";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "人员管理窗口";
-            this.Load += new System.EventHandler(this.Form1_Load);
+            this.Load += new System.EventHandler(this.MainForm_Load);
             this.splitContainerMain.Panel1.ResumeLayout(false);
             this.splitContainerMain.Panel2.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.splitContainerMain)).EndInit();
@@ -232,10 +242,6 @@
         }
 
         #endregion
-        private HumanManagementDataSet humanManagementDataSet;
-        private HumanManagementDataSetTableAdapters.deptTableAdapter deptTableAdapter;
-        private HumanManagementDataSetTableAdapters.empTableAdapter empTableAdapter;
-        private HumanManagementDataSetTableAdapters.TableAdapterManager tableAdapterManager;
         private System.Windows.Forms.TreeView tvHuman;
         private System.Windows.Forms.SplitContainer splitContainerMain;
         private System.Windows.Forms.SplitContainer splitContainerData;
@@ -247,7 +253,12 @@
         private System.Windows.Forms.Button btnDelDept;
         private System.Windows.Forms.Button btnModDept;
         private System.Windows.Forms.Button btnAddDept;
+        private HumanManagementDataSet humanManagementDataSet;
+        private HumanManagementDataSetTableAdapters.deptTableAdapter deptTableAdapter;
         private HumanManagementDataSetTableAdapters.deptDetailTableAdapter deptDetailTableAdapter;
+        private HumanManagementDataSetTableAdapters.empTableAdapter empTableAdapter;
+        private HumanManagementDataSetTableAdapters.TableAdapterManager tableAdapterManager;
+        private HumanManagementDataSetTableAdapters.empDetailTableAdapter empDetailTableAdapter;
     }
 }
 

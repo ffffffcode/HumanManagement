@@ -1,4 +1,4 @@
-﻿namespace HumanManagementSQLServer.Validation
+﻿namespace BindingSourceSolution.Validation
 {
     /// <summary>
     /// System.Windows.Forms.TextBox 控件的校验生成器，用于构造校验器。

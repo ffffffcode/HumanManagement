@@ -1,8 +1,8 @@
-﻿using HumanManagementSQLServer.Data;
+﻿using BindingSourceSolution.Data;
 using System.Windows.Forms;
 using System.Xml;
 
-namespace HumanManagementSQLServer.Util
+namespace BindingSourceSolution.Util
 {
     /// <summary>
     /// 节点类型枚举

@@ -1,6 +1,6 @@
 ﻿using System.Text;
 
-namespace HumanManagementSQLServer.Data
+namespace BindingSourceSolution.Data
 {
     /// <summary>
     /// 员工节点的数据结构

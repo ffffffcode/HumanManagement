@@ -1,5 +1,7 @@
-﻿using System;
+﻿using BindingSourceSolution.Util;
+using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Forms;
@@ -16,7 +18,9 @@ namespace BindingSourceSolution
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
+            DataSet dataSet = new DataSet();
             Application.Run(new MainForm());
+            
         }
     }
 }
