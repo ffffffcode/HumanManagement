@@ -156,10 +156,8 @@ namespace HumanManagementSQLServer
             }
         }
 
-        private void UpdateDept(string formText, string schemaSql, string tableName, Dictionary<string, object> columnValuePairs, out DataRow dataRow)
+        private void UpdateDept(TreeNode selectedNode, string formText, string schemaSql, string tableName, Dictionary<string, object> columnValuePairs)
         {
-            TreeNode selectedNode = tvHuman.SelectedNode;
-
             //创建窗体
             AddOrModDeptForm addOrModDeptForm = new AddOrModDeptForm
             {
@@ -175,11 +173,12 @@ namespace HumanManagementSQLServer
             }
             dataTable.Rows.Add(newDataRow);
 
-            dataRow = newDataRow;
+
+            addOrModDeptForm.DataTable = dataTable;
 
             if (addOrModDeptForm.ShowDialog() == DialogResult.OK)
             {
-                DeptInfo deptInfo = new DeptInfo(dataRow["DeptNo"].ToString(), dataRow["DeptName"].ToString(), dataRow["Remarks"].ToString(), "部门");
+                DeptInfo deptInfo = new DeptInfo(newDataRow["DeptNo"].ToString(), newDataRow["DeptName"].ToString(), newDataRow["Remarks"].ToString(), "部门");
 
                 List<string> valueList = new List<string>();
                 valueList.Add("dept_no = '" + deptInfo.No + "'");
@@ -204,7 +203,9 @@ namespace HumanManagementSQLServer
 
                 if ("修改部门" == formText)
                 {
+                    //更新行
                     SqlHelper.Update("dept", valueList, "dept.dept_no = '" + selectedNode.Name + "'");
+                    //修改部门信息
                     selectedNode.Text = deptInfo.DeptName;
                     selectedNode.Tag = deptInfo;
 
@@ -217,6 +218,16 @@ namespace HumanManagementSQLServer
         private void btnAddDept_Click(object sender, EventArgs e)
         {
             TreeNode selectedNode = tvHuman.SelectedNode;
+            //获取子窗体所需的表结构，该表用于父窗体与子窗体交换数据
+            string schemeSql = "SELECT TOP 0 dept.dept_no AS DeptNo, dept.dept_name AS DeptName, dept.remarks AS Remarks, dept.parent_dept_no AS ParentDeptNo, dept_1.dept_name AS ParentDeptName FROM dept LEFT OUTER JOIN dept AS dept_1 ON dept.parent_dept_no = dept_1.dept_no";
+            //为表的第一行添加数据，key为列名，value为值
+            Dictionary<string, object> columnValuePairs = new Dictionary<string, object>
+            {
+                { "ParentDeptNo", selectedNode.Name },
+                { "ParentDeptName", ((DeptInfo)selectedNode.Tag).DeptName }
+            };
+            UpdateDept(selectedNode, btnAddDept.Text, schemeSql, "dept", columnValuePairs);
+            /*TreeNode selectedNode = tvHuman.SelectedNode;
 
             //创建添加部门窗体
             AddOrModDeptForm addDeptForm = new AddOrModDeptForm
@@ -255,7 +266,7 @@ namespace HumanManagementSQLServer
                     Tag = deptInfo
                 };
                 selectedNode.Nodes.Add(newTreeNode);
-            }
+            }*/
         }
 
         /// <summary>

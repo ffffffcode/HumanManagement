@@ -83,7 +83,7 @@ namespace HumanManagementSQLServer.Data
 
         private bool CheckDeptNo(string value)
         {
-            return Regex.IsMatch(value, @"^[A-Za-z0-9]+$");//字母或数字
+            return Regex.IsMatch(value, @"^[A-Za-z0-9_]+$");//字母或数字
         }
 
         private bool CheckDeptName(string value)

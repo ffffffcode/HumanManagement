@@ -388,7 +388,11 @@ namespace HumanManagementSQLServer
             return list;
         }
 
-        public static bool NotExcitd(string tableName, string primaryName, object primaryValue)
+        public static bool Excited(string tableName, string primaryName, object primaryValue)
+        {
+            return !NotExcited(tableName, primaryName, primaryValue);
+        }
+        public static bool NotExcited(string tableName, string primaryName, object primaryValue)
         {
             string cmdStr = "SELECT Count(*) FROM " + tableName + " WHERE " + primaryName + " = '" + primaryValue.ToString() + "'";
             SqlConnection conn = GetConnection();//公用            

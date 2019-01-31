@@ -51,18 +51,16 @@ namespace HumanManagementSQLServer
 
         private void btnConfirm_Click(object sender, System.EventArgs e)
         {
+            if (this.Text == "修改部门" && SqlHelper.Excited("dept", "dept_no", txtNo.Text))
+            {
+                txtNo.Focus();
+                MessageBox.Show("部门编号已存在");
+            }
+
             if (CheckData())
             {
-                if (SqlHelper.NotExcitd("dept", "dept_no", txtNo.Text))
-                {
-                    DataBindingUtil.ControlToData(_dataTable, this, "Dept");
-                    this.DialogResult = DialogResult.OK;
-                }
-                else
-                {
-                    txtNo.Focus();
-                    MessageBox.Show("部门编号已存在");
-                }
+                DataBindingUtil.ControlToData(_dataTable, this, "Dept");
+                this.DialogResult = DialogResult.OK;
             }
             else
             {
