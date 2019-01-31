@@ -196,11 +196,12 @@ namespace BindingSourceSolution
         {
             TreeNode selectedNode = tvHuman.SelectedNode;
 
-            HumanManagementDataSet.deptRow dataRow = this.humanManagementDataSet.dept.Select("dept_no = '" + selectedNode.Name + "'")[0] as HumanManagementDataSet.deptRow;
+            //HumanManagementDataSet.deptRow dataRow = this.humanManagementDataSet.dept.Select("dept_no = '" + selectedNode.Name + "'")[0] as HumanManagementDataSet.deptRow;
 
+            HumanManagementDataSet.deptDetailRow deptDetailRow = this.humanManagementDataSet.deptDetail.Select("dept_no = '" + selectedNode.Name + "'")[0] as HumanManagementDataSet.deptDetailRow;
             if (MessageBox.Show("是否删除 " + selectedNode.Text + " 节点", "请确认", MessageBoxButtons.OKCancel) == DialogResult.OK)
             {
-                this.deptTableAdapter.Delete(dataRow.dept_no, dataRow.dept_name, dataRow.remarks, dataRow.parent_dept_no);
+                this.deptTableAdapter.Delete(deptDetailRow.dept_no, deptDetailRow.dept_name, deptDetailRow.remarks, deptDetailRow.parent_dept_no);
                 this.tableAdapterManager.UpdateAll(this.humanManagementDataSet);
                 selectedNode.Remove();
             }

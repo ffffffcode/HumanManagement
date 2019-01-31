@@ -144,7 +144,7 @@ namespace HumanManagementSQLServer
                 setStr += item + ",";
             }
             setStr = setStr.Trim(',');
-            string sqlstr = string.Format("UPDATE [{0}] SET {1} where {2}", tableName, setStr, whereStr);
+            string sqlstr = string.Format("UPDATE [{0}] SET {1} WHERE {2}", tableName, setStr, whereStr);
             return sqlstr;
         }
         #endregion
@@ -217,7 +217,7 @@ namespace HumanManagementSQLServer
         /// <returns></returns>
         public static DataTable GetTable(string tableName, string selctColumns, string whereStr)
         {
-            string cmdStr = string.Format("SELECT {1} FROM [{0}]", tableName, selctColumns);
+            string cmdStr = string.Format("SELECT {1} FROM {0}", tableName, selctColumns);
             if (!string.IsNullOrEmpty(whereStr))
             {
                 cmdStr += "  WHERE " + whereStr;
@@ -331,7 +331,7 @@ namespace HumanManagementSQLServer
         /// <summary>
         /// 删除数据
         /// </summary>
-        public static bool Remove(string tableName, string whereStr)
+        public static bool Delete(string tableName, string whereStr)
         {
             string cmdStr = string.Format("DELETE FROM [{0}] WHERE ({1})", tableName, whereStr);
             SqlConnection conn = GetConnection();//公用            

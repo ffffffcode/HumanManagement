@@ -57,6 +57,7 @@
             this.btnListEmployee.TabIndex = 6;
             this.btnListEmployee.Text = "查看员工列表";
             this.btnListEmployee.UseVisualStyleBackColor = true;
+            this.btnListEmployee.Click += new System.EventHandler(this.btnListEmployee_Click);
             // 
             // btnDelEmployee
             // 
@@ -66,6 +67,7 @@
             this.btnDelEmployee.TabIndex = 5;
             this.btnDelEmployee.Text = "删除员工";
             this.btnDelEmployee.UseVisualStyleBackColor = true;
+            this.btnDelEmployee.Click += new System.EventHandler(this.btnDelEmployee_Click);
             // 
             // btnModEmployee
             // 
@@ -75,6 +77,7 @@
             this.btnModEmployee.TabIndex = 4;
             this.btnModEmployee.Text = "修改员工";
             this.btnModEmployee.UseVisualStyleBackColor = true;
+            this.btnModEmployee.Click += new System.EventHandler(this.btnModEmployee_Click);
             // 
             // btnAddEmployee
             // 
@@ -84,6 +87,7 @@
             this.btnAddEmployee.TabIndex = 3;
             this.btnAddEmployee.Text = "添加员工";
             this.btnAddEmployee.UseVisualStyleBackColor = true;
+            this.btnAddEmployee.Click += new System.EventHandler(this.btnAddEmployee_Click);
             // 
             // btnDelDept
             // 
@@ -93,6 +97,7 @@
             this.btnDelDept.TabIndex = 2;
             this.btnDelDept.Text = "删除部门";
             this.btnDelDept.UseVisualStyleBackColor = true;
+            this.btnDelDept.Click += new System.EventHandler(this.btnDelDept_Click);
             // 
             // btnModDept
             // 
@@ -102,6 +107,7 @@
             this.btnModDept.TabIndex = 1;
             this.btnModDept.Text = "修改部门";
             this.btnModDept.UseVisualStyleBackColor = true;
+            this.btnModDept.Click += new System.EventHandler(this.btnModDept_Click);
             // 
             // btnAddDept
             // 
@@ -111,6 +117,7 @@
             this.btnAddDept.TabIndex = 0;
             this.btnAddDept.Text = "添加部门";
             this.btnAddDept.UseVisualStyleBackColor = true;
+            this.btnAddDept.Click += new System.EventHandler(this.btnAddDept_Click);
             // 
             // tvHuman
             // 
@@ -120,6 +127,7 @@
             this.tvHuman.Name = "tvHuman";
             this.tvHuman.Size = new System.Drawing.Size(120, 384);
             this.tvHuman.TabIndex = 0;
+            this.tvHuman.AfterSelect += new System.Windows.Forms.TreeViewEventHandler(this.tvHuman_AfterSelect);
             // 
             // splitContainerData
             // 
