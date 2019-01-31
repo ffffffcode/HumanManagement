@@ -1,9 +1,7 @@
 ﻿using System;
-using System.Data;
-using System.Xml;
-using System.Data.SqlClient;
-using System.Collections;
 using System.Collections.Generic;
+using System.Data;
+using System.Data.SqlClient;
 
 namespace HumanManagementSQLServer
 {
@@ -12,8 +10,8 @@ namespace HumanManagementSQLServer
         //数据库连接字符串
         private readonly static string connstr = @"Data Source=20190114-100739\SQLEXPRESS;Initial Catalog=HumanManagement;Integrated Security=True";
 
-        private static List<bool> IsBusy = new List<bool>();
-        private static List<SqlConnection> connList = new List<SqlConnection>();//链接列表,解决打开链接消耗时间问题
+        private static List<bool> _isBusy = new List<bool>();
+        private static List<SqlConnection> _connList = new List<SqlConnection>();//链接列表,解决打开链接消耗时间问题
 
         private SqlHelper() { }
 
@@ -24,8 +22,8 @@ namespace HumanManagementSQLServer
             {
                 SqlConnection conn = new SqlConnection(connstr);
                 conn.Open();
-                connList.Add(conn);
-                IsBusy.Add(false);
+                _connList.Add(conn);
+                _isBusy.Add(false);
             }
         }
 
@@ -35,19 +33,19 @@ namespace HumanManagementSQLServer
         /// <returns></returns>
         private static SqlConnection GetConnection()
         {
-            int index = IsBusy.IndexOf(false);
+            int index = _isBusy.IndexOf(false);
             if (index == -1)
             {
                 return null;
             }
-            IsBusy[index] = true;
-            SqlConnection conn = connList[index];
+            _isBusy[index] = true;
+            SqlConnection conn = _connList[index];
             if (conn.State == ConnectionState.Closed)
             {
                 //如果链接已经关闭,重新打开
                 conn.Open();
             }
-            return connList[index];
+            return _connList[index];
         }
 
         /// <summary>
@@ -56,9 +54,9 @@ namespace HumanManagementSQLServer
         /// <param name="conn"></param>
         private static void FreeConnect(SqlConnection conn)
         {
-            int index = connList.IndexOf(conn);
+            int index = _connList.IndexOf(conn);
             ConnectionState state = conn.State;
-            IsBusy[index] = false;
+            _isBusy[index] = false;
         }
 
         #region 组织select命令
@@ -205,7 +203,6 @@ namespace HumanManagementSQLServer
                 FreeConnect(conn);
             }
             return table;
-
         }
 
         /// <summary>
@@ -258,7 +255,7 @@ namespace HumanManagementSQLServer
         /// <summary>
         /// 添加一行数据
         /// </summary>
-        public static void AddRow(string tableName, List<string> valueList)
+        public static void Insert(string tableName, List<string> valueList)
         {
             string cmdStr = CmdForInsertTable(tableName, valueList);
             SqlConnection conn = GetConnection();//公用            
@@ -391,29 +388,27 @@ namespace HumanManagementSQLServer
             return list;
         }
 
-        public static bool Excited(string tableName, string primaryName, object primaryValue)
+        public static bool NotExcitd(string tableName, string primaryName, object primaryValue)
         {
-            string cmdStr = "SELECT Count(*) FROM " + tableName + " WHERE " + primaryName + " = " + primaryValue.ToString(); 
+            string cmdStr = "SELECT Count(*) FROM " + tableName + " WHERE " + primaryName + " = '" + primaryValue.ToString() + "'";
             SqlConnection conn = GetConnection();//公用            
             SqlCommand cmd = new SqlCommand(cmdStr, conn);
             try
             {
-                int n = (int)cmd.ExecuteScalar();
-                if (n==0)
+                if ((int)cmd.ExecuteScalar() == 0)
                 {
-                    return false;
+                    return true;
                 }
             }
             catch
             {
-
                 throw;
             }
             finally
             {
                 FreeConnect(conn);
             }
-            return true;
+            return false;
         }
     }
 }

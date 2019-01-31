@@ -156,7 +156,64 @@ namespace HumanManagementSQLServer
             }
         }
 
-        // TODO 完成
+        private void UpdateDept(string formText, string schemaSql, string tableName, Dictionary<string, object> columnValuePairs, out DataRow dataRow)
+        {
+            TreeNode selectedNode = tvHuman.SelectedNode;
+
+            //创建窗体
+            AddOrModDeptForm addOrModDeptForm = new AddOrModDeptForm
+            {
+                Owner = this,
+                Text = formText
+            };
+
+            DataTable dataTable = SqlHelper.GetTable(schemaSql, tableName);
+            DataRow newDataRow = dataTable.NewRow();
+            foreach (KeyValuePair<string, object> item in columnValuePairs)
+            {
+                newDataRow[item.Key] = item.Value;
+            }
+            dataTable.Rows.Add(newDataRow);
+
+            dataRow = newDataRow;
+
+            if (addOrModDeptForm.ShowDialog() == DialogResult.OK)
+            {
+                DeptInfo deptInfo = new DeptInfo(dataRow["DeptNo"].ToString(), dataRow["DeptName"].ToString(), dataRow["Remarks"].ToString(), "部门");
+
+                List<string> valueList = new List<string>();
+                valueList.Add("dept_no = '" + deptInfo.No + "'");
+                valueList.Add("dept_name = '" + deptInfo.DeptName + "'");
+                valueList.Add("remarks = '" + deptInfo.Remarks + "'");
+
+                if ("添加部门" == formText)
+                {
+                    valueList.Add("parent_dept_no = '" + selectedNode.Name + "'");
+                    //插入新行
+                    SqlHelper.Insert("dept", valueList);
+
+                    //添加新部门节点
+                    TreeNode newTreeNode = new TreeNode
+                    {
+                        Text = deptInfo.DeptName,
+                        Name = deptInfo.No,
+                        Tag = deptInfo
+                    };
+                    selectedNode.Nodes.Add(newTreeNode);
+                }
+
+                if ("修改部门" == formText)
+                {
+                    SqlHelper.Update("dept", valueList, "dept.dept_no = '" + selectedNode.Name + "'");
+                    selectedNode.Text = deptInfo.DeptName;
+                    selectedNode.Tag = deptInfo;
+
+                    //修改完成后，触发 tvHuman_AfterSelect 事件，以在 tvHuman 控件中显示修改完成后的数据。
+                    tvHuman_AfterSelect(this, null);
+                }
+            }
+        }
+
         private void btnAddDept_Click(object sender, EventArgs e)
         {
             TreeNode selectedNode = tvHuman.SelectedNode;
@@ -168,28 +225,35 @@ namespace HumanManagementSQLServer
                 Text = btnAddDept.Text
             };
 
-            addDeptForm.ParentDeptNo = selectedNode.Name;
-            addDeptForm.ParentDeptName = (selectedNode.Tag as DeptInfo).DeptName;
+            DataTable dataTable = SqlHelper.GetTable("SELECT TOP 0 dept.dept_no AS DeptNo, dept.dept_name AS DeptName, dept.remarks AS Remarks, dept.parent_dept_no AS ParentDeptNo, dept_1.dept_name AS ParentDeptName FROM dept LEFT OUTER JOIN dept AS dept_1 ON dept.parent_dept_no = dept_1.dept_no", "dept");
+            DataRow newDataRow = dataTable.NewRow();
+            newDataRow["ParentDeptNo"] = selectedNode.Name;
+            newDataRow["ParentDeptName"] = ((DeptInfo)selectedNode.Tag).DeptName;
+            dataTable.Rows.Add(newDataRow);
+
+            addDeptForm.DataTable = dataTable;
 
             //如果在 addDeptForm 添加部门窗体中点击确定，则在所选的节点下添加部门
             if (addDeptForm.ShowDialog() == DialogResult.OK)
             {
-                DeptInfo deptInfo = addDeptForm.DeptInfo;
-                TreeNode newTreeNode = new TreeNode
-                {
-                    Text = deptInfo.DeptName,
-                    Name = deptInfo.No,
-                    Tag = new DeptInfo(deptInfo.No, deptInfo.DeptName, deptInfo.Remarks, "部门")
-                };
+                DataRow dataRow = addDeptForm.DataTable.Rows[0];
+                DeptInfo deptInfo = new DeptInfo(dataRow["DeptNo"].ToString(), dataRow["DeptName"].ToString(), dataRow["Remarks"].ToString(), "部门");
 
+                //插入新行到数据库
                 List<string> valueList = new List<string>();
                 valueList.Add("dept_no = '" + deptInfo.No + "'");
                 valueList.Add("dept_name = '" + deptInfo.DeptName + "'");
                 valueList.Add("remarks = '" + deptInfo.Remarks + "'");
                 valueList.Add("parent_dept_no = '" + selectedNode.Name + "'");
-                // TODO 异常处理
-                SqlHelper.AddRow("dept", valueList);
+                SqlHelper.Insert("dept", valueList);
 
+                //添加新部门节点
+                TreeNode newTreeNode = new TreeNode
+                {
+                    Text = deptInfo.DeptName,
+                    Name = deptInfo.No,
+                    Tag = deptInfo
+                };
                 selectedNode.Nodes.Add(newTreeNode);
             }
         }
@@ -287,7 +351,7 @@ namespace HumanManagementSQLServer
                 valueList.Add("entry_time = '" + dataRow["EntryTime"].ToString() + "'");
                 valueList.Add("dept_no = '" + selectedNode.Name + "'");
                 // TODO 异常处理
-                SqlHelper.AddRow("emp", valueList);
+                SqlHelper.Insert("emp", valueList);
 
                 selectedNode.Nodes.Add(newTreeNode);
             }
