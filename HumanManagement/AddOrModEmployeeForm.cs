@@ -46,24 +46,7 @@ namespace HumanManagement
             KeyDown += new KeyEventHandler(FormKeyDownHandler.EnterToSelectNextControl);
         }
 
-        public List<CheckInfo> CheckObjList = null;
 
-        public virtual void InitWindow()
-        {
-            CheckObjList = new List<CheckInfo>();
-            CheckObjList.Add(new CheckInfo(txtBirthday, 5, true,ConType.IsDate));
-            CheckObjList.Add(new CheckInfo(txtBirthplace, 5));
-        }
-
-        public bool CheckData()
-        {
-            foreach (CheckInfo item in CheckObjList)
-            {
-                item.CheckData();
-            }
-
-            return true;
-        }
         /// <summary>
         /// 确定按钮点击事件，用于创建员工节点
         /// </summary>
@@ -71,9 +54,6 @@ namespace HumanManagement
         /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
         private void btnConfirm_Click(object sender, EventArgs e)
         {
-            if (CheckData() == false)
-                return ;
-
             //创建校验器
             TextBoxValidator txtEmployeeNoValidator = new TextBoxValidatorBuilder().EmployeeNo().Bulid();
             TextBoxValidator txtEmployeeNameValidator = new TextBoxValidatorBuilder().EmployeeName().Bulid();

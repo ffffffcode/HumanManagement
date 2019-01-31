@@ -127,6 +127,7 @@
             this.txtIdCardNo.Name = "txtIdCardNo";
             this.txtIdCardNo.Size = new System.Drawing.Size(150, 21);
             this.txtIdCardNo.TabIndex = 19;
+            this.txtIdCardNo.Leave += new System.EventHandler(this.txtIdCardNo_Leave);
             // 
             // labIdCardNo
             // 

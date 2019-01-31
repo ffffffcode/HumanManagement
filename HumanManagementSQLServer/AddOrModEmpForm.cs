@@ -36,5 +36,10 @@ namespace HumanManagementSQLServer
         {
             DialogResult = DialogResult.Cancel;
         }
+
+        private void txtIdCardNo_Leave(object sender, System.EventArgs e)
+        {
+            txtBirthday.Text = txtIdCardNo.Text.Substring(6, 4) + "-" + txtIdCardNo.Text.Substring(10, 2) + "-" + txtIdCardNo.Text.Substring(12, 2);
+        }
     }
 }

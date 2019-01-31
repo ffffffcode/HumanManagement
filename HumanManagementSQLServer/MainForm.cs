@@ -168,18 +168,28 @@ namespace HumanManagementSQLServer
                 Text = btnAddDept.Text
             };
 
-            DataTable dataTable = SqlHelper.GetTable("dept", "dept.dept_no AS ParentDeptNo, dept.dept_name AS ParentDeptName", "dept.dept_no = '" + selectedNode.Name + "'");
-            addDeptForm.DataTable = dataTable;
+            addDeptForm.ParentDeptNo = selectedNode.Name;
+            addDeptForm.ParentDeptName = (selectedNode.Tag as DeptInfo).DeptName;
 
             //如果在 addDeptForm 添加部门窗体中点击确定，则在所选的节点下添加部门
             if (addDeptForm.ShowDialog() == DialogResult.OK)
             {
+                DeptInfo deptInfo = addDeptForm.DeptInfo;
                 TreeNode newTreeNode = new TreeNode
                 {
-                    Text = addDeptForm.DataTable.Rows[0]["dept_name"].ToString(),
-                    Tag = new DeptInfo(addDeptForm.DataTable.Rows[0]["dept_no"].ToString(), addDeptForm.DataTable.Rows[0]["dept_name"].ToString(), addDeptForm.DataTable.Rows[0]["remarks"].ToString(), "部门")
+                    Text = deptInfo.DeptName,
+                    Name = deptInfo.No,
+                    Tag = new DeptInfo(deptInfo.No, deptInfo.DeptName, deptInfo.Remarks, "部门")
                 };
-                // TODO 更新数据库
+
+                List<string> valueList = new List<string>();
+                valueList.Add("dept_no = '" + deptInfo.No + "'");
+                valueList.Add("dept_name = '" + deptInfo.DeptName + "'");
+                valueList.Add("remarks = '" + deptInfo.Remarks + "'");
+                valueList.Add("parent_dept_no = '" + selectedNode.Name + "'");
+                // TODO 异常处理
+                SqlHelper.AddRow("dept", valueList);
+
                 selectedNode.Nodes.Add(newTreeNode);
             }
         }
@@ -241,7 +251,46 @@ namespace HumanManagementSQLServer
 
         private void btnAddEmployee_Click(object sender, EventArgs e)
         {
+            TreeNode selectedNode = tvHuman.SelectedNode;
+            //创建添加员工窗体
+            AddOrModEmpForm addEmpform = new AddOrModEmpForm
+            {
+                Owner = this,
+                Text = btnModEmployee.Text
+            };
 
+            DataTable dataTable = SqlHelper.GetTable("SELECT TOP 0 emp.emp_no AS EmpNo, emp.emp_name AS EmployeeName, emp.idcard_no AS IdCardNo, emp.birthday AS Birthday, emp.birthplace AS Birthplace, emp.entry_time AS EntryTime, dept.dept_no AS DeptNo, dept.dept_name AS DeptName FROM dept LEFT OUTER JOIN emp ON dept.dept_no = emp.dept_no", "dept");
+            DataRow newDataRow = dataTable.NewRow();
+            newDataRow["DeptNo"] = selectedNode.Name;
+            newDataRow["DeptName"] = ((DeptInfo)selectedNode.Tag).DeptName;
+            dataTable.Rows.Add(newDataRow);
+
+            addEmpform.DataTable = dataTable;
+
+            if (addEmpform.ShowDialog() == DialogResult.OK)
+            {
+                DataRow dataRow = addEmpform.DataTable.Rows[0];
+                TreeNode newTreeNode = new TreeNode
+                {
+                    Text = dataRow["EmployeeName"].ToString(),
+                    Name = dataRow["EmpNo"].ToString(),
+                    ForeColor = Color.Green,
+                    Tag = new EmpInfo(dataRow["EmpNo"].ToString(), dataRow["EmployeeName"].ToString(), dataRow["IdCardNo"].ToString(), dataRow["Birthday"].ToString(), dataRow["Birthplace"].ToString(), dataRow["EntryTime"].ToString(), "员工")
+                };
+
+                List<string> valueList = new List<string>();
+                valueList.Add("emp_no = '" + dataRow["EmpNo"].ToString() + "'");
+                valueList.Add("emp_name = '" + dataRow["EmployeeName"].ToString() + "'");
+                valueList.Add("idcard_no = '" + dataRow["IdCardNo"].ToString() + "'");
+                valueList.Add("birthday = '" + dataRow["Birthday"].ToString() + "'");
+                valueList.Add("birthplace = '" + dataRow["Birthplace"].ToString() + "'");
+                valueList.Add("entry_time = '" + dataRow["EntryTime"].ToString() + "'");
+                valueList.Add("dept_no = '" + selectedNode.Name + "'");
+                // TODO 异常处理
+                SqlHelper.AddRow("emp", valueList);
+
+                selectedNode.Nodes.Add(newTreeNode);
+            }
         }
 
         private void btnModEmployee_Click(object sender, EventArgs e)

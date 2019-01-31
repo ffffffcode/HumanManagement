@@ -1,22 +1,19 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+﻿using System.Text.RegularExpressions;
 using System.Windows.Forms;
 
 namespace HumanManagementSQLServer.Data
 {
     /// <summary>
-    /// 控件类型
+    /// 校验类型
     /// </summary>
-    public enum ConType
+    public enum CheckType
     {
-        IsPhone,
-        IsIdentity,
-        IsNumber,
-        IsEmail,
-        IsDate,
-        IsString
+        Required,
+        DeptNo,
+        DeptName,
+        EmployeeNo,
+        EmployeeName,
+        IdCardNo
     }
 
     /// <summary>
@@ -24,27 +21,12 @@ namespace HumanManagementSQLServer.Data
     /// </summary>
     public class CheckInfo
     {
-        public Control ConObj = null;
-        /// <summary>
-        /// 值类型,默认为string
-        /// </summary>
-        public string ValueType = "string";
+        public Control _control;
 
         /// <summary>
-        /// 长度
+        /// 校验类型
         /// </summary>
-        public int Lenth = -1;
-
-        /// <summary>
-        /// 必须录入
-        /// </summary>
-        public bool MustInPut = false;
-
-        /// <summary>
-        /// 字段类型
-        /// </summary>
-        public ConType _conType ;
-
+        public CheckType _checkType;
 
         /// <summary>
         /// 初始类属性 <see cref="CheckInfo" /> class.
@@ -53,12 +35,10 @@ namespace HumanManagementSQLServer.Data
         /// <param name="lenth">The lenth.</param>
         /// <param name="mustInput">if set to <c>true</c> [must input].</param>
         /// <param name="conType">Type of the con.</param>
-        public CheckInfo(Control conObj, int lenth, bool mustInput=false,ConType conType=ConType.IsString)
+        public CheckInfo(Control control, CheckType checkType)
         {
-            ConObj = conObj;
-            Lenth = lenth;
-            MustInPut = mustInput;
-            _conType = conType;
+            this._control = control;
+            this._checkType = checkType;
         }
 
         #region 检查数据 bool CheckData()
@@ -66,59 +46,64 @@ namespace HumanManagementSQLServer.Data
         /// 检查数据
         /// </summary>
         /// <returns></returns>
-        public bool CheckData()
+        public bool Check()
         {
-            //长度判断
-
-
-            //是否为空判断
-
-
-            //字段类型的判断
-            switch (_conType)
+            switch (_checkType)
             {
-                case ConType.IsPhone:
-
-                    break;
-                case ConType.IsIdentity:
-                    break;
-                case ConType.IsNumber:
-                    return CheckIsNumber();                    
-                case ConType.IsEmail:
-                    break;
-                case ConType.IsDate:
-                    break;
-                case ConType.IsString:
-                    break;
+                case CheckType.Required:
+                    return CheckRequired(_control.Text);
+                case CheckType.DeptNo:
+                    return CheckDeptNo(_control.Text);
+                case CheckType.DeptName:
+                    return CheckDeptName(_control.Text);
+                case CheckType.EmployeeNo:
+                    return CheckEmployeeNo(_control.Text);
+                case CheckType.EmployeeName:
+                    return CheckEmployeeName(_control.Text);
+                case CheckType.IdCardNo:
+                    return CheckIdCardNo(_control.Text);
                 default:
-                    break;
+                    return true;
             }
-
-
-            //if (Lenth > 0  && Value.Trim().Length > Lenth)
-            //{
-            //    //根据编辑控件名找到对应的标签控件
-
-            //    //生成提示信息
-
-            //    //定位焦点
-            //    return false;
-            //}
-            return true;
         }
         #endregion
 
-        #region 数字的判断 bool CheckIsNumber()
         /// <summary>
-        /// 数字的判断
+        /// 非空判断
         /// </summary>
         /// <returns></returns>
-        private bool CheckIsNumber()
+        private bool CheckRequired(string value)
         {
-            //数字的判断
-
-            return true;
+            if (value.Length != 0)
+            {
+                return true;
+            }
+            return false;
         }
-        #endregion
+
+        private bool CheckDeptNo(string value)
+        {
+            return Regex.IsMatch(value, @"^[A-Za-z0-9]+$");//字母或数字
+        }
+
+        private bool CheckDeptName(string value)
+        {
+            return Regex.IsMatch(value, @"^[A-Za-z\u4e00-\u9fa5]+$");//字母或汉字
+        }
+
+        private bool CheckEmployeeNo(string value)
+        {
+            return Regex.IsMatch(value, @"^[A-Za-z0-9]{6}$");//字母或数字，6位
+        }
+
+        private bool CheckEmployeeName(string value)
+        {
+            return Regex.IsMatch(value, @"^[A-Za-z\u4e00-\u9fa5]{2,}$");//字母或汉字，2位以上
+        }
+
+        private bool CheckIdCardNo(string value)
+        {
+            return Regex.IsMatch(value, @"^[1-9]\d{7}((0\d)|(1[0-2]))(([0|1|2]\d)|3[0-1])\d{3}$|^[1-9]\d{5}[1-9]\d{3}((0\d)|(1[0-2]))(([0|1|2]\d)|3[0-1])\d{3}([0-9]|X)$");//身份证
+        }
     }
 }

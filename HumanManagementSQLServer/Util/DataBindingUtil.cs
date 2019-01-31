@@ -230,7 +230,21 @@ namespace HumanManagementSQLServer.Util
                 }
                 if (con is TextBox)
                 {
-                    dataTable.Rows[0][columuName] = con.Text;
+                    if (columuName == "Birthday")
+                    {
+                        if (string.IsNullOrEmpty(con.Text))
+                        {
+                            dataTable.Rows[0][columuName] = DBNull.Value;
+                        }
+                        else
+                        {
+                            dataTable.Rows[0][columuName] = DateTime.Parse(con.Text);
+                        }
+                    }
+                    else
+                    {
+                        dataTable.Rows[0][columuName] = con.Text;
+                    }
                 }
                 if (con is DateTimePicker)
                 {

@@ -132,7 +132,7 @@ namespace HumanManagementSQLServer
             }
             columns = columns.Trim(',');
             values = values.Trim(',');
-            string sqlstr = string.Format("INSERT INTO [{0}] ({1}) VALUES ({2});select @@IDENTITY", tableName, columns, values);
+            string sqlstr = string.Format("INSERT INTO [{0}] ({1}) VALUES ({2})", tableName, columns, values);
             return sqlstr;
         }
 
@@ -258,26 +258,24 @@ namespace HumanManagementSQLServer
         /// <summary>
         /// 添加一行数据
         /// </summary>
-        public static int AddRow(string tableName, List<string> valueList)
+        public static void AddRow(string tableName, List<string> valueList)
         {
             string cmdStr = CmdForInsertTable(tableName, valueList);
             SqlConnection conn = GetConnection();//公用            
             SqlCommand cmd = new SqlCommand(cmdStr, conn);
-            int rowId = 0;
             try
             {
-                object o = cmd.ExecuteScalar();
-                rowId = int.Parse(o.ToString());
+                cmd.ExecuteNonQuery();
             }
-            catch
+            catch (Exception)
             {
+
                 throw;
             }
             finally
             {
                 FreeConnect(conn);
             }
-            return rowId;
         }
 
         /// <summary>
@@ -391,6 +389,31 @@ namespace HumanManagementSQLServer
                 list.Add(key, value);
             }
             return list;
+        }
+
+        public static bool Excited(string tableName, string primaryName, object primaryValue)
+        {
+            string cmdStr = "SELECT Count(*) FROM " + tableName + " WHERE " + primaryName + " = " + primaryValue.ToString(); 
+            SqlConnection conn = GetConnection();//公用            
+            SqlCommand cmd = new SqlCommand(cmdStr, conn);
+            try
+            {
+                int n = (int)cmd.ExecuteScalar();
+                if (n==0)
+                {
+                    return false;
+                }
+            }
+            catch
+            {
+
+                throw;
+            }
+            finally
+            {
+                FreeConnect(conn);
+            }
+            return true;
         }
     }
 }
