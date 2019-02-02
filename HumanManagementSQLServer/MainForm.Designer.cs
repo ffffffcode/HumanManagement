@@ -28,10 +28,10 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.btnListEmployee = new System.Windows.Forms.Button();
-            this.btnDelEmployee = new System.Windows.Forms.Button();
-            this.btnModEmployee = new System.Windows.Forms.Button();
-            this.btnAddEmployee = new System.Windows.Forms.Button();
+            this.btnListEmp = new System.Windows.Forms.Button();
+            this.btnDelEmp = new System.Windows.Forms.Button();
+            this.btnModEmp = new System.Windows.Forms.Button();
+            this.btnAddEmp = new System.Windows.Forms.Button();
             this.btnDelDept = new System.Windows.Forms.Button();
             this.btnModDept = new System.Windows.Forms.Button();
             this.btnAddDept = new System.Windows.Forms.Button();
@@ -49,51 +49,56 @@
             this.splitContainerMain.SuspendLayout();
             this.SuspendLayout();
             // 
-            // btnListEmployee
+            // btnListEmp
             // 
-            this.btnListEmployee.Location = new System.Drawing.Point(14, 170);
-            this.btnListEmployee.Name = "btnListEmployee";
-            this.btnListEmployee.Size = new System.Drawing.Size(86, 38);
-            this.btnListEmployee.TabIndex = 6;
-            this.btnListEmployee.Text = "查看员工列表";
-            this.btnListEmployee.UseVisualStyleBackColor = true;
-            this.btnListEmployee.Click += new System.EventHandler(this.btnListEmployee_Click);
+            this.btnListEmp.Location = new System.Drawing.Point(21, 255);
+            this.btnListEmp.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.btnListEmp.Name = "btnListEmp";
+            this.btnListEmp.Size = new System.Drawing.Size(129, 57);
+            this.btnListEmp.TabIndex = 6;
+            this.btnListEmp.Text = "查看员工列表";
+            this.btnListEmp.UseVisualStyleBackColor = true;
+            this.btnListEmp.Click += new System.EventHandler(this.btnListEmp_Click);
             // 
-            // btnDelEmployee
+            // btnDelEmp
             // 
-            this.btnDelEmployee.Location = new System.Drawing.Point(232, 112);
-            this.btnDelEmployee.Name = "btnDelEmployee";
-            this.btnDelEmployee.Size = new System.Drawing.Size(86, 38);
-            this.btnDelEmployee.TabIndex = 5;
-            this.btnDelEmployee.Text = "删除员工";
-            this.btnDelEmployee.UseVisualStyleBackColor = true;
-            this.btnDelEmployee.Click += new System.EventHandler(this.btnDelEmployee_Click);
+            this.btnDelEmp.Location = new System.Drawing.Point(348, 168);
+            this.btnDelEmp.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.btnDelEmp.Name = "btnDelEmp";
+            this.btnDelEmp.Size = new System.Drawing.Size(129, 57);
+            this.btnDelEmp.TabIndex = 5;
+            this.btnDelEmp.Text = "删除员工";
+            this.btnDelEmp.UseVisualStyleBackColor = true;
+            this.btnDelEmp.Click += new System.EventHandler(this.btnDelEmp_Click);
             // 
-            // btnModEmployee
+            // btnModEmp
             // 
-            this.btnModEmployee.Location = new System.Drawing.Point(123, 112);
-            this.btnModEmployee.Name = "btnModEmployee";
-            this.btnModEmployee.Size = new System.Drawing.Size(86, 38);
-            this.btnModEmployee.TabIndex = 4;
-            this.btnModEmployee.Text = "修改员工";
-            this.btnModEmployee.UseVisualStyleBackColor = true;
-            this.btnModEmployee.Click += new System.EventHandler(this.btnModEmployee_Click);
+            this.btnModEmp.Location = new System.Drawing.Point(184, 168);
+            this.btnModEmp.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.btnModEmp.Name = "btnModEmp";
+            this.btnModEmp.Size = new System.Drawing.Size(129, 57);
+            this.btnModEmp.TabIndex = 4;
+            this.btnModEmp.Text = "修改员工";
+            this.btnModEmp.UseVisualStyleBackColor = true;
+            this.btnModEmp.Click += new System.EventHandler(this.btnModEmp_Click);
             // 
-            // btnAddEmployee
+            // btnAddEmp
             // 
-            this.btnAddEmployee.Location = new System.Drawing.Point(14, 112);
-            this.btnAddEmployee.Name = "btnAddEmployee";
-            this.btnAddEmployee.Size = new System.Drawing.Size(86, 38);
-            this.btnAddEmployee.TabIndex = 3;
-            this.btnAddEmployee.Text = "添加员工";
-            this.btnAddEmployee.UseVisualStyleBackColor = true;
-            this.btnAddEmployee.Click += new System.EventHandler(this.btnAddEmployee_Click);
+            this.btnAddEmp.Location = new System.Drawing.Point(21, 168);
+            this.btnAddEmp.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.btnAddEmp.Name = "btnAddEmp";
+            this.btnAddEmp.Size = new System.Drawing.Size(129, 57);
+            this.btnAddEmp.TabIndex = 3;
+            this.btnAddEmp.Text = "添加员工";
+            this.btnAddEmp.UseVisualStyleBackColor = true;
+            this.btnAddEmp.Click += new System.EventHandler(this.btnAddEmp_Click);
             // 
             // btnDelDept
             // 
-            this.btnDelDept.Location = new System.Drawing.Point(232, 29);
+            this.btnDelDept.Location = new System.Drawing.Point(348, 44);
+            this.btnDelDept.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.btnDelDept.Name = "btnDelDept";
-            this.btnDelDept.Size = new System.Drawing.Size(86, 38);
+            this.btnDelDept.Size = new System.Drawing.Size(129, 57);
             this.btnDelDept.TabIndex = 2;
             this.btnDelDept.Text = "删除部门";
             this.btnDelDept.UseVisualStyleBackColor = true;
@@ -101,9 +106,10 @@
             // 
             // btnModDept
             // 
-            this.btnModDept.Location = new System.Drawing.Point(123, 29);
+            this.btnModDept.Location = new System.Drawing.Point(184, 44);
+            this.btnModDept.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.btnModDept.Name = "btnModDept";
-            this.btnModDept.Size = new System.Drawing.Size(86, 38);
+            this.btnModDept.Size = new System.Drawing.Size(129, 57);
             this.btnModDept.TabIndex = 1;
             this.btnModDept.Text = "修改部门";
             this.btnModDept.UseVisualStyleBackColor = true;
@@ -111,9 +117,10 @@
             // 
             // btnAddDept
             // 
-            this.btnAddDept.Location = new System.Drawing.Point(14, 29);
+            this.btnAddDept.Location = new System.Drawing.Point(21, 44);
+            this.btnAddDept.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.btnAddDept.Name = "btnAddDept";
-            this.btnAddDept.Size = new System.Drawing.Size(86, 38);
+            this.btnAddDept.Size = new System.Drawing.Size(129, 57);
             this.btnAddDept.TabIndex = 0;
             this.btnAddDept.Text = "添加部门";
             this.btnAddDept.UseVisualStyleBackColor = true;
@@ -124,8 +131,9 @@
             this.tvHuman.AllowDrop = true;
             this.tvHuman.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tvHuman.Location = new System.Drawing.Point(0, 0);
+            this.tvHuman.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.tvHuman.Name = "tvHuman";
-            this.tvHuman.Size = new System.Drawing.Size(120, 384);
+            this.tvHuman.Size = new System.Drawing.Size(180, 576);
             this.tvHuman.TabIndex = 0;
             this.tvHuman.AfterSelect += new System.Windows.Forms.TreeViewEventHandler(this.tvHuman_AfterSelect);
             // 
@@ -133,6 +141,7 @@
             // 
             this.splitContainerData.Dock = System.Windows.Forms.DockStyle.Fill;
             this.splitContainerData.Location = new System.Drawing.Point(0, 0);
+            this.splitContainerData.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.splitContainerData.Name = "splitContainerData";
             // 
             // splitContainerData.Panel1
@@ -142,19 +151,20 @@
             // splitContainerData.Panel2
             // 
             this.splitContainerData.Panel2.Controls.Add(this.txtHumanData);
-            this.splitContainerData.Size = new System.Drawing.Size(258, 384);
-            this.splitContainerData.SplitterDistance = 120;
-            this.splitContainerData.SplitterWidth = 1;
+            this.splitContainerData.Size = new System.Drawing.Size(387, 576);
+            this.splitContainerData.SplitterDistance = 180;
+            this.splitContainerData.SplitterWidth = 2;
             this.splitContainerData.TabIndex = 0;
             // 
             // txtHumanData
             // 
             this.txtHumanData.Dock = System.Windows.Forms.DockStyle.Fill;
             this.txtHumanData.Location = new System.Drawing.Point(0, 0);
+            this.txtHumanData.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.txtHumanData.Multiline = true;
             this.txtHumanData.Name = "txtHumanData";
             this.txtHumanData.ReadOnly = true;
-            this.txtHumanData.Size = new System.Drawing.Size(137, 384);
+            this.txtHumanData.Size = new System.Drawing.Size(205, 576);
             this.txtHumanData.TabIndex = 0;
             // 
             // splitContainerMain
@@ -162,6 +172,7 @@
             this.splitContainerMain.Dock = System.Windows.Forms.DockStyle.Fill;
             this.splitContainerMain.IsSplitterFixed = true;
             this.splitContainerMain.Location = new System.Drawing.Point(0, 0);
+            this.splitContainerMain.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.splitContainerMain.Name = "splitContainerMain";
             // 
             // splitContainerMain.Panel1
@@ -170,24 +181,26 @@
             // 
             // splitContainerMain.Panel2
             // 
-            this.splitContainerMain.Panel2.Controls.Add(this.btnListEmployee);
-            this.splitContainerMain.Panel2.Controls.Add(this.btnDelEmployee);
-            this.splitContainerMain.Panel2.Controls.Add(this.btnModEmployee);
-            this.splitContainerMain.Panel2.Controls.Add(this.btnAddEmployee);
+            this.splitContainerMain.Panel2.Controls.Add(this.btnListEmp);
+            this.splitContainerMain.Panel2.Controls.Add(this.btnDelEmp);
+            this.splitContainerMain.Panel2.Controls.Add(this.btnModEmp);
+            this.splitContainerMain.Panel2.Controls.Add(this.btnAddEmp);
             this.splitContainerMain.Panel2.Controls.Add(this.btnDelDept);
             this.splitContainerMain.Panel2.Controls.Add(this.btnModDept);
             this.splitContainerMain.Panel2.Controls.Add(this.btnAddDept);
-            this.splitContainerMain.Size = new System.Drawing.Size(592, 384);
-            this.splitContainerMain.SplitterDistance = 258;
+            this.splitContainerMain.Size = new System.Drawing.Size(888, 576);
+            this.splitContainerMain.SplitterDistance = 387;
+            this.splitContainerMain.SplitterWidth = 6;
             this.splitContainerMain.TabIndex = 1;
             // 
             // MainForm
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 18F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(592, 384);
+            this.ClientSize = new System.Drawing.Size(888, 576);
             this.Controls.Add(this.splitContainerMain);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
+            this.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.MaximizeBox = false;
             this.Name = "MainForm";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
@@ -206,10 +219,10 @@
         }
 
         #endregion
-        private System.Windows.Forms.Button btnListEmployee;
-        private System.Windows.Forms.Button btnDelEmployee;
-        private System.Windows.Forms.Button btnModEmployee;
-        private System.Windows.Forms.Button btnAddEmployee;
+        private System.Windows.Forms.Button btnListEmp;
+        private System.Windows.Forms.Button btnDelEmp;
+        private System.Windows.Forms.Button btnModEmp;
+        private System.Windows.Forms.Button btnAddEmp;
         private System.Windows.Forms.Button btnDelDept;
         private System.Windows.Forms.Button btnModDept;
         private System.Windows.Forms.Button btnAddDept;

@@ -7,8 +7,6 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HumanManagement", "HumanMan
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ImportAndExportSolution", "ImportAndExportSolution\ImportAndExportSolution.csproj", "{999BC25C-0A2F-4329-AFD1-477231717593}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BindingSourceSolution", "BindingSourceSolution\BindingSourceSolution.csproj", "{BC83AF10-7313-44C1-8A64-4E1D6E05B93D}"
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HumanManagementSQLServer", "HumanManagementSQLServer\HumanManagementSQLServer.csproj", "{D1684A4D-A53F-4326-A994-043E984EC66A}"
 EndProject
 Global
@@ -25,10 +23,6 @@ Global
 		{999BC25C-0A2F-4329-AFD1-477231717593}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{999BC25C-0A2F-4329-AFD1-477231717593}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{999BC25C-0A2F-4329-AFD1-477231717593}.Release|Any CPU.Build.0 = Release|Any CPU
-		{BC83AF10-7313-44C1-8A64-4E1D6E05B93D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{BC83AF10-7313-44C1-8A64-4E1D6E05B93D}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{BC83AF10-7313-44C1-8A64-4E1D6E05B93D}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{BC83AF10-7313-44C1-8A64-4E1D6E05B93D}.Release|Any CPU.Build.0 = Release|Any CPU
 		{D1684A4D-A53F-4326-A994-043E984EC66A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{D1684A4D-A53F-4326-A994-043E984EC66A}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{D1684A4D-A53F-4326-A994-043E984EC66A}.Release|Any CPU.ActiveCfg = Release|Any CPU

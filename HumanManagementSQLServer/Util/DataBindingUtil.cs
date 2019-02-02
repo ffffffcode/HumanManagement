@@ -8,95 +8,6 @@ namespace HumanManagementSQLServer.Util
     class DataBindingUtil
     {
         /// <summary>
-        /// 将 data 参数的数据绑定到 control 参数的 TextBox 控件中
-        /// </summary>
-        /// <param name="control">要绑定的控件</param>
-        /// <param name="data">数据来源</param>
-        /// <returns></returns>
-        public static bool DataToControl(Control control, object data)
-        {
-            if (control == null || data == null)
-            {
-                return false;
-            }
-
-            foreach (Control con in control.Controls)
-            {
-                string fieldName = con.Name.Substring(3);
-                if (con is TextBox)
-                {
-                    object txtValue = GetObjectPropertyValue(data, fieldName);
-                    if (txtValue != null)
-                    {
-                        con.Text = GetObjectPropertyValue(data, fieldName).ToString();
-                    }
-                }
-                if (con is DateTimePicker)
-                {
-                    object dtpValue = GetObjectPropertyValue(data, fieldName);
-                    if (dtpValue != null && (string)dtpValue != "")
-                    {
-                        (con as DateTimePicker).Value = DateTime.Parse(dtpValue.ToString());
-                    }
-                    else
-                    {
-                        (con as DateTimePicker).Value = DateTime.Now;
-                    }
-                }
-            }
-
-            return true;
-        }
-
-        public static bool DataToControl(Control control, DataTable dataTable, string tableName)
-        {
-            if (control == null || dataTable == null)
-            {
-                return false;
-            }
-
-            foreach (Control con in control.Controls)
-            {
-                string columuName = con.Name.Substring(3);
-                if (columuName == "No")
-                {
-                    columuName = tableName + columuName;
-                }
-                if (con is TextBox)
-                {
-                    object txtValue = null;
-                    try
-                    {
-                        txtValue = dataTable.Rows[0][columuName];
-                    }
-                    catch (Exception)
-                    {
-                        txtValue = "";
-                    }
-
-                    if (txtValue != null)
-                    {
-                        con.Text = txtValue.ToString();
-                    }
-                }
-                if (con is DateTimePicker)
-                {
-                    object dtpValue = dataTable.Rows[0][columuName];
-                    if (dtpValue != null && dtpValue.ToString() != "")
-                    {
-                        (con as DateTimePicker).Value = DateTime.Parse(dtpValue.ToString());
-                    }
-                    else
-                    {
-                        (con as DateTimePicker).Value = DateTime.Now;
-                    }
-                }
-            }
-
-            return true;
-        }
-
-        /// <summary>
         /// 设置对象的指定属性，如果是dx组件，系统会处理Properties中的属性。
         /// </summary>
         /// <param name="Obj">要设置属性的对象。</param>
@@ -137,7 +48,6 @@ namespace HumanManagementSQLServer.Util
                     return GetObjectPropertyValue(PropertiesObj, PropertyName);
                 }
             }
-
             return null;
         }
 
@@ -147,7 +57,7 @@ namespace HumanManagementSQLServer.Util
         /// <param name="Obj">要设置属性的对象。</param>
         /// <param name="PropertyName">属性名称。</param>
         /// <param name="PropertyValue">属性值。</param>
-        /// <returns>设置成功返回True，否则返回False。</returns>
+        /// <returns>设置成功返回 true，否则返回 false。</returns>
         public static bool SetObjectProperty(object Obj, string PropertyName, object PropertyValue)
         {
             if (Obj == null || PropertyName == null || PropertyName == "")
@@ -181,16 +91,107 @@ namespace HumanManagementSQLServer.Util
                     return SetObjectProperty(PropertiesObj, PropertyName, PropertyValue);
                 }
             }
-
             return false;
         }
 
         /// <summary>
-        /// 将 control 参数的控件里的值设置到 data 参数中
+        /// 将 data 参数的属性值绑定到 control 参数中对应名称的控件中。
+        /// </summary>
+        /// <param name="control">要绑定的控件</param>
+        /// <param name="data">数据来源</param>
+        /// <returns>设置成功返回 true，否则返回 false。</returns>
+        public static bool DataToControl(Control control, object data)
+        {
+            if (control == null || data == null)
+            {
+                return false;
+            }
+
+            foreach (Control con in control.Controls)
+            {
+                string fieldName = con.Name.Substring(3);
+                
+                if (con is TextBox)
+                {
+                    object value = GetObjectPropertyValue(data, fieldName);
+                    if (value != null)
+                    {
+                        con.Text = value.ToString();
+                    }
+                }
+                if (con is DateTimePicker)
+                {
+                    object value = GetObjectPropertyValue(data, fieldName);
+                    if (value != null && (string)value != "")
+                    {
+                        (con as DateTimePicker).Value = DateTime.Parse(value.ToString());
+                    }
+                    else
+                    {
+                        (con as DateTimePicker).Value = DateTime.Now;
+                    }
+                }
+            }
+            return true;
+        }
+
+        /// <summary>
+        /// 将 dataTable 参数首行的数据绑定到 control 参数中对应名称的控件中。
+        /// </summary>
+        /// <param name="control"></param>
+        /// <param name="dataTable"></param>
+        /// <param name="tableName"></param>
+        /// <returns>设置成功返回 true，否则返回 false。</returns>
+        public static bool DataTableToControl(Control control, DataTable dataTable, string tableName)
+        {
+            if (control == null || dataTable == null)
+            {
+                return false;
+            }
+
+            foreach (Control con in control.Controls)
+            {
+                string columuName = con.Name.Substring(3);
+                /*if (columuName == "No")
+                {
+                    columuName = tableName + columuName;
+                }*/
+                
+                if (con is TextBox)
+                {
+                    object value = dataTable.Rows[0][columuName];
+                    if (value != null)
+                    {
+                        con.Text = value.ToString();
+                    }
+                    else
+                    {
+                        con.Text = "";
+                    }
+                }
+                if (con is DateTimePicker)
+                {
+                    object value = dataTable.Rows[0][columuName];
+                    if (value != null && value.ToString() != "")
+                    {
+                        (con as DateTimePicker).Value = DateTime.Parse(value.ToString());
+                    }
+                    else
+                    {
+                        (con as DateTimePicker).Value = DateTime.Now;
+                    }
+                }
+            }
+            return true;
+        }
+
+
+        /// <summary>
+        /// 将 control 参数的控件里的值设置到 data 参数中。
         /// </summary>
         /// <param name="data">要设置的数据</param>
         /// <param name="control">数据来源的控件</param>
-        /// <returns></returns>
+        /// <returns>设置成功返回 true，否则返回 false。</returns>
         public static bool ControlToData(object data, Control control)
         {
             if (control == null || data == null)
@@ -214,7 +215,14 @@ namespace HumanManagementSQLServer.Util
             return true;
         }
 
-        public static bool ControlToData(DataTable dataTable, Control control, string tableName)
+        /// <summary>
+        /// 将 control 参数的控件里的值设置到 dataTable 参数中对应的列中。
+        /// </summary>
+        /// <param name="dataTable">要设置的表</param>
+        /// <param name="control">数据来源的空间</param>
+        /// <param name="tableName">表名</param>
+        /// <returns>设置成功返回 true，否则返回 false。</returns>
+        public static bool ControlToDataTable(DataTable dataTable, Control control, string tableName)
         {
             if (control == null || dataTable == null)
             {
@@ -224,34 +232,19 @@ namespace HumanManagementSQLServer.Util
             foreach (Control con in control.Controls)
             {
                 string columuName = con.Name.Substring(3);
-                if (columuName == "No")
+                /*if (columuName == "No")
                 {
                     columuName = tableName + columuName;
-                }
+                }*/
                 if (con is TextBox)
                 {
-                    if (columuName == "Birthday")
-                    {
-                        if (string.IsNullOrEmpty(con.Text))
-                        {
-                            dataTable.Rows[0][columuName] = DBNull.Value;
-                        }
-                        else
-                        {
-                            dataTable.Rows[0][columuName] = DateTime.Parse(con.Text);
-                        }
-                    }
-                    else
-                    {
-                        dataTable.Rows[0][columuName] = con.Text;
-                    }
+                    dataTable.Rows[0][columuName] = con.Text;
                 }
                 if (con is DateTimePicker)
                 {
-                    dataTable.Rows[0][columuName] = (con as DateTimePicker).Value.ToString("yyyy-MM-dd");
+                    dataTable.Rows[0][columuName] = (con as DateTimePicker).Value;
                 }
             }
-
             return true;
         }
     }

@@ -45,112 +45,124 @@
             // txtDeptName
             // 
             this.txtDeptName.BackColor = System.Drawing.Color.Yellow;
-            this.txtDeptName.Location = new System.Drawing.Point(115, 92);
+            this.txtDeptName.Location = new System.Drawing.Point(172, 138);
+            this.txtDeptName.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.txtDeptName.Name = "txtDeptName";
-            this.txtDeptName.Size = new System.Drawing.Size(150, 21);
-            this.txtDeptName.TabIndex = 19;
+            this.txtDeptName.Size = new System.Drawing.Size(223, 28);
+            this.txtDeptName.TabIndex = 7;
             // 
             // txtNo
             // 
             this.txtNo.BackColor = System.Drawing.Color.Yellow;
-            this.txtNo.Location = new System.Drawing.Point(115, 65);
+            this.txtNo.Location = new System.Drawing.Point(172, 98);
+            this.txtNo.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.txtNo.Name = "txtNo";
-            this.txtNo.Size = new System.Drawing.Size(150, 21);
-            this.txtNo.TabIndex = 17;
+            this.txtNo.Size = new System.Drawing.Size(223, 28);
+            this.txtNo.TabIndex = 5;
             // 
             // btnCancel
             // 
-            this.btnCancel.Location = new System.Drawing.Point(157, 147);
+            this.btnCancel.Location = new System.Drawing.Point(236, 220);
+            this.btnCancel.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.btnCancel.Name = "btnCancel";
-            this.btnCancel.Size = new System.Drawing.Size(75, 23);
-            this.btnCancel.TabIndex = 23;
+            this.btnCancel.Size = new System.Drawing.Size(112, 34);
+            this.btnCancel.TabIndex = 11;
             this.btnCancel.Text = "取消";
             this.btnCancel.UseVisualStyleBackColor = true;
             this.btnCancel.Click += new System.EventHandler(this.btnCancel_Click);
             // 
             // btnConfirm
             // 
-            this.btnConfirm.Location = new System.Drawing.Point(52, 147);
+            this.btnConfirm.Location = new System.Drawing.Point(78, 220);
+            this.btnConfirm.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.btnConfirm.Name = "btnConfirm";
-            this.btnConfirm.Size = new System.Drawing.Size(75, 23);
-            this.btnConfirm.TabIndex = 22;
+            this.btnConfirm.Size = new System.Drawing.Size(112, 34);
+            this.btnConfirm.TabIndex = 10;
             this.btnConfirm.Text = "确定";
             this.btnConfirm.UseVisualStyleBackColor = true;
             this.btnConfirm.Click += new System.EventHandler(this.btnConfirm_Click);
             // 
             // txtRemarks
             // 
-            this.txtRemarks.Location = new System.Drawing.Point(115, 120);
+            this.txtRemarks.Location = new System.Drawing.Point(172, 180);
+            this.txtRemarks.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.txtRemarks.Name = "txtRemarks";
-            this.txtRemarks.Size = new System.Drawing.Size(150, 21);
-            this.txtRemarks.TabIndex = 21;
+            this.txtRemarks.Size = new System.Drawing.Size(223, 28);
+            this.txtRemarks.TabIndex = 9;
             // 
             // labRemarks
             // 
             this.labRemarks.AutoSize = true;
-            this.labRemarks.Location = new System.Drawing.Point(68, 124);
+            this.labRemarks.Location = new System.Drawing.Point(102, 186);
+            this.labRemarks.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.labRemarks.Name = "labRemarks";
-            this.labRemarks.Size = new System.Drawing.Size(41, 12);
-            this.labRemarks.TabIndex = 20;
+            this.labRemarks.Size = new System.Drawing.Size(62, 18);
+            this.labRemarks.TabIndex = 8;
             this.labRemarks.Text = "备注：";
             // 
             // labDeptName
             // 
             this.labDeptName.AutoSize = true;
-            this.labDeptName.Location = new System.Drawing.Point(38, 96);
+            this.labDeptName.Location = new System.Drawing.Point(57, 144);
+            this.labDeptName.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.labDeptName.Name = "labDeptName";
-            this.labDeptName.Size = new System.Drawing.Size(71, 12);
-            this.labDeptName.TabIndex = 18;
+            this.labDeptName.Size = new System.Drawing.Size(107, 18);
+            this.labDeptName.TabIndex = 6;
             this.labDeptName.Text = "*部门名称：";
             // 
             // labNo
             // 
             this.labNo.AutoSize = true;
-            this.labNo.Location = new System.Drawing.Point(38, 69);
+            this.labNo.Location = new System.Drawing.Point(57, 104);
+            this.labNo.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.labNo.Name = "labNo";
-            this.labNo.Size = new System.Drawing.Size(71, 12);
-            this.labNo.TabIndex = 16;
+            this.labNo.Size = new System.Drawing.Size(107, 18);
+            this.labNo.TabIndex = 4;
             this.labNo.Text = "*部门编号：";
             // 
             // txtParentDeptName
             // 
             this.txtParentDeptName.Enabled = false;
-            this.txtParentDeptName.Location = new System.Drawing.Point(115, 39);
+            this.txtParentDeptName.Location = new System.Drawing.Point(172, 58);
+            this.txtParentDeptName.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.txtParentDeptName.Name = "txtParentDeptName";
-            this.txtParentDeptName.Size = new System.Drawing.Size(150, 21);
-            this.txtParentDeptName.TabIndex = 15;
+            this.txtParentDeptName.Size = new System.Drawing.Size(223, 28);
+            this.txtParentDeptName.TabIndex = 3;
             // 
             // labParentDeptName
             // 
             this.labParentDeptName.AutoSize = true;
-            this.labParentDeptName.Location = new System.Drawing.Point(20, 43);
+            this.labParentDeptName.Location = new System.Drawing.Point(30, 64);
+            this.labParentDeptName.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.labParentDeptName.Name = "labParentDeptName";
-            this.labParentDeptName.Size = new System.Drawing.Size(89, 12);
-            this.labParentDeptName.TabIndex = 14;
+            this.labParentDeptName.Size = new System.Drawing.Size(134, 18);
+            this.labParentDeptName.TabIndex = 2;
             this.labParentDeptName.Text = "上级部门名称：";
             // 
             // txtParentDeptNo
             // 
             this.txtParentDeptNo.Enabled = false;
-            this.txtParentDeptNo.Location = new System.Drawing.Point(115, 12);
+            this.txtParentDeptNo.Location = new System.Drawing.Point(172, 18);
+            this.txtParentDeptNo.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.txtParentDeptNo.Name = "txtParentDeptNo";
-            this.txtParentDeptNo.Size = new System.Drawing.Size(150, 21);
-            this.txtParentDeptNo.TabIndex = 13;
+            this.txtParentDeptNo.Size = new System.Drawing.Size(223, 28);
+            this.txtParentDeptNo.TabIndex = 1;
             // 
             // labParentDeptNo
             // 
             this.labParentDeptNo.AutoSize = true;
-            this.labParentDeptNo.Location = new System.Drawing.Point(20, 16);
+            this.labParentDeptNo.Location = new System.Drawing.Point(30, 24);
+            this.labParentDeptNo.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.labParentDeptNo.Name = "labParentDeptNo";
-            this.labParentDeptNo.Size = new System.Drawing.Size(89, 12);
-            this.labParentDeptNo.TabIndex = 12;
+            this.labParentDeptNo.Size = new System.Drawing.Size(134, 18);
+            this.labParentDeptNo.TabIndex = 0;
             this.labParentDeptNo.Text = "上级部门编号：";
             // 
             // AddOrModDeptForm
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 18F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(284, 182);
+            this.ClientSize = new System.Drawing.Size(426, 273);
             this.Controls.Add(this.txtDeptName);
             this.Controls.Add(this.txtNo);
             this.Controls.Add(this.btnCancel);
@@ -165,6 +177,7 @@
             this.Controls.Add(this.labParentDeptNo);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.KeyPreview = true;
+            this.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.MaximizeBox = false;
             this.MinimizeBox = false;
             this.Name = "AddOrModDeptForm";

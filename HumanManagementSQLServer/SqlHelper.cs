@@ -8,7 +8,8 @@ namespace HumanManagementSQLServer
     public sealed class SqlHelper
     {
         //数据库连接字符串
-        private readonly static string connstr = @"Data Source=20190114-100739\SQLEXPRESS;Initial Catalog=HumanManagement;Integrated Security=True";
+
+        private readonly static string connstr = @"Data Source=(localdb)\MSSQLLocalDB;Initial Catalog=hm;Integrated Security=True;Connect Timeout=30;Encrypt=False;TrustServerCertificate=False;ApplicationIntent=ReadWrite;MultiSubnetFailover=False";
 
         private static List<bool> _isBusy = new List<bool>();
         private static List<SqlConnection> _connList = new List<SqlConnection>();//链接列表,解决打开链接消耗时间问题
@@ -276,14 +277,37 @@ namespace HumanManagementSQLServer
         }
 
         /// <summary>
+        /// 添加一行数据
+        /// </summary>
+        public static void Insert(string sql)
+        {
+            SqlConnection conn = GetConnection();//公用            
+            SqlCommand cmd = new SqlCommand(sql, conn);
+            try
+            {
+                cmd.ExecuteNonQuery();
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+            finally
+            {
+                FreeConnect(conn);
+            }
+        }
+
+        /// <summary>
         /// 批量添加数据
         /// </summary>
         public static void AddTable(string tableName, DataTable table)
         {
 
             SqlConnection conn = GetConnection();//公用 
-            SqlBulkCopy bulk = new SqlBulkCopy(conn);
-            bulk.DestinationTableName = tableName;
+            SqlBulkCopy bulk = new SqlBulkCopy(conn)
+            {
+                DestinationTableName = tableName
+            };
             try
             {
                 bulk.WriteToServer(table);

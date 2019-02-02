@@ -15,7 +15,7 @@ namespace HumanManagementSQLServer
             {
                 _dataTable = value;
                 //将部门信息设置到对应的 TextBox 控件中
-                DataBindingUtil.DataToControl(this, _dataTable, "Emp");
+                DataBindingUtil.DataTableToControl(this, _dataTable, "Emp");
             }
         }
 
@@ -28,7 +28,7 @@ namespace HumanManagementSQLServer
 
         private void btnComfirm_Click(object sender, System.EventArgs e)
         {
-            DataBindingUtil.ControlToData(_dataTable, this, "Emp");
+            DataBindingUtil.ControlToDataTable(_dataTable, this, "Emp");
             DialogResult = DialogResult.OK;
         }
 

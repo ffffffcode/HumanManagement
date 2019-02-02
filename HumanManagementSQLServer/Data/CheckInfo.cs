@@ -11,8 +11,8 @@ namespace HumanManagementSQLServer.Data
         Required,
         DeptNo,
         DeptName,
-        EmployeeNo,
-        EmployeeName,
+        EmpNo,
+        EmpName,
         IdCardNo
     }
 
@@ -21,24 +21,33 @@ namespace HumanManagementSQLServer.Data
     /// </summary>
     public class CheckInfo
     {
-        public Control _control;
+
+        /// <summary>
+        /// 要校验的控件
+        /// </summary>
+        public Control Control { get; set; }
 
         /// <summary>
         /// 校验类型
         /// </summary>
-        public CheckType _checkType;
+        public CheckType CheckType { get; set; }
 
         /// <summary>
-        /// 初始类属性 <see cref="CheckInfo" /> class.
+        /// 错误信息
         /// </summary>
-        /// <param name="conObj">The con object.</param>
-        /// <param name="lenth">The lenth.</param>
-        /// <param name="mustInput">if set to <c>true</c> [must input].</param>
-        /// <param name="conType">Type of the con.</param>
-        public CheckInfo(Control control, CheckType checkType)
+        public string ErrorMessage { get; set; }
+
+        /// <summary>
+        /// 初始化类
+        /// </summary>
+        /// <param name="control">要校验的控件</param>
+        /// <param name="checkType">校验类型</param>
+        /// <param name="message">错误信息</param>
+        public CheckInfo(Control control, CheckType checkType, string errorMessage)
         {
-            this._control = control;
-            this._checkType = checkType;
+            Control = control;
+            CheckType = checkType;
+            ErrorMessage = errorMessage;
         }
 
         #region 检查数据 bool CheckData()
@@ -48,20 +57,20 @@ namespace HumanManagementSQLServer.Data
         /// <returns></returns>
         public bool Check()
         {
-            switch (_checkType)
+            switch (CheckType)
             {
                 case CheckType.Required:
-                    return CheckRequired(_control.Text);
+                    return CheckRequired(Control.Text);
                 case CheckType.DeptNo:
-                    return CheckDeptNo(_control.Text);
+                    return CheckDeptNo(Control.Text);
                 case CheckType.DeptName:
-                    return CheckDeptName(_control.Text);
-                case CheckType.EmployeeNo:
-                    return CheckEmployeeNo(_control.Text);
-                case CheckType.EmployeeName:
-                    return CheckEmployeeName(_control.Text);
+                    return CheckDeptName(Control.Text);
+                case CheckType.EmpNo:
+                    return CheckEmpNo(Control.Text);
+                case CheckType.EmpName:
+                    return CheckEmpName(Control.Text);
                 case CheckType.IdCardNo:
-                    return CheckIdCardNo(_control.Text);
+                    return CheckIdCardNo(Control.Text);
                 default:
                     return true;
             }
@@ -71,6 +80,7 @@ namespace HumanManagementSQLServer.Data
         /// <summary>
         /// 非空判断
         /// </summary>
+        /// <param name="value"></param>
         /// <returns></returns>
         private bool CheckRequired(string value)
         {
@@ -81,26 +91,51 @@ namespace HumanManagementSQLServer.Data
             return false;
         }
 
+        /// <summary>
+        /// 部门编号判断
+        /// </summary>
+        /// <param name="value"></param>
+        /// <returns></returns>
         private bool CheckDeptNo(string value)
         {
             return Regex.IsMatch(value, @"^[A-Za-z0-9_]+$");//字母或数字
         }
 
+        /// <summary>
+        /// 部门名称判断
+        /// </summary>
+        /// <param name="value"></param>
+        /// <returns></returns>
         private bool CheckDeptName(string value)
         {
             return Regex.IsMatch(value, @"^[A-Za-z\u4e00-\u9fa5]+$");//字母或汉字
         }
 
-        private bool CheckEmployeeNo(string value)
+        /// <summary>
+        /// 员工编号判断
+        /// </summary>
+        /// <param name="value"></param>
+        /// <returns></returns>
+        private bool CheckEmpNo(string value)
         {
             return Regex.IsMatch(value, @"^[A-Za-z0-9]{6}$");//字母或数字，6位
         }
 
-        private bool CheckEmployeeName(string value)
+        /// <summary>
+        /// 员工姓名判断
+        /// </summary>
+        /// <param name="value"></param>
+        /// <returns></returns>
+        private bool CheckEmpName(string value)
         {
             return Regex.IsMatch(value, @"^[A-Za-z\u4e00-\u9fa5]{2,}$");//字母或汉字，2位以上
         }
 
+        /// <summary>
+        /// 身份证判断
+        /// </summary>
+        /// <param name="value"></param>
+        /// <returns></returns>
         private bool CheckIdCardNo(string value)
         {
             return Regex.IsMatch(value, @"^[1-9]\d{7}((0\d)|(1[0-2]))(([0|1|2]\d)|3[0-1])\d{3}$|^[1-9]\d{5}[1-9]\d{3}((0\d)|(1[0-2]))(([0|1|2]\d)|3[0-1])\d{3}([0-9]|X)$");//身份证

@@ -9,7 +9,7 @@ namespace HumanManagementSQLServer.Util
     /// </summary>
     enum NodeType
     {
-        Company = 1, Dept, Employee, Null
+        Company = 1, Dept, Emp, Null
     }
 
     class NodeTypeUtil
@@ -69,9 +69,9 @@ namespace HumanManagementSQLServer.Util
         /// <returns>
         ///   <c>true</c> 如果该 treeNode 参数为员工节点; 否则, <c>false</c>.
         /// </returns>
-        public static bool IsEmployee(TreeNode treeNode)
+        public static bool IsEmp(TreeNode treeNode)
         {
-            return NodeType.Employee == NodeTypeOf(treeNode);
+            return NodeType.Emp == NodeTypeOf(treeNode);
         }
 
         /// <summary>
@@ -81,9 +81,9 @@ namespace HumanManagementSQLServer.Util
         /// <returns>
         ///   <c>true</c> 如果该 xmlNode 参数为员工节点; 否则, <c>false</c>.
         /// </returns>
-        public static bool IsEmployee(XmlNode xmlNode)
+        public static bool IsEmp(XmlNode xmlNode)
         {
-            return NodeType.Employee == NodeTypeOf(xmlNode);
+            return NodeType.Emp == NodeTypeOf(xmlNode);
         }
 
         /// <summary>
@@ -125,7 +125,7 @@ namespace HumanManagementSQLServer.Util
                 case "部门":
                     return NodeType.Dept;
                 case "员工":
-                    return NodeType.Employee;
+                    return NodeType.Emp;
                 default:
                     return NodeType.Null;
             }

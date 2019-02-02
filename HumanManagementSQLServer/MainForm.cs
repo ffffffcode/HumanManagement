@@ -10,19 +10,9 @@ namespace HumanManagementSQLServer
 {
     public partial class MainForm : Form
     {
-        /// <summary>
-        /// 与子窗体交换数据的委托
-        /// </summary>
-        /// <param name="data">传送给子窗体的数据</param>
-        /// <returns>子窗体返回的数据</returns>
-        internal delegate void ExchangeDataHandler(object data);
-        internal ExchangeDataHandler exchangeDataHandler;
-
         internal static DataSet dataSet = new DataSet();
         DataTable deptTable = SqlHelper.GetTable("SELECT dept_no, dept_name, remarks, parent_dept_no FROM dept", "dept");
-        DataTable deptDetailTable = SqlHelper.GetTable("SELECT dept.dept_no, dept.dept_name, dept.remarks, dept.parent_dept_no, dept_1.dept_name AS parent_dept_name FROM dept LEFT OUTER JOIN dept AS dept_1 ON dept.parent_dept_no = dept_1.dept_no", "detpDetail");
-        DataTable empTable = SqlHelper.GetTable("SELECT emp_no, emp_name, idcard_no, birthday, birthplace, entry_time, dept_no FROM dbo.emp", "emp");
-        DataTable empDetailTable = SqlHelper.GetTable("SELECT emp.emp_no, emp.emp_name, emp.idcard_no, emp.birthday, emp.birthplace, emp.entry_time, emp.dept_no, dept.dept_name FROM emp LEFT OUTER JOIN dept ON emp.dept_no = dept.dept_no", "empDetail");
+        DataTable empTable = SqlHelper.GetTable("SELECT emp_no, emp_name, idcard_no, birthday, birthplace, entry_time, dept_no FROM emp", "emp");
 
         public MainForm()
         {
@@ -33,10 +23,8 @@ namespace HumanManagementSQLServer
         private void InitForm()
         {
             dataSet.Tables.Add(deptTable);
-            dataSet.Tables.Add(deptDetailTable);
             dataSet.Tables.Add(empTable);
-            dataSet.Tables.Add(empDetailTable);
-
+            // 生成树
             CreateTreeNode();
             tvHuman.ExpandAll();
         }
@@ -48,7 +36,7 @@ namespace HumanManagementSQLServer
         /// </summary>
         private void CreateTreeNode()
         {
-            foreach (DataRow row in this.deptTable.Select("parent_dept_no IS NULL"))
+            foreach (DataRow row in deptTable.Select("parent_dept_no IS NULL"))
             {
                 TreeNode deptTreeNode = new TreeNode()
                 {
@@ -69,7 +57,7 @@ namespace HumanManagementSQLServer
         /// <param name="parentDeptNo">部门节点的父部门编号</param>
         private void CreateSubDeptTreeNode(TreeNode parent, string parentDeptNo)
         {
-            foreach (DataRow row in this.deptTable.Select("parent_dept_no ='" + parentDeptNo + "'"))
+            foreach (DataRow row in deptTable.Select("parent_dept_no ='" + parentDeptNo + "'"))
             {
                 TreeNode deptTreeNode = new TreeNode()
                 {
@@ -90,14 +78,14 @@ namespace HumanManagementSQLServer
         /// <param name="deptNo">员工所在的部门编号</param>
         private void CreateEmpTreeNode(TreeNode parent, string deptNo)
         {
-            foreach (DataRow row in this.empTable.Select("dept_no = '" + deptNo + "'"))
+            foreach (DataRow row in empTable.Select("dept_no = '" + deptNo + "'"))
             {
                 TreeNode empTreeNode = new TreeNode()
                 {
                     Text = row["emp_name"].ToString(),
                     Name = row["emp_no"].ToString(),
                     ForeColor = Color.Green,
-                    Tag = new EmpInfo(row["emp_no"].ToString(), row["emp_name"].ToString(), row["idcard_no"].ToString(), ((DateTime)row["birthday"]).ToString("yyyy-MM-dd"), row["birthplace"].ToString(), ((DateTime)row["entry_time"]).ToString("yyyy-MM-dd"), "员工")
+                    Tag = new EmpInfo(row["emp_no"].ToString(), row["emp_name"].ToString(), row["idcard_no"].ToString(), row["birthday"].ToString(), row["birthplace"].ToString(), ((DateTime)row["entry_time"]).ToString("yyyy-MM-dd"), "员工")
                 };
                 parent.Nodes.Add(empTreeNode);
             }
@@ -121,12 +109,12 @@ namespace HumanManagementSQLServer
                 btnAddDept.Enabled = true;
                 btnModDept.Enabled = true;
                 btnDelDept.Enabled = true;
-                btnAddEmployee.Enabled = true;
-                btnModEmployee.Enabled = false;
-                btnDelEmployee.Enabled = false;
-                btnListEmployee.Enabled = true;
+                btnAddEmp.Enabled = true;
+                btnModEmp.Enabled = false;
+                btnDelEmp.Enabled = false;
+                btnListEmp.Enabled = true;
             }
-            if (NodeTypeUtil.IsEmployee(selectedNode))
+            if (NodeTypeUtil.IsEmp(selectedNode))
             {
                 EmpInfo empInfo = (EmpInfo)selectedNode.Tag;
                 txtHumanData.Text = empInfo.ToString();
@@ -135,10 +123,10 @@ namespace HumanManagementSQLServer
                 btnAddDept.Enabled = false;
                 btnModDept.Enabled = false;
                 btnDelDept.Enabled = false;
-                btnAddEmployee.Enabled = false;
-                btnModEmployee.Enabled = true;
-                btnDelEmployee.Enabled = true;
-                btnListEmployee.Enabled = false;
+                btnAddEmp.Enabled = false;
+                btnModEmp.Enabled = true;
+                btnDelEmp.Enabled = true;
+                btnListEmp.Enabled = false;
             }
             if (NodeTypeUtil.IsCompany(selectedNode))
             {
@@ -149,14 +137,22 @@ namespace HumanManagementSQLServer
                 btnAddDept.Enabled = true;
                 btnModDept.Enabled = false;
                 btnDelDept.Enabled = false;
-                btnAddEmployee.Enabled = false;
-                btnModEmployee.Enabled = false;
-                btnDelEmployee.Enabled = false;
-                btnListEmployee.Enabled = false;
+                btnAddEmp.Enabled = false;
+                btnModEmp.Enabled = false;
+                btnDelEmp.Enabled = false;
+                btnListEmp.Enabled = false;
             }
         }
 
-        private void UpdateDept(TreeNode selectedNode, string formText, string schemaSql, string tableName, Dictionary<string, object> columnValuePairs)
+        /// <summary>
+        /// 打开添加部门或修改部门窗体
+        /// </summary>
+        /// <param name="formText">窗体Text</param>
+        /// <param name="schemaSql">表结构SQL</param>
+        /// <param name="tableName">表明</param>
+        /// <param name="columnValuePairs">表中首行的值</param>
+        /// <returns></returns>
+        private DeptInfo OpenAddOrModDeptForm(string formText, string schemaSql, string tableName, Dictionary<string, object> columnValuePairs)
         {
             //创建窗体
             AddOrModDeptForm addOrModDeptForm = new AddOrModDeptForm
@@ -166,98 +162,51 @@ namespace HumanManagementSQLServer
             };
 
             DataTable dataTable = SqlHelper.GetTable(schemaSql, tableName);
-            DataRow newDataRow = dataTable.NewRow();
-            foreach (KeyValuePair<string, object> item in columnValuePairs)
+            if (columnValuePairs != null)
             {
-                newDataRow[item.Key] = item.Value;
+                DataRow newDataRow = dataTable.NewRow();
+                foreach (KeyValuePair<string, object> item in columnValuePairs)
+                {
+                    newDataRow[item.Key] = item.Value;
+                }
+                dataTable.Rows.Add(newDataRow);
             }
-            dataTable.Rows.Add(newDataRow);
 
+            DataRow firstRow = dataTable.Rows[0];
 
             addOrModDeptForm.DataTable = dataTable;
 
             if (addOrModDeptForm.ShowDialog() == DialogResult.OK)
             {
-                DeptInfo deptInfo = new DeptInfo(newDataRow["DeptNo"].ToString(), newDataRow["DeptName"].ToString(), newDataRow["Remarks"].ToString(), "部门");
-
-                List<string> valueList = new List<string>();
-                valueList.Add("dept_no = '" + deptInfo.No + "'");
-                valueList.Add("dept_name = '" + deptInfo.DeptName + "'");
-                valueList.Add("remarks = '" + deptInfo.Remarks + "'");
-
-                if ("添加部门" == formText)
-                {
-                    valueList.Add("parent_dept_no = '" + selectedNode.Name + "'");
-                    //插入新行
-                    SqlHelper.Insert("dept", valueList);
-
-                    //添加新部门节点
-                    TreeNode newTreeNode = new TreeNode
-                    {
-                        Text = deptInfo.DeptName,
-                        Name = deptInfo.No,
-                        Tag = deptInfo
-                    };
-                    selectedNode.Nodes.Add(newTreeNode);
-                }
-
-                if ("修改部门" == formText)
-                {
-                    //更新行
-                    SqlHelper.Update("dept", valueList, "dept.dept_no = '" + selectedNode.Name + "'");
-                    //修改部门信息
-                    selectedNode.Text = deptInfo.DeptName;
-                    selectedNode.Tag = deptInfo;
-
-                    //修改完成后，触发 tvHuman_AfterSelect 事件，以在 tvHuman 控件中显示修改完成后的数据。
-                    tvHuman_AfterSelect(this, null);
-                }
+                return new DeptInfo(firstRow["No"].ToString(), firstRow["DeptName"].ToString(), firstRow["Remarks"].ToString(), "部门");
             }
+            return null;
         }
 
+        /// <summary>
+        /// 添加部门按钮点击事件，用于 添加部门。
+        /// </summary>
+        /// <param name="sender">The source of the event.</param>ExchangeDataHandler
+        /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
         private void btnAddDept_Click(object sender, EventArgs e)
         {
             TreeNode selectedNode = tvHuman.SelectedNode;
+
             //获取子窗体所需的表结构，该表用于父窗体与子窗体交换数据
-            string schemeSql = "SELECT TOP 0 dept.dept_no AS DeptNo, dept.dept_name AS DeptName, dept.remarks AS Remarks, dept.parent_dept_no AS ParentDeptNo, dept_1.dept_name AS ParentDeptName FROM dept LEFT OUTER JOIN dept AS dept_1 ON dept.parent_dept_no = dept_1.dept_no";
+            string schemeSql = "SELECT TOP 0 dept.dept_no AS No, dept.dept_name AS DeptName, dept.remarks AS Remarks, dept.parent_dept_no AS ParentDeptNo, parent_dept.dept_name AS ParentDeptName FROM dept LEFT OUTER JOIN dept AS parent_dept ON dept.parent_dept_no = parent_dept.dept_no";
+
             //为表的第一行添加数据，key为列名，value为值
             Dictionary<string, object> columnValuePairs = new Dictionary<string, object>
             {
                 { "ParentDeptNo", selectedNode.Name },
                 { "ParentDeptName", ((DeptInfo)selectedNode.Tag).DeptName }
             };
-            UpdateDept(selectedNode, btnAddDept.Text, schemeSql, "dept", columnValuePairs);
-            /*TreeNode selectedNode = tvHuman.SelectedNode;
 
-            //创建添加部门窗体
-            AddOrModDeptForm addDeptForm = new AddOrModDeptForm
+            // 打开部门窗口
+            DeptInfo deptInfo = OpenAddOrModDeptForm(btnAddDept.Text, schemeSql, "dept", columnValuePairs);
+
+            if (deptInfo != null)
             {
-                Owner = this,
-                Text = btnAddDept.Text
-            };
-
-            DataTable dataTable = SqlHelper.GetTable("SELECT TOP 0 dept.dept_no AS DeptNo, dept.dept_name AS DeptName, dept.remarks AS Remarks, dept.parent_dept_no AS ParentDeptNo, dept_1.dept_name AS ParentDeptName FROM dept LEFT OUTER JOIN dept AS dept_1 ON dept.parent_dept_no = dept_1.dept_no", "dept");
-            DataRow newDataRow = dataTable.NewRow();
-            newDataRow["ParentDeptNo"] = selectedNode.Name;
-            newDataRow["ParentDeptName"] = ((DeptInfo)selectedNode.Tag).DeptName;
-            dataTable.Rows.Add(newDataRow);
-
-            addDeptForm.DataTable = dataTable;
-
-            //如果在 addDeptForm 添加部门窗体中点击确定，则在所选的节点下添加部门
-            if (addDeptForm.ShowDialog() == DialogResult.OK)
-            {
-                DataRow dataRow = addDeptForm.DataTable.Rows[0];
-                DeptInfo deptInfo = new DeptInfo(dataRow["DeptNo"].ToString(), dataRow["DeptName"].ToString(), dataRow["Remarks"].ToString(), "部门");
-
-                //插入新行到数据库
-                List<string> valueList = new List<string>();
-                valueList.Add("dept_no = '" + deptInfo.No + "'");
-                valueList.Add("dept_name = '" + deptInfo.DeptName + "'");
-                valueList.Add("remarks = '" + deptInfo.Remarks + "'");
-                valueList.Add("parent_dept_no = '" + selectedNode.Name + "'");
-                SqlHelper.Insert("dept", valueList);
-
                 //添加新部门节点
                 TreeNode newTreeNode = new TreeNode
                 {
@@ -266,7 +215,7 @@ namespace HumanManagementSQLServer
                     Tag = deptInfo
                 };
                 selectedNode.Nodes.Add(newTreeNode);
-            }*/
+            }
         }
 
         /// <summary>
@@ -278,30 +227,17 @@ namespace HumanManagementSQLServer
         {
             TreeNode selectedNode = tvHuman.SelectedNode;
 
-            //创建修改部门窗体
-            AddOrModDeptForm modDeptForm = new AddOrModDeptForm
+            //获取子窗体所需的表结构，该表用于父窗体与子窗体交换数据
+
+            string schemeSql = "SELECT dept.dept_no AS No, dept.dept_name AS DeptName, dept.remarks AS Remarks, dept.parent_dept_no AS ParentDeptNo, parent_dept.dept_name AS ParentDeptName FROM dept LEFT OUTER JOIN dept AS parent_dept ON dept.parent_dept_no = parent_dept.dept_no WHERE dept.dept_no = '" + selectedNode.Name + "'";
+
+            // 打开部门窗口
+            DeptInfo deptInfo = OpenAddOrModDeptForm(btnModDept.Text, schemeSql, "dept", null);
+
+            if (deptInfo != null)
             {
-                Owner = this,
-                Text = btnModDept.Text
-            };
-
-            DataTable dataTable = SqlHelper.GetTable("dept LEFT OUTER JOIN dept AS dept_1 ON dept.parent_dept_no = dept_1.dept_no", "dept.dept_no AS DeptNo, dept.dept_name AS DeptName, dept.remarks AS Remarks, dept.parent_dept_no AS ParentDeptNo, dept_1.dept_name AS ParentDeptName", "dept.dept_no = '" + selectedNode.Name + "'");
-            modDeptForm.DataTable = dataTable;
-
-            //如果在 modDeptForm 修改部门窗体中点击确定，则在修改部门信息
-            if (modDeptForm.ShowDialog() == DialogResult.OK)
-            {
-                DataRow dataRow = modDeptForm.DataTable.Rows[0];
-
-                List<string> valueList = new List<string>();
-                valueList.Add("dept_no = '" + dataRow["DeptNo"].ToString() + "'");
-                valueList.Add("dept_name = '" + dataRow["DeptName"].ToString() + "'");
-                valueList.Add("remarks = '" + dataRow["Remarks"].ToString() + "'");
-                // TODO 异常处理
-                SqlHelper.Update("dept", valueList, "dept.dept_no = '" + selectedNode.Name + "'");
-
-                selectedNode.Text = dataRow["DeptName"].ToString();
-                selectedNode.Tag = new DeptInfo(dataRow["DeptNo"].ToString(), dataRow["DeptName"].ToString(), dataRow["Remarks"].ToString(), "部门");
+                selectedNode.Text = deptInfo.DeptName;
+                selectedNode.Tag = deptInfo;
 
                 //修改完成后，触发 tvHuman_AfterSelect 事件，以在 tvHuman 控件中显示修改完成后的数据。
                 tvHuman_AfterSelect(sender, null);
@@ -324,17 +260,17 @@ namespace HumanManagementSQLServer
             }
         }
 
-        private void btnAddEmployee_Click(object sender, EventArgs e)
+        private void btnAddEmp_Click(object sender, EventArgs e)
         {
             TreeNode selectedNode = tvHuman.SelectedNode;
             //创建添加员工窗体
             AddOrModEmpForm addEmpform = new AddOrModEmpForm
             {
                 Owner = this,
-                Text = btnModEmployee.Text
+                Text = btnModEmp.Text
             };
 
-            DataTable dataTable = SqlHelper.GetTable("SELECT TOP 0 emp.emp_no AS EmpNo, emp.emp_name AS EmployeeName, emp.idcard_no AS IdCardNo, emp.birthday AS Birthday, emp.birthplace AS Birthplace, emp.entry_time AS EntryTime, dept.dept_no AS DeptNo, dept.dept_name AS DeptName FROM dept LEFT OUTER JOIN emp ON dept.dept_no = emp.dept_no", "dept");
+            DataTable dataTable = SqlHelper.GetTable("SELECT TOP 0 emp.emp_no AS EmpNo, emp.emp_name AS EmpName, emp.idcard_no AS IdCardNo, emp.birthday AS Birthday, emp.birthplace AS Birthplace, emp.entry_time AS EntryTime, dept.dept_no AS DeptNo, dept.dept_name AS DeptName FROM dept LEFT OUTER JOIN emp ON dept.dept_no = emp.dept_no", "dept");
             DataRow newDataRow = dataTable.NewRow();
             newDataRow["DeptNo"] = selectedNode.Name;
             newDataRow["DeptName"] = ((DeptInfo)selectedNode.Tag).DeptName;
@@ -347,20 +283,22 @@ namespace HumanManagementSQLServer
                 DataRow dataRow = addEmpform.DataTable.Rows[0];
                 TreeNode newTreeNode = new TreeNode
                 {
-                    Text = dataRow["EmployeeName"].ToString(),
+                    Text = dataRow["EmpName"].ToString(),
                     Name = dataRow["EmpNo"].ToString(),
                     ForeColor = Color.Green,
-                    Tag = new EmpInfo(dataRow["EmpNo"].ToString(), dataRow["EmployeeName"].ToString(), dataRow["IdCardNo"].ToString(), dataRow["Birthday"].ToString(), dataRow["Birthplace"].ToString(), dataRow["EntryTime"].ToString(), "员工")
+                    Tag = new EmpInfo(dataRow["EmpNo"].ToString(), dataRow["EmpName"].ToString(), dataRow["IdCardNo"].ToString(), dataRow["Birthday"].ToString(), dataRow["Birthplace"].ToString(), dataRow["EntryTime"].ToString(), "员工")
                 };
 
-                List<string> valueList = new List<string>();
-                valueList.Add("emp_no = '" + dataRow["EmpNo"].ToString() + "'");
-                valueList.Add("emp_name = '" + dataRow["EmployeeName"].ToString() + "'");
-                valueList.Add("idcard_no = '" + dataRow["IdCardNo"].ToString() + "'");
-                valueList.Add("birthday = '" + dataRow["Birthday"].ToString() + "'");
-                valueList.Add("birthplace = '" + dataRow["Birthplace"].ToString() + "'");
-                valueList.Add("entry_time = '" + dataRow["EntryTime"].ToString() + "'");
-                valueList.Add("dept_no = '" + selectedNode.Name + "'");
+                List<string> valueList = new List<string>
+                {
+                    "emp_no = '" + dataRow["EmpNo"].ToString() + "'",
+                    "emp_name = '" + dataRow["EmpName"].ToString() + "'",
+                    "idcard_no = '" + dataRow["IdCardNo"].ToString() + "'",
+                    "birthday = '" + dataRow["Birthday"].ToString() + "'",
+                    "birthplace = '" + dataRow["Birthplace"].ToString() + "'",
+                    "entry_time = '" + dataRow["EntryTime"].ToString() + "'",
+                    "dept_no = '" + selectedNode.Name + "'"
+                };
                 // TODO 异常处理
                 SqlHelper.Insert("emp", valueList);
 
@@ -368,7 +306,7 @@ namespace HumanManagementSQLServer
             }
         }
 
-        private void btnModEmployee_Click(object sender, EventArgs e)
+        private void btnModEmp_Click(object sender, EventArgs e)
         {
             TreeNode selectedNode = tvHuman.SelectedNode;
 
@@ -376,37 +314,39 @@ namespace HumanManagementSQLServer
             AddOrModEmpForm modEmpform = new AddOrModEmpForm
             {
                 Owner = this,
-                Text = btnModEmployee.Text
+                Text = btnModEmp.Text
             };
 
-            DataTable dataTable = SqlHelper.GetTable("emp LEFT OUTER JOIN dept ON emp.dept_no = dept.dept_no", "emp.emp_no AS EmpNo, emp.emp_name AS EmployeeName, emp.idcard_no AS IdCardNo, emp.birthday AS Birthday, emp.birthplace AS Birthplace, emp.entry_time AS EntryTime, emp.dept_no AS DeptNo, dept.dept_name AS DeptName", "emp.emp_no = '" + selectedNode.Name + "'");
+            DataTable dataTable = SqlHelper.GetTable("emp LEFT OUTER JOIN dept ON emp.dept_no = dept.dept_no", "emp.emp_no AS EmpNo, emp.emp_name AS EmpName, emp.idcard_no AS IdCardNo, emp.birthday AS Birthday, emp.birthplace AS Birthplace, emp.entry_time AS EntryTime, emp.dept_no AS DeptNo, dept.dept_name AS DeptName", "emp.emp_no = '" + selectedNode.Name + "'");
             modEmpform.DataTable = dataTable;
 
-            //如果在 modEmployeeform 添加员工窗体中点击确定，则在添加员工节点到所选节点中
+            //如果在 modEmpform 添加员工窗体中点击确定，则在添加员工节点到所选节点中
             if (modEmpform.ShowDialog() == DialogResult.OK)
             {
                 DataRow dataRow = modEmpform.DataTable.Rows[0];
 
-                List<string> valueList = new List<string>();
-                valueList.Add("emp_no = '" + dataRow["EmpNo"].ToString() + "'");
-                valueList.Add("emp_name = '" + dataRow["EmployeeName"].ToString() + "'");
-                valueList.Add("idcard_no = '" + dataRow["IdCardNo"].ToString() + "'");
-                valueList.Add("birthday = '" + dataRow["Birthday"].ToString() + "'");
-                valueList.Add("birthplace = '" + dataRow["Birthplace"].ToString() + "'");
-                valueList.Add("entry_time = '" + dataRow["EntryTime"].ToString() + "'");
-                valueList.Add("dept_no = '" + dataRow["DeptNo"].ToString() + "'");
+                List<string> valueList = new List<string>
+                {
+                    "emp_no = '" + dataRow["EmpNo"].ToString() + "'",
+                    "emp_name = '" + dataRow["EmpName"].ToString() + "'",
+                    "idcard_no = '" + dataRow["IdCardNo"].ToString() + "'",
+                    "birthday = '" + dataRow["Birthday"].ToString() + "'",
+                    "birthplace = '" + dataRow["Birthplace"].ToString() + "'",
+                    "entry_time = '" + dataRow["EntryTime"].ToString() + "'",
+                    "dept_no = '" + dataRow["DeptNo"].ToString() + "'"
+                };
                 // TODO 异常处理
                 SqlHelper.Update("emp", valueList, "emp.emp_no = '" + selectedNode.Name + "'");
 
-                selectedNode.Text = dataRow["EmployeeName"].ToString();
-                selectedNode.Tag = new EmpInfo(dataRow["EmpNo"].ToString(), dataRow["EmployeeName"].ToString(), dataRow["IdCardNo"].ToString(), dataRow["Birthday"].ToString(), dataRow["Birthplace"].ToString(), dataRow["EntryTime"].ToString(), "员工");
+                selectedNode.Text = dataRow["EmpName"].ToString();
+                selectedNode.Tag = new EmpInfo(dataRow["EmpNo"].ToString(), dataRow["EmpName"].ToString(), dataRow["IdCardNo"].ToString(), dataRow["Birthday"].ToString(), dataRow["Birthplace"].ToString(), dataRow["EntryTime"].ToString(), "员工");
 
                 //修改完成后，触发 tvHuman_AfterSelect 事件，以在 tvHuman 控件中显示修改完成后的数据。
                 tvHuman_AfterSelect(sender, null);
             }
         }
 
-        private void btnDelEmployee_Click(object sender, EventArgs e)
+        private void btnDelEmp_Click(object sender, EventArgs e)
         {
             TreeNode selectedNode = tvHuman.SelectedNode;
 
@@ -417,7 +357,7 @@ namespace HumanManagementSQLServer
             }
         }
 
-        private void btnListEmployee_Click(object sender, EventArgs e)
+        private void btnListEmp_Click(object sender, EventArgs e)
         {
             TreeNode selectedNode = tvHuman.SelectedNode;
 
@@ -427,18 +367,9 @@ namespace HumanManagementSQLServer
                 Owner = this
             };
 
-            DataTable dataTable = SqlHelper.GetTable("emp LEFT OUTER JOIN dept ON emp.dept_no = dept.dept_no", "emp.emp_no AS EmpNo, emp.emp_name AS EmployeeName, emp.idcard_no AS IdCardNo, emp.birthday AS Birthday, emp.birthplace AS Birthplace, emp.entry_time AS EntryTime, emp.dept_no AS DeptNo, dept.dept_name AS DeptName", "dept.dept_no = '" + selectedNode.Name + "'");
+            DataTable dataTable = SqlHelper.GetTable("emp LEFT OUTER JOIN dept ON emp.dept_no = dept.dept_no", "emp.emp_no AS EmpNo, emp.emp_name AS EmpName, emp.idcard_no AS IdCardNo, emp.birthday AS Birthday, emp.birthplace AS Birthplace, emp.entry_time AS EntryTime, emp.dept_no AS DeptNo, dept.dept_name AS DeptName", "dept.dept_no = '" + selectedNode.Name + "'");
             listAndDeleteEmpForm.DataTable = dataTable;
 
-            //把 modEmployeeform.ExchangeDataHandler 方法添加到 exchangeDataHandler 委托中
-            exchangeDataHandler = new ExchangeDataHandler(listAndDeleteEmpForm.ExchangeDataHandler);
-
-            //要传给 modEmployeeform 对象的数据
-            Dictionary<string, object> data = new Dictionary<string, object>();
-            data.Add("No", ((DeptInfo)selectedNode.Tag).No);
-            data.Add("DeptName", selectedNode.Text);
-
-            exchangeDataHandler(data);
 
             listAndDeleteEmpForm.ShowDialog();
 

@@ -35,14 +35,14 @@ namespace HumanManagementSQLServer.Data
         /// <summary>
         /// 员工的名称字段。
         /// </summary>
-        private string _employeeName;
+        private string _empName;
         /// <summary>
         /// 获取或设置员工的名称。
         /// </summary>
         /// <value>
         /// 员工的名称
         /// </value>
-        public string EmployeeName { get { return _employeeName; } set { _employeeName = value; } }
+        public string EmpName { get { return _empName; } set { _empName = value; } }
 
         /// <summary>
         /// 员工的身份证字段。
@@ -96,10 +96,10 @@ namespace HumanManagementSQLServer.Data
         {
         }
 
-        public EmpInfo(string employeeNo, string employeeName, string idCardNo, string birthday, string birthplace, string entryTime, string typeString)
+        public EmpInfo(string empNo, string empName, string idCardNo, string birthday, string birthplace, string entryTime, string typeString)
         {
-            base.No = employeeNo;
-            _employeeName = employeeName;
+            base.No = empNo;
+            _empName = empName;
             _idCardNo = idCardNo;
             _birthday = birthday;
             _birthplace = birthplace;
@@ -111,7 +111,7 @@ namespace HumanManagementSQLServer.Data
         {
             StringBuilder result = new StringBuilder();
             result.AppendLine("编号：" + No);
-            result.AppendLine("姓名：" + EmployeeName);
+            result.AppendLine("姓名：" + EmpName);
             result.AppendLine("身份证：" + IdCardNo);
             result.AppendLine("出生日期：" + Birthday);
             result.AppendLine("籍贯：" + Birthplace);
