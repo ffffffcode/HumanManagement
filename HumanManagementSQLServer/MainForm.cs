@@ -186,7 +186,7 @@ namespace HumanManagementSQLServer
         /// <summary>
         /// 添加部门按钮点击事件，用于 添加部门。
         /// </summary>
-        /// <param name="sender">The source of the event.</param>ExchangeDataHandler
+        /// <param name="sender">The source of the event.</param>
         /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
         private void btnAddDept_Click(object sender, EventArgs e)
         {
@@ -260,10 +260,72 @@ namespace HumanManagementSQLServer
             }
         }
 
+        private EmpInfo OpenAddOrModEmpForm(string formText, string schemaSql, string tableName, Dictionary<string, object> columnValuePairs)
+        {
+            //创建窗体
+            AddOrModEmpForm addOrModEmpForm = new AddOrModEmpForm
+            {
+                Owner = this,
+                Text = formText
+            };
+
+            DataTable dataTable = SqlHelper.GetTable(schemaSql, tableName);
+            if (columnValuePairs != null)
+            {
+                DataRow newDataRow = dataTable.NewRow();
+                foreach (KeyValuePair<string, object> item in columnValuePairs)
+                {
+                    newDataRow[item.Key] = item.Value;
+                }
+                dataTable.Rows.Add(newDataRow);
+            }
+
+            DataRow firstRow = dataTable.Rows[0];
+
+            addOrModEmpForm.DataTable = dataTable;
+
+            if (addOrModEmpForm.ShowDialog() == DialogResult.OK)
+            {
+                return new EmpInfo(firstRow["No"].ToString(), firstRow["EmpName"].ToString(), firstRow["IdCardNo"].ToString(), firstRow["Birthday"].ToString(), firstRow["Birthplace"].ToString(), ((DateTime)firstRow["EntryTime"]).ToString("yyyy-MM-dd"), "员工");
+            }
+            return null;
+        }
+
+        /// <summary>
+        /// 添加员工按钮点击事件，用于 添加员工。
+        /// </summary>
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
         private void btnAddEmp_Click(object sender, EventArgs e)
         {
             TreeNode selectedNode = tvHuman.SelectedNode;
-            //创建添加员工窗体
+
+            //获取子窗体所需的表结构，该表用于父窗体与子窗体交换数据
+            string schemeSql = "SELECT TOP 0 emp.emp_no AS No, emp.emp_name AS EmpName, emp.idcard_no AS IdCardNo, emp.birthday AS Birthday, emp.birthplace AS Birthplace, emp.entry_time AS EntryTime, dept.dept_no AS DeptNo, dept.dept_name AS DeptName FROM dept LEFT OUTER JOIN emp ON dept.dept_no = emp.dept_no";
+
+            //为表的第一行添加数据，key为列名，value为值
+            Dictionary<string, object> columnValuePairs = new Dictionary<string, object>
+            {
+                { "DeptNo", selectedNode.Name },
+                { "DeptName", ((DeptInfo)selectedNode.Tag).DeptName }
+            };
+
+            // 打开部门窗口
+            EmpInfo empInfo = OpenAddOrModEmpForm(btnAddDept.Text, schemeSql, "emp", columnValuePairs);
+
+            if (empInfo != null)
+            {
+                //添加新部门节点
+                TreeNode newTreeNode = new TreeNode
+                {
+                    Text = empInfo.EmpName,
+                    Name = empInfo.No,
+                    ForeColor = Color.Green,
+                    Tag = empInfo
+                };
+                selectedNode.Nodes.Add(newTreeNode);
+            }
+            /*//创建添加员工窗体
             AddOrModEmpForm addEmpform = new AddOrModEmpForm
             {
                 Owner = this,
@@ -303,7 +365,7 @@ namespace HumanManagementSQLServer
                 SqlHelper.Insert("emp", valueList);
 
                 selectedNode.Nodes.Add(newTreeNode);
-            }
+            }*/
         }
 
         private void btnModEmp_Click(object sender, EventArgs e)
